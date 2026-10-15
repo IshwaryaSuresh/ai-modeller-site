@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Modeller</title>
+<meta name="description" content="AI-native design software for architecture, interior and landscape practices. Drawings in, an accurate model out, and drawings back again.">
+<meta property="og:title" content="AI Modeller">
+<meta property="og:description" content="Drawings in. Accurate model out. And back again. AI-native design software for architecture, interior and landscape practices.">
+<meta property="og:image" content="https://ishwaryasuresh.github.io/ai-modeller-site/img/sofa-wall.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23212823'/%3E%3Cpath d='M7 23 16 8l9 15z' fill='none' stroke='%23e08a55' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #212823;
+  --ink-2: #4a514c;
+  --muted: #6d726e;
+  --paper: #f4f2ee;
+  --paper-2: #e8e4da;
+  --card: #fdfcf9;
+  --line: #dcd8ce;
+  --accent: #a84f1f;
+  --accent-soft: #e08a55;
+  --dark: #212823;
+  --on-dark: #f4f2ee;
+  --on-dark-2: #c9cdc8;
+  --serif: "Libre Baskerville", Georgia, serif;
+  --sans: "DM Sans", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #eeece6; --ink-2: #c8cbc6; --muted: #9a9f9b;
+    --paper: #181d1a; --paper-2: #1f2521; --card: #232a25; --line: #343c36;
+    --accent: #e08a55; --dark: #0f1311;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #eeece6; --ink-2: #c8cbc6; --muted: #9a9f9b;
+  --paper: #181d1a; --paper-2: #1f2521; --card: #232a25; --line: #343c36;
+  --accent: #e08a55; --dark: #0f1311;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 var(--sans); }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--accent); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+section { padding: 88px 0; }
+.eyebrow { font: 600 13px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 18px; }
+h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; margin: 0; }
+h1 { font-size: clamp(38px, 6.4vw, 72px); line-height: 1.08; }
+h2 { font-size: clamp(28px, 3.8vw, 42px); line-height: 1.18; max-width: 22ch; }
+h3 { font: 700 19px/1.3 var(--sans); margin: 0 0 8px; }
+p { margin: 0 0 14px; }
+.lede { font-size: clamp(18px, 2vw, 21px); color: var(--ink-2); max-width: 46ch; }
+
+/* hero */
+.hero { background: var(--dark); color: var(--on-dark); padding: 28px 0 96px; }
+.hero nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 88px; font-size: 15px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .01em; }
+.brand svg { width: 26px; height: 26px; }
+.hero nav a { color: var(--on-dark-2); text-decoration: none; }
+.hero nav a:hover { color: var(--on-dark); }
+.hero .eyebrow { color: var(--accent-soft); }
+.hero .lede { color: var(--on-dark-2); margin-top: 26px; }
+.hero-shot { margin-top: 64px; border-radius: 14px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.45); }
+.pill-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+.pill { border: 1px solid #3d463f; color: var(--on-dark-2); border-radius: 999px; padding: 6px 14px; font-size: 14px; }
+
+/* problem */
+.three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
+.card p { color: var(--ink-2); margin: 0; font-size: 16px; }
+.num { font: 700 15px/1 var(--sans); color: var(--accent); margin-bottom: 14px; }
+.after { margin-top: 30px; font-size: 19px; max-width: 60ch; }
+
+/* chain */
+.alt { background: var(--paper-2); }
+.chain { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 40px; counter-reset: s; }
+.chain .card { position: relative; }
+.chain .card.on { background: var(--dark); border-color: var(--dark); color: var(--on-dark); }
+.chain .card.on p { color: var(--on-dark-2); }
+.chain .card.on .num { color: var(--accent-soft); }
+
+/* features */
+.feature { display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; align-items: center; }
+.feature.flip { grid-template-columns: 1.25fr 1fr; }
+.feature.flip .text { order: 2; }
+.feature + .feature { margin-top: 96px; }
+.shot { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: var(--card); box-shadow: 0 18px 50px rgba(33,40,35,.12); }
+.cap { font-size: 14px; color: var(--muted); margin-top: 10px; }
+ul.ticks { list-style: none; padding: 0; margin: 18px 0 0; }
+ul.ticks li { padding-left: 26px; position: relative; margin-bottom: 9px; color: var(--ink-2); }
+ul.ticks li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 12px; height: 2px; background: var(--accent); }
+.text p { color: var(--ink-2); }
+
+/* grid of capabilities */
+.caps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+.caps .card h3 { font-size: 17px; }
+
+/* moment */
+.moment { background: var(--accent); color: #fdf3ec; }
+.moment .eyebrow { color: #fbd9c2; }
+.moment h2 { max-width: 18ch; font-size: clamp(32px, 5vw, 56px); }
+.moment .lede { color: #fbe6d8; margin-top: 22px; }
+.single { margin-top: 48px; border: 0; box-shadow: 0 20px 50px rgba(0,0,0,.25); }
+
+/* audience + close */
+.who { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+.closing { background: var(--dark); color: var(--on-dark); text-align: center; }
+.closing h2 { margin: 0 auto; max-width: 20ch; }
+.closing .lede { color: var(--on-dark-2); margin: 22px auto 0; }
+footer { background: var(--dark); color: var(--on-dark-2); border-top: 1px solid #333b35; font-size: 14px; padding: 26px 0; }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (max-width: 900px) {
+  section { padding: 64px 0; }
+  .three, .chain, .caps, .who { grid-template-columns: 1fr 1fr; }
+  .feature, .feature.flip { grid-template-columns: 1fr; gap: 28px; }
+  .feature.flip .text { order: 0; }
+}
+@media (max-width: 600px) {
+  .wrap { padding: 0 16px; }
+  body { font-size: 16px; }
+  .three, .chain, .caps, .who { grid-template-columns: 1fr; }
+  .hero nav { margin-bottom: 56px; }
+  .hero nav .links { display: none; }
+  .hero-shot { margin-top: 44px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <nav>
+      <div class="brand">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#2f3832"/><path d="M7 23 16 8l9 15z" fill="none" stroke="#e08a55" stroke-width="2.5" stroke-linejoin="round"/></svg>
+        AI Modeller
+      </div>
+      <div class="links"><a href="#how">How it works</a> &nbsp;·&nbsp; <a href="#features">What it does</a> &nbsp;·&nbsp; <a href="#who">Who it's for</a></div>
+    </nav>
+    <p class="eyebrow">AI-native design software</p>
+    <h1>Drawings in.<br>Accurate model out.<br>And back again.</h1>
+    <p class="lede">A SketchUp-grade modeller for architecture, interior and landscape practices. It reads your working drawings and builds the model. You make the small edits, and it turns the model back into drawings.</p>
+    <div class="pill-row">
+      <span class="pill">Reads DWG, DXF, PDF and sketches</span>
+      <span class="pill">Every change previewed before it lands</span>
+      <span class="pill">Runs in the browser on an everyday laptop</span>
+    </div>
+    <div class="hero-shot"><img src="img/sofa-wall.jpg" alt="A living room wall built in the model: a U-shaped sofa, backlit shelves, a limewash panel, art, timber slats and lighting, each listed with its dimensions" width="1400" height="680"></div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">The problem</p>
+    <h2>Studios build the same building three times</h2>
+    <div class="three">
+      <div class="card"><div class="num">1 · Drawings</div><p>Working drawings in AutoCAD: plans, sections and elevations.</p></div>
+      <div class="card"><div class="num">2 · Model</div><p>Rebuilt by hand in SketchUp or Revit so the client can see it.</p></div>
+      <div class="card"><div class="num">3 · Visuals</div><p>Exported again to a separate renderer, often on a GPU workstation.</p></div>
+    </div>
+    <p class="after">Every design change means redrawing by hand. The drawings and the model drift apart, and mistakes on site start there. Pretty images are a solved problem. A model the studio can trust is not.</p>
+  </div>
+</section>
+
+<section class="alt" id="how">
+  <div class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h2>One chain, in both directions</h2>
+    <div class="chain">
+      <div class="card"><div class="num">01</div><h3>Drop your plan</h3><p>DWG or DXF from CAD, a PDF set, or a photo of a hand sketch. There is no blank canvas to start from.</p></div>
+      <div class="card"><div class="num">02</div><h3>It reads the drawings</h3><p>Walls, openings, columns, rooms and levels are read across the drawings together.</p></div>
+      <div class="card on"><div class="num">03</div><h3>You confirm</h3><p>It shows the plinth, sill and lintel levels it found and flags where the drawings disagree. Nothing is built until you confirm.</p></div>
+      <div class="card"><div class="num">04</div><h3>Edit, then export</h3><p>Click a part or type a change. Plans, sections and elevations update together, ready to export.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="feature">
+      <div class="text">
+        <p class="eyebrow">Plan reading</p>
+        <h2>Nothing locks until the architect confirms</h2>
+        <p style="margin-top:18px">A plan does not carry heights, so the model asks for them. It shows the levels it read from the drawings and lets you correct each one before it builds the house.</p>
+        <ul class="ticks">
+          <li>Rooms, walls, doors and windows counted as they are read</li>
+          <li>Levels taken from the plan, or from Tamil Nadu residential defaults</li>
+          <li>Every value can be changed later from the building's panel</li>
+        </ul>
+      </div>
+      <figure style="margin:0"><div class="shot"><img src="img/confirm.jpg" alt="The confirm-heights step: a section drawn from the model beside a form listing plinth, sill, lintel, slab and parapet levels" loading="lazy" width="1800" height="682"></div><figcaption class="cap">Captured from AI Modeller: heights confirmed before the model is built.</figcaption></figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="text">
+        <p class="eyebrow">The AI as a colleague</p>
+        <h2>Point at it, say what you want</h2>
+        <p style="margin-top:18px">Select the verandah columns and say "make it an archway". The request applies only to what you selected. The AI edits the model's description, not its geometry, so every change is a named step you can undo.</p>
+        <ul class="ticks">
+          <li>Every proposal is shown in the model first. New and changed parts are highlighted, and removed parts appear in red.</li>
+          <li>Each proposal states its reason and the references it used, and waits for Accept or Reject</li>
+          <li>When something is unclear, the AI asks you before it guesses</li>
+        </ul>
+      </div>
+      <figure style="margin:0"><div class="shot"><img src="img/stair.jpg" alt="A stair court seen from above: a timber stair with a steel railing around a landscaped well" loading="lazy" width="1400" height="875"></div><figcaption class="cap">A stair court in the model. Click the stair, the railing or the well to edit it, or ask for a change.</figcaption></figure>
+    </div>
+
+    <div class="feature">
+      <div class="text">
+        <p class="eyebrow">Rules, not meshes</p>
+        <h2>Anything that repeats is a unit and a pattern</h2>
+        <p style="margin-top:18px">Jalis, brick bonds, cladding, louvres, pavers and rows of trees all run on one modular engine. Change the unit, the region or the bond and it tiles again at once, with whole and cut units counted.</p>
+        <ul class="ticks">
+          <li>Regions are tied to columns and levels: a jali set "sill to lintel" stays there when the sill moves</li>
+          <li>Custom units from a photo, a product sheet, a sketch or a line of text</li>
+          <li>Save a unit to your library and use it again on any project</li>
+        </ul>
+      </div>
+      <figure style="margin:0"><div class="shot"><img src="img/jali.jpg" alt="A terracotta jali set into a facade wall beside the entrance, above a ramp and steps" loading="lazy" width="1400" height="1316"></div></figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="text">
+        <p class="eyebrow">Drawings out</p>
+        <h2>One change, every sheet updated</h2>
+        <p style="margin-top:18px">Plans, elevations and sections are drawn from the model, never by hand. Raise the plinth and export again, and every sheet follows.</p>
+        <ul class="ticks">
+          <li>PDF sheets and CAD (DXF) in mm, cm, m or feet and inches, at 1:20 to 1:500, on A4 to A0</li>
+          <li>One CAD layer per element type, with line weights set by type</li>
+          <li>Quantities as CSV, and IFC for BIM, plus OBJ, glTF, STL and USDZ</li>
+        </ul>
+      </div>
+      <figure style="margin:0"><div class="shot"><img src="img/export.jpg" alt="Exported floor plan and section sheets beside the export settings: format, drawings, units, scale and paper size" loading="lazy" width="1800" height="682"></div><figcaption class="cap">Captured from AI Modeller: plan and section exported from the model.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="moment">
+  <div class="wrap">
+    <p class="eyebrow">The moment that sells it</p>
+    <h2>Show it a reference. It builds it into your model.</h2>
+    <p class="lede">Mark a zone, drop in an image from Pinterest, a site photo or a product sheet, and get real fins, jali, screens or a whole fitted wall. The widths, spacing and unit counts are all editable, and they export straight to drawings.</p>
+    <div class="single shot"><img src="img/screen.jpg" alt="A lattice partition built in the model from a reference image, with its timber, height, grid, bar size and length listed beside it" loading="lazy" width="1400" height="627"></div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <p class="eyebrow">The whole studio, in one model</p>
+    <h2>Three modes: Model, Landscape and Present</h2>
+    <div class="caps">
+      <div class="card">
+        <div class="num">Model</div>
+        <h3>The full SketchUp tool set</h3>
+        <p>Push/Pull, Follow Me, Offset, solid tools, sections, scenes, styles, tags, guides, Match Photo and a measurements box. Everyone gets the full set, and the tools appear only when they are needed.</p>
+      </div>
+      <div class="card">
+        <div class="num">Landscape</div>
+        <h3>A native plant agent</h3>
+        <p>Give it the site and it researches the native plants for that place on the web. It returns sizes, growth, water and sun needs, local names, and a source for every fact. Plant one at a time or in rows, then slide through the years to watch the garden grow.</p>
+      </div>
+      <div class="card">
+        <div class="num">Present</div>
+        <h3>For the client</h3>
+        <p>Every tool is hidden. Share live links that follow each edit, show the house life-size in VR or as a 1:50 model in AR, and print presentation sheets with a title block.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="who">
+  <div class="wrap who">
+    <div>
+      <p class="eyebrow">Who it's for</p>
+      <h2>Architecture, interior and landscape practices</h2>
+      <p class="lede" style="margin-top:22px">From one-person studios to large firms. It starts in Tamil Nadu, with Indian building conventions built in: plinths, sills and lintel bands, chajjas, jalis, thinnais and tulsi maadams.</p>
+    </div>
+    <div>
+      <ul class="ticks" style="margin-top:44px">
+        <li><strong>Drawing-first studios</strong> upload their DWG and get the model, with a confirm step for every level.</li>
+        <li><strong>Model-first studios</strong> design in the model and get the drawings out.</li>
+        <li><strong>Homeowners working with an architect</strong> can understand the house and change it in plain words.</li>
+        <li><strong>Everyday hardware.</strong> It runs in the browser, with no GPU workstation needed. Booleans run on the open-source Manifold engine.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--accent-soft)">Where it is now</p>
+    <h2>Built by an architect, for architects</h2>
+    <p class="lede">AI Modeller is in private build, tested on real residential projects. An early-access group for architecture studios opens next.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>AI Modeller · Ishwarya Suresh, founder · Puducherry, India</span>
+    <span>© 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
