@@ -6,7 +6,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const MODELS = {
-  a: { url: 'models/residence-a.glb', caption: 'Residence A · the ground floor from the video' },
+  c: { url: 'models/courtyard-house.glb', caption: 'Courtyard house · two floors · read from its DWG' },
 };
 const canvas = document.getElementById('three');
 const stage = canvas.parentElement;
@@ -54,7 +54,7 @@ const glass = new THREE.MeshPhysicalMaterial({ color: 0xbfd6dc, roughness: 0.05,
 const hover = new THREE.MeshStandardMaterial({ color: 0xe08a55, roughness: 0.6, emissive: 0x6b2a08, emissiveIntensity: 0.25 });
 const edgeMat = new THREE.LineBasicMaterial({ color: 0x2a2f2b, transparent: true, opacity: 0.42 });
 
-let root = null, parts = [], look = 'clay', exploded = false, lift = 0, liftTarget = 0, bands = 1, gap = 3, current = 'b';
+let root = null, parts = [], look = 'clay', exploded = false, lift = 0, liftTarget = 0, bands = 1, gap = 3, current = 'c';
 const loader = new GLTFLoader();
 const cache = {};
 
@@ -246,5 +246,5 @@ renderer.setAnimationLoop(() => {
 });
 
 resize();
-load('a').catch((err) => { loading.textContent = 'The model could not load here.'; console.error(err); });
+load('c').catch((err) => { loading.textContent = 'The model could not load here.'; console.error(err); });
 window.__idam = { renderer, scene, camera, controls, setLook, setExplode, load };

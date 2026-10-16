@@ -34,30 +34,25 @@
     setVB([x + (w - nw) * cx, y + (h - nh) * cy, nw, nh]);
   };
 
-  fetch('drawings/residence-a.svg').then((r) => r.text()).then((text) => {
+  fetch('drawings/courtyard-house.svg').then((r) => r.text()).then((text) => {
     sheet.insertAdjacentHTML('afterbegin', text);
     svg = sheet.querySelector('svg');
     svg.setAttribute('role', 'img');
-    svg.setAttribute('aria-label', 'Working drawings exported by Idam: ground floor plan, four elevations and section A-A');
+    svg.setAttribute('aria-label', 'Working drawings exported by Idam: ground and first floor plans, four elevations and section A-A');
     svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
     const all = svg.getBBox();
     setVB(fit(all));
 
-    // Group the line work into drawings, left to right, split at the gaps between them
-    const items = [...svg.querySelectorAll('path, text')].map((el) => { try { return el.getBBox(); } catch { return null; } }).filter((b) => b && (b.width || b.height)).sort((a, b) => a.x - b.x);
-    const groups = [];
-    for (const b of items) {
-      const g = groups[groups.length - 1];
-      if (g && b.x <= g.x1 + 1500) { g.x1 = Math.max(g.x1, b.x + b.width); g.y0 = Math.min(g.y0, b.y); g.y1 = Math.max(g.y1, b.y + b.height); }
-      else groups.push({ x0: b.x, x1: b.x + b.width, y0: b.y, y1: b.y + b.height });
-    }
-    // Name each group from the large title text inside it
-    const titles = [...svg.querySelectorAll('text')].filter((t) => Number(t.getAttribute('font-size')) >= 300 && t.textContent.trim().length > 3).map((t) => ({ text: t.textContent.trim(), b: t.getBBox() }));
-    const named = groups.map((g) => {
-      const t = titles.find((t) => t.b.x >= g.x0 - 10 && t.b.x <= g.x1);
-      return t ? { ...g, name: t.text } : null;
+    // Each drawing's title sits at its left edge: a drawing runs from its title to the next one's
+    const items = [...svg.querySelectorAll('path, text')].map((el) => { try { return el.getBBox(); } catch { return null; } }).filter((b) => b && (b.width || b.height));
+    const titles = [...svg.querySelectorAll('text')].filter((t) => Number(t.getAttribute('font-size')) >= 300 && t.textContent.trim().length > 3).map((t) => ({ text: t.textContent.trim(), b: t.getBBox() })).sort((a, b) => a.b.x - b.b.x);
+    const named = titles.map((t, k) => {
+      const x0 = t.b.x - 200, x1 = k + 1 < titles.length ? titles[k + 1].b.x - 200 : Infinity;
+      const mine = items.filter((b) => b.x >= x0 && b.x + b.width <= x1);
+      if (!mine.length) return null;
+      return { name: t.text, x0: Math.min(...mine.map((b) => b.x)), x1: Math.max(...mine.map((b) => b.x + b.width)), y0: Math.min(...mine.map((b) => b.y)), y1: Math.max(...mine.map((b) => b.y + b.height)) };
     }).filter(Boolean);
-    const label = (n) => n.replace('GROUND FLOOR PLAN', 'Plan').replace(' ELEVATION', '').replace('SECTION ', 'Section ').toLowerCase().replace(/^\w|\s\w/g, (c) => c.toUpperCase()).replace('Section A-a', 'Section A-A');
+    const label = (n) => n.replace('GROUND FLOOR PLAN', 'Ground floor').replace('FIRST FLOOR PLAN', 'First floor').replace(' ELEVATION', '').replace('SECTION ', 'Section ').toLowerCase().replace(/^\w|\s\w/g, (c) => c.toUpperCase()).replace('Section A-a', 'Section A-A');
     const buttons = [];
     const add = (text, box) => {
       const b = document.createElement('button');

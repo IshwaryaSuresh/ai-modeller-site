@@ -191,7 +191,8 @@ ul.ticks li::before { content: ""; position: absolute; left: 2px; top: .66em; wi
 .sheet { position: relative; background: #fff; border-radius: 14px; border: 1px solid var(--line); overflow: hidden; box-shadow: 0 18px 50px rgba(33,40,35,.12); height: min(70vh, 620px); min-height: 360px; touch-action: none; cursor: grab; }
 .sheet:active { cursor: grabbing; }
 .sheet svg { width: 100%; height: 100%; display: block; }
-.sheet svg path { vector-effect: non-scaling-stroke; stroke-width: 1.1px !important; stroke: #1b1f1c !important; }
+.sheet:not(.overlay) svg path { vector-effect: non-scaling-stroke; stroke-width: 1.1px !important; stroke: #1b1f1c !important; }
+.overlay svg path { vector-effect: non-scaling-stroke; }
 .sheet svg text { fill: #1b1f1c; }
 .sheet .bar { position: absolute; left: 14px; top: 14px; right: 14px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: space-between; align-items: center; pointer-events: none; }
 .sheet .seg { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
@@ -199,6 +200,32 @@ ul.ticks li::before { content: ""; position: absolute; left: 2px; top: .66em; wi
 .sheet .file { font: 600 13px/1 var(--sans); background: #eeebe4; color: #212823; border-radius: 999px; padding: 10px 14px; }
 .zoom { position: absolute; right: 14px; bottom: 14px; display: flex; flex-direction: column; gap: 6px; }
 .zoom button { width: 38px; height: 38px; border-radius: 10px; border: 1px solid #dcd8ce; background: #fff; color: #212823; font-size: 20px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+
+/* accuracy */
+.acc { display: grid; grid-template-columns: 1.55fr 1fr; gap: 24px; margin-top: 34px; align-items: stretch; }
+.overlay { height: 600px; min-height: 0; }
+.overlay svg .orig path { stroke: #2b302c !important; stroke-width: 4px !important; opacity: .55; }
+.overlay svg .idam path { stroke: #d2611f !important; stroke-width: 1.4px !important; }
+.overlay svg .labels { fill: #9aa09b; }
+.overlay[data-show="orig"] svg .idam, .overlay[data-show="idam"] svg .orig { display: none; }
+.overlay[data-show="orig"] svg .orig path { opacity: 1; stroke-width: 1.4px !important; }
+.acc .key { margin-top: 12px; font-size: 13.5px; color: var(--ink-2); display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.acc .key > span { display: inline-flex; align-items: center; gap: 8px; }
+.acc .key .hint2 { color: var(--muted); }
+.acc .k { display: inline-block; width: 22px; height: 4px; border-radius: 2px; }
+.acc .k.orig { background: #2b302c; opacity: .55; height: 6px; }
+.acc .k.idam { background: #d2611f; }
+.score { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; }
+.score h3 { font-size: 16px; margin: 0 0 4px; }
+.score h3 + dl { margin-top: 4px; }
+.score dl { display: grid; grid-template-columns: 1fr auto; margin: 0 0 20px; }
+.score dt, .score dd { padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; margin: 0; }
+.score dt { color: var(--ink-2); }
+.score dd { text-align: right; font-weight: 600; }
+.score dd b { color: #2f7a4f; margin-left: 6px; font-weight: 700; }
+.score .note { font-size: 13px; color: var(--muted); margin: 0; }
+@media (max-width: 960px) { .acc { grid-template-columns: 1fr; } .overlay { min-height: 460px; } }
+@media (max-width: 640px) { .overlay .bar { flex-direction: column; align-items: flex-start; gap: 6px; } .overlay { min-height: 520px; } }
 
 /* capabilities */
 .caps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
@@ -264,7 +291,7 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
     <div class="hero-grid">
       <div>
         <h1 class="reveal"><span>Drawings in.</span><br><span>Accurate model out.</span><br><span>And back again.</span></h1>
-        <p class="lede reveal">SketchUp-grade modelling for architecture, interior and landscape practices, with the AI doing the heavy lifting. Drop in your DWG and Idam builds the model. You make the small edits, and it writes your working drawings back out as DWG.</p>
+        <p class="lede reveal">SketchUp-grade modelling for architecture, interior and landscape practices, with the AI doing the heavy lifting. Drop in your DWG and Idam builds the model, to the millimetre. You make the small edits, and it writes your working drawings back out as DWG, line for line.</p>
         <div class="cta reveal">
           <a class="btn solid" href="#watch">▶&nbsp; Watch DWG to DWG in a minute</a>
           <a class="btn ghost" href="#explore">Spin a model</a>
@@ -274,9 +301,6 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
         <canvas id="three" aria-label="A 3D model of a house that you can rotate"></canvas>
         <div class="loading" id="loading">Loading the model…</div>
         <div class="bar">
-          <div class="seg" role="group" aria-label="House">
-                        <button data-model="a" aria-pressed="true">Residence A</button>
-          </div>
           <div class="seg" role="group" aria-label="Look">
             <button data-look="clay" aria-pressed="true">White model</button>
             <button data-look="mat" aria-pressed="false">Materials</button>
@@ -286,13 +310,13 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
           </div>
         </div>
         <div class="tip" id="tip"></div>
-                <div class="caption"><span id="stagecap">Read from the architect's DWG</span><small>Drag to orbit · scroll to zoom · point at any part to see what it is</small></div>
+                <div class="caption"><span id="stagecap">Courtyard house · two floors · read from its DWG</span><small>Drag to orbit · scroll to zoom · point at any part to see what it is</small></div>
       </div>
     </div>
     <div class="stats reveal">
       <div class="stat">
-        <div class="big"><span>9</span><em>seconds</em></div>
-        <div class="what">from a 13,000-line architect's DWG to a model you can walk through</div>
+        <div class="big"><span>0</span><em>mm</em></div>
+        <div class="what">off, on every wall, door, window, room and column of a two-storey plan, measured</div>
       </div>
       <div class="stat">
         <div class="big formats" aria-label="DWG, DXF and PDF in; DWG, PDF and IFC out">
@@ -301,8 +325,8 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
         <div class="what">reads the CAD your studio already has, and writes it back</div>
       </div>
       <div class="stat">
-        <div class="big"><span>0</span><em>installs</em></div>
-        <div class="what">it runs in the browser on an everyday laptop, with no GPU workstation</div>
+        <div class="big"><span>100</span><em>%</em></div>
+        <div class="what">of the architect's wall lines drawn again in Idam's DWG, and nothing added</div>
       </div>
     </div>
   </div>
@@ -310,8 +334,8 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
 
 <section id="watch">
   <div class="wrap">
-    <h2 class="reveal">From an architect's DWG to working drawings, in one minute</h2>
-    <p class="lede reveal">A real ground floor plan, recorded start to finish in Idam with nothing staged. Pick a step to jump to it.</p>
+    <h2 class="reveal">From a DWG to working drawings, in a minute</h2>
+    <p class="lede reveal">A two-storey courtyard house, recorded start to finish in Idam with nothing staged: both floor plans in, the model built and checked, the working drawings out as DWG and laid over the original. Pick a step to jump to it.</p>
     <div class="player reveal">
       <div class="vid">
         <video id="vid" src="media/walkthrough.mp4" poster="media/poster.jpg" controls playsinline preload="metadata" muted></video>
@@ -321,17 +345,64 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
         <li><button data-n="2" data-t="0">It reads sheets, layers and blocks<span class="t"></span></button></li>
         <li><button data-n="3" data-t="0">You confirm the heights<span class="t"></span></button></li>
         <li><button data-n="4" data-t="0">It shows what it was unsure of<span class="t"></span></button></li>
-        <li><button data-n="5" data-t="0">The model, in seconds<span class="t"></span></button></li>
-        <li><button data-n="6" data-t="0">Look into the floor<span class="t"></span></button></li>
+        <li><button data-n="5" data-t="0">Two floors, in seconds<span class="t"></span></button></li>
+        <li><button data-n="6" data-t="0">Look into each floor<span class="t"></span></button></li>
         <li><button data-n="7" data-t="0">Cut a section<span class="t"></span></button></li>
         <li><button data-n="8" data-t="0">Export working drawings as DWG<span class="t"></span></button></li>
         <li><button data-n="9" data-t="0">The DWG, opened back<span class="t"></span></button></li>
+        <li><button data-n="10" data-t="0">Laid over the original<span class="t"></span></button></li>
       </ol>
     </div>
   </div>
 </section>
 
-<section class="alt">
+<section class="alt" id="accuracy">
+  <div class="wrap">
+    <h2 class="reveal">Accurate in. Accurate out. Measured.</h2>
+    <p class="lede reveal">The whole point is that what the client sees is what gets built. So every change to Idam is checked against a two-storey courtyard house drawn in CAD the way a studio draws: a courtyard with a lily pond, a void open through both floors, a dog-leg stair, a thinnai on columns, a balcony and a pool. Its design is known to the millimetre, so the model and the drawings Idam makes from it can be measured against it.</p>
+    <div class="acc reveal">
+      <div>
+      <div class="sheet overlay" id="overlay">
+        <div class="bar">
+          <div class="seg" role="group" aria-label="Floor" id="ovfloor" style="pointer-events:auto">
+            <button data-f="gf" aria-pressed="true">Ground floor</button>
+            <button data-f="ff" aria-pressed="false">First floor</button>
+          </div>
+          <div class="seg" role="group" aria-label="Show" id="ovshow" style="pointer-events:auto">
+            <button data-s="both" aria-pressed="true">Both</button>
+            <button data-s="orig" aria-pressed="false">Architect's</button>
+            <button data-s="idam" aria-pressed="false">Idam's</button>
+          </div>
+        </div>
+        <div class="zoom"><button data-z="in" aria-label="Zoom in">+</button><button data-z="out" aria-label="Zoom out">−</button></div>
+      </div>
+      <div class="key"><span><span class="k orig"></span>The architect's DWG</span><span><span class="k idam"></span>Idam's DWG, drawn from the model</span><span class="hint2">Drag to pan · zoom in to check any corner</span></div>
+      </div>
+      <div class="score">
+        <h3>Drawing to model</h3>
+        <dl>
+          <dt>Walls</dt><dd>39 of 39 <b>0 mm</b></dd>
+          <dt>Doors, windows, openings</dt><dd>50 of 50 <b>0 mm</b></dd>
+          <dt>Rooms, including L-shapes</dt><dd>30 of 30 <b>0 mm</b></dd>
+          <dt>Columns</dt><dd>6 of 6 <b>0 mm</b></dd>
+          <dt>Stair</dt><dd>dog-leg, as drawn</dd>
+          <dt>Courtyard void</dt><dd>open through both slabs</dd>
+        </dl>
+        <h3>Model to working drawing</h3>
+        <dl>
+          <dt>Wall lines redrawn</dt><dd>386 of 386 <b>≤ 0.5 mm</b></dd>
+          <dt>Lines added</dt><dd>none</dd>
+          <dt>Door swings</dt><dd>25 of 25, same hand</dd>
+          <dt>Windows</dt><dd>27 of 27</dd>
+          <dt>Into DWG and back</dt><dd>every line, arc and label</dd>
+        </dl>
+        <p class="note">On a practising architect's working drawing of a real residence, the reader gets 91 of its 91 elements right. These checks are part of Idam's test suite.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
   <div class="wrap">
     <h2 class="reveal">Studios build the same building three times</h2>
     <div class="three">
@@ -441,12 +512,12 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
 <section class="alt" id="drawings">
   <div class="wrap">
     <h2 class="reveal">Working drawings, drawn from the model</h2>
-    <p class="lede reveal">This is the DWG Idam wrote in the video, opened back and shown as it is: a plan, four elevations and a section, one CAD layer per element type, with room sizes and an openings schedule. Drag to pan, and zoom in to check the line work.</p>
+    <p class="lede reveal">This is the DWG Idam wrote in the video, opened back and shown as it is: both floor plans, four elevations and a section, one CAD layer per element type, with room sizes, door swings, stair treads and an openings schedule. Drag to pan, and zoom in to check the line work.</p>
     <div class="reveal" style="margin-top:34px">
       <div class="sheet" id="sheet">
         <div class="bar">
           <div class="seg" role="group" aria-label="Drawing" id="sheetnav" style="pointer-events:auto"></div>
-          <span class="file">Residence-A.dwg · AutoCAD 2000 · mm</span>
+          <span class="file">Courtyard-House.dwg · AutoCAD 2000 · mm</span>
         </div>
         <div class="zoom"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button></div>
       </div>
@@ -576,6 +647,7 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
 })();
 </script>
 <script src="js/drawing.js"></script>
+<script src="js/overlay.js"></script>
 <script type="module" src="js/viewer.js"></script>
 </body>
 </html>
