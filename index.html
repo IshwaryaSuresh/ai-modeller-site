@@ -3,289 +3,488 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Modeller</title>
-<meta name="description" content="AI-native design software for architecture, interior and landscape practices. Drawings in, an accurate model out, and drawings back again.">
-<meta property="og:title" content="AI Modeller">
-<meta property="og:description" content="Drawings in. Accurate model out. And back again. AI-native design software for architecture, interior and landscape practices.">
-<meta property="og:image" content="https://ishwaryasuresh.github.io/ai-modeller-site/img/sofa-wall.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23212823'/%3E%3Cpath d='M7 23 16 8l9 15z' fill='none' stroke='%23e08a55' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>Idam</title>
+<meta name="description" content="Idam is AI-native design software for architecture, interior and landscape practices. Drop in your DWG, get an accurate model, and export working drawings back to DWG.">
+<meta property="og:title" content="Idam: drawings in, accurate model out, and back again">
+<meta property="og:description" content="AI-native design software for architecture, interior and landscape practices. Built in Chennai.">
+<meta property="og:image" content="https://ishwaryasuresh.github.io/ai-modeller-site/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23212823'/%3E%3Cpath d='M8 24V13l8-5 8 5v11' fill='none' stroke='%23e08a55' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M13 24v-6h6v6' fill='none' stroke='%23f4f2ee' stroke-width='2.2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
 <style>
 :root {
-  --ink: #212823;
-  --ink-2: #4a514c;
-  --muted: #6d726e;
-  --paper: #f4f2ee;
-  --paper-2: #e8e4da;
-  --card: #fdfcf9;
-  --line: #dcd8ce;
-  --accent: #a84f1f;
-  --accent-soft: #e08a55;
-  --dark: #212823;
-  --on-dark: #f4f2ee;
-  --on-dark-2: #c9cdc8;
+  --ink: #212823; --ink-2: #4a514c; --muted: #6d726e;
+  --paper: #f4f2ee; --paper-2: #e9e5db; --card: #fdfcf9; --line: #dcd8ce;
+  --accent: #a84f1f; --accent-2: #c8642c; --accent-soft: #e08a55;
+  --dark: #1c221e; --dark-2: #262e29; --on-dark: #f4f2ee; --on-dark-2: #bfc5bf;
+  --stage: #e7e3d9;
   --serif: "Libre Baskerville", Georgia, serif;
   --sans: "DM Sans", system-ui, -apple-system, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --ink: #eeece6; --ink-2: #c8cbc6; --muted: #9a9f9b;
-    --paper: #181d1a; --paper-2: #1f2521; --card: #232a25; --line: #343c36;
-    --accent: #e08a55; --dark: #0f1311;
+    --paper: #161b18; --paper-2: #1d231f; --card: #222924; --line: #333b35;
+    --accent: #e08a55; --dark: #0f1311; --dark-2: #1a201c; --stage: #2a312c;
   }
 }
 :root[data-theme="dark"] {
   --ink: #eeece6; --ink-2: #c8cbc6; --muted: #9a9f9b;
-  --paper: #181d1a; --paper-2: #1f2521; --card: #232a25; --line: #343c36;
-  --accent: #e08a55; --dark: #0f1311;
+  --paper: #161b18; --paper-2: #1d231f; --card: #222924; --line: #333b35;
+  --accent: #e08a55; --dark: #0f1311; --dark-2: #1a201c; --stage: #2a312c;
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 var(--sans); }
-img { max-width: 100%; height: auto; display: block; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 var(--sans); overflow-x: hidden; }
+img, video { max-width: 100%; height: auto; display: block; }
 a { color: var(--accent); }
-.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-section { padding: 88px 0; }
-.eyebrow { font: 600 13px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 18px; }
+button { font: inherit; color: inherit; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+section { padding: 96px 0; }
 h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; margin: 0; }
-h1 { font-size: clamp(38px, 6.4vw, 72px); line-height: 1.08; }
-h2 { font-size: clamp(28px, 3.8vw, 42px); line-height: 1.18; max-width: 22ch; }
+h1 { font-size: clamp(40px, 6.6vw, 78px); line-height: 1.06; }
+h2 { font-size: clamp(30px, 3.9vw, 46px); line-height: 1.16; max-width: 22ch; }
 h3 { font: 700 19px/1.3 var(--sans); margin: 0 0 8px; }
 p { margin: 0 0 14px; }
-.lede { font-size: clamp(18px, 2vw, 21px); color: var(--ink-2); max-width: 46ch; }
+.lede { font-size: clamp(18px, 2vw, 21px); color: var(--ink-2); max-width: 50ch; margin-top: 22px; }
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+/* nav */
+nav.top { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--dark) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--on-dark); }
+nav.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+.brand { display: flex; align-items: center; gap: 10px; font: 700 20px/1 var(--sans); letter-spacing: .01em; color: var(--on-dark); text-decoration: none; }
+.brand svg { width: 28px; height: 28px; }
+.brand small { font: 400 15px var(--serif); color: var(--accent-soft); margin-left: 2px; }
+nav.top .links { display: flex; gap: 26px; align-items: center; font-size: 15px; }
+nav.top .links a { color: var(--on-dark-2); text-decoration: none; }
+nav.top .links a:hover { color: var(--on-dark); }
+.btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; padding: 10px 18px; font-weight: 600; font-size: 15px; text-decoration: none; border: 0; cursor: pointer; transition: transform .15s ease, background .2s; }
+.btn:active { transform: scale(.97); }
+nav.top .links a.btn.solid, .btn.solid { background: var(--accent-2); color: #fff; }
+.btn.solid:hover { background: #b65622; }
+.btn.ghost { background: transparent; color: var(--on-dark); box-shadow: inset 0 0 0 1.5px #49524b; }
+.btn.ghost:hover { box-shadow: inset 0 0 0 1.5px var(--on-dark-2); }
 
 /* hero */
-.hero { background: var(--dark); color: var(--on-dark); padding: 28px 0 96px; }
-.hero nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 88px; font-size: 15px; }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .01em; }
-.brand svg { width: 26px; height: 26px; }
-.hero nav a { color: var(--on-dark-2); text-decoration: none; }
-.hero nav a:hover { color: var(--on-dark); }
-.hero .eyebrow { color: var(--accent-soft); }
-.hero .lede { color: var(--on-dark-2); margin-top: 26px; }
-.hero-shot { margin-top: 64px; border-radius: 14px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.45); }
-.pill-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
-.pill { border: 1px solid #3d463f; color: var(--on-dark-2); border-radius: 999px; padding: 6px 14px; font-size: 14px; }
+.hero { background: var(--dark); color: var(--on-dark); padding: 64px 0 40px; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr); gap: 48px; align-items: center; }
+.hero h1 { font-size: clamp(36px, 3.55vw, 52px); }
+.hero h1 span { white-space: nowrap; }
+@media (max-width: 420px) { .hero h1 span { white-space: normal; } }
+.hero .lede { color: var(--on-dark-2); }
+.hero .cta { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 56px; border-top: 1px solid #333c36; }
+.stat { padding: 22px 24px 26px 0; }
+.stat + .stat { padding-left: 24px; border-left: 1px solid #333c36; }
+.stat .big { font: 400 clamp(32px, 4vw, 46px)/1 var(--serif); color: var(--on-dark); display: flex; align-items: baseline; gap: 6px; min-height: 46px; }
+.stat .big em { font-style: normal; color: var(--accent-soft); font-size: .62em; font-family: var(--sans); font-weight: 600; }
+.stat .what { color: var(--on-dark-2); font-size: 15px; margin-top: 10px; max-width: 30ch; }
+.formats { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.fmt { font: 700 12px/1 var(--sans); letter-spacing: .06em; padding: 7px 9px; border-radius: 6px; background: #2c3530; color: var(--on-dark); }
+.fmt.out { background: var(--accent-2); color: #fff; }
+.arrow { color: var(--accent-soft); font: 600 20px/1 var(--sans); padding: 0 2px; }
+
+/* 3D stage */
+.stage { position: relative; border-radius: 18px; overflow: hidden; background: var(--stage); height: min(72vh, 600px); min-height: 400px; box-shadow: 0 30px 80px rgba(0,0,0,.35); }
+.stage canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.stage canvas:active { cursor: grabbing; }
+.stage .bar { position: absolute; left: 14px; right: 14px; top: 14px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; pointer-events: none; }
+.seg { display: inline-flex; background: rgba(28,34,30,.82); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 999px; padding: 4px; pointer-events: auto; }
+.seg button { border: 0; background: transparent; color: #d9ddd8; padding: 7px 12px; border-radius: 999px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.seg button[aria-pressed="true"] { background: #f4f2ee; color: #1c221e; }
+.seg button:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
+.stage .tip { position: absolute; left: 0; top: 0; pointer-events: none; background: #1c221e; color: #f4f2ee; font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: 8px; transform: translate(-50%, calc(-100% - 14px)); white-space: nowrap; opacity: 0; transition: opacity .15s; box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+.stage .tip small { display: block; font-weight: 400; color: #b9c0ba; }
+
+.stage .caption { position: absolute; left: 14px; bottom: 14px; font-size: 13px; line-height: 1.35; color: #2d332f; background: rgba(244,242,238,.9); padding: 8px 14px; border-radius: 12px; pointer-events: none; max-width: calc(100% - 28px); }
+.stage .caption small { display: block; color: #6d726e; font-size: 12px; }
+.stage .loading { position: absolute; inset: 0; display: grid; place-items: center; color: #4b524d; font-size: 15px; pointer-events: none; }
+
+/* video */
+.player { display: grid; grid-template-columns: 1fr 300px; gap: 28px; margin-top: 40px; align-items: start; }
+.vid { border-radius: 14px; overflow: hidden; background: #111; box-shadow: 0 24px 60px rgba(28,34,30,.18); }
+.vid video { width: 100%; aspect-ratio: 16/9; background: #111; }
+.chapters { list-style: none; margin: 0; padding: 0; }
+.chapters li { margin: 0; }
+.chapters button { width: 100%; text-align: left; border: 0; background: transparent; padding: 10px 12px 10px 46px; border-radius: 10px; cursor: pointer; position: relative; color: var(--ink-2); font-size: 15px; line-height: 1.35; }
+.chapters button::before { content: attr(data-n); position: absolute; left: 12px; top: 9px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 12px/1 var(--sans); background: var(--paper-2); color: var(--ink-2); }
+.chapters button:hover { background: var(--paper-2); }
+.chapters button.on { background: var(--card); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
+.chapters button.on::before { background: var(--accent-2); color: #fff; }
+.chapters .t { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
 
 /* problem */
 .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
-.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 26px; }
 .card p { color: var(--ink-2); margin: 0; font-size: 16px; }
 .num { font: 700 15px/1 var(--sans); color: var(--accent); margin-bottom: 14px; }
-.after { margin-top: 30px; font-size: 19px; max-width: 60ch; }
-
-/* chain */
+.after { margin-top: 30px; font-size: 19px; max-width: 62ch; }
 .alt { background: var(--paper-2); }
-.chain { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 40px; counter-reset: s; }
-.chain .card { position: relative; }
-.chain .card.on { background: var(--dark); border-color: var(--dark); color: var(--on-dark); }
-.chain .card.on p { color: var(--on-dark-2); }
-.chain .card.on .num { color: var(--accent-soft); }
+
+/* reference */
+.moment { background: #a84f1f; color: #fdf3ec; }
+.moment h2 { max-width: 18ch; font-size: clamp(32px, 5vw, 56px); }
+.moment .lede { color: #fbe6d8; }
+.tabs { display: inline-flex; gap: 4px; background: rgba(0,0,0,.18); padding: 4px; border-radius: 999px; margin-top: 34px; }
+.tabs button { border: 0; background: transparent; color: #fde9dc; padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 15px; cursor: pointer; }
+.tabs button[aria-selected="true"] { background: #fdf3ec; color: #a84f1f; }
+.refpane { display: none; margin-top: 24px; }
+.refpane.on { display: grid; grid-template-columns: 1.5fr .9fr; gap: 24px; align-items: stretch; }
+.compare { position: relative; border-radius: 14px; overflow: hidden; background: #2a2018; box-shadow: 0 24px 60px rgba(0,0,0,.28); aspect-ratio: 1043 / 810; user-select: none; -webkit-user-select: none; touch-action: pan-y; cursor: ew-resize; }
+.compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.compare .top { clip-path: inset(0 calc(100% - var(--x, 50%)) 0 0); }
+.compare .handle { position: absolute; top: 0; bottom: 0; left: var(--x, 50%); width: 3px; margin-left: -1.5px; background: #fff; box-shadow: 0 0 12px rgba(0,0,0,.35); pointer-events: none; }
+.compare .handle::after { content: "⟷"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 46px; height: 46px; border-radius: 50%; background: #fff; color: #a84f1f; display: grid; place-items: center; font-size: 20px; font-weight: 700; box-shadow: 0 6px 20px rgba(0,0,0,.3); }
+.spec { background: #fdfcf9; color: #212823; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; }
+.spec h3 { font-size: 18px; }
+.spec dl { margin: 6px 0 0; display: grid; grid-template-columns: auto 1fr; }
+.spec dt, .spec dd { padding: 10px 0; border-bottom: 1px solid #ebe7de; font-size: 15px; margin: 0; }
+.spec dt { color: #6d726e; }
+.spec dd { text-align: right; font-weight: 600; }
+.spec .note { font-size: 13px; color: #6d726e; margin-top: auto; padding-top: 14px; }
+.credit { font-size: 13px; color: #f8d4bd; margin-top: 18px; }
 
 /* features */
-.feature { display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; align-items: center; }
-.feature.flip { grid-template-columns: 1.25fr 1fr; }
+.feature { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: center; }
+.feature.flip { grid-template-columns: 1.2fr 1fr; }
 .feature.flip .text { order: 2; }
-.feature + .feature { margin-top: 96px; }
-.shot { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: var(--card); box-shadow: 0 18px 50px rgba(33,40,35,.12); }
+.feature + .feature { margin-top: 110px; }
+.text p { color: var(--ink-2); }
+.shot { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: var(--card); box-shadow: 0 18px 50px rgba(33,40,35,.12); }
 .cap { font-size: 14px; color: var(--muted); margin-top: 10px; }
 ul.ticks { list-style: none; padding: 0; margin: 18px 0 0; }
 ul.ticks li { padding-left: 26px; position: relative; margin-bottom: 9px; color: var(--ink-2); }
-ul.ticks li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 12px; height: 2px; background: var(--accent); }
-.text p { color: var(--ink-2); }
+ul.ticks li::before { content: ""; position: absolute; left: 2px; top: .66em; width: 12px; height: 2px; background: var(--accent); }
 
-/* grid of capabilities */
+/* proposal mock */
+.mock { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; box-shadow: 0 18px 50px rgba(33,40,35,.12); }
+.mock .scope { font-size: 12px; color: var(--muted); margin-bottom: 12px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.mock .crumb { background: var(--paper-2); border-radius: 6px; padding: 3px 8px; color: var(--ink-2); }
+.bubble { border-radius: 14px; padding: 11px 14px; font-size: 15px; margin: 0 0 10px auto; max-width: 92%; width: fit-content; background: var(--accent-2); color: #fff; border-bottom-right-radius: 4px; }
+.proposal { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--paper); transition: opacity .3s; }
+.proposal .head { font-weight: 700; font-size: 15px; display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+.proposal .head span { font-weight: 600; font-size: 12px; color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+.proposal ul { margin: 10px 0; padding-left: 18px; font-size: 14px; color: var(--ink-2); }
+.proposal .why { font-size: 14px; color: var(--ink-2); }
+.proposal .refs { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.proposal .acts { display: flex; gap: 8px; margin-top: 12px; }
+.proposal .acts button { border: 1px solid var(--line); background: var(--card); padding: 8px 14px; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; }
+.proposal .acts button.yes { background: var(--accent-2); border-color: var(--accent-2); color: #fff; }
+.proposal .applied { display: none; font-size: 14px; font-weight: 600; color: #2f7a4f; margin-top: 10px; }
+.proposal.done .applied { display: block; }
+.proposal.done .acts { display: none; }
+.mock .q { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; align-items: center; }
+.mock .q button { border: 1px dashed var(--line); background: transparent; padding: 7px 12px; border-radius: 999px; font-size: 13px; color: var(--ink-2); cursor: pointer; }
+.mock .q button:hover, .mock .q button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+
+/* drawings */
+.sheet { position: relative; background: #fff; border-radius: 14px; border: 1px solid var(--line); overflow: hidden; box-shadow: 0 18px 50px rgba(33,40,35,.12); height: min(70vh, 620px); min-height: 360px; touch-action: none; cursor: grab; }
+.sheet:active { cursor: grabbing; }
+.sheet svg { width: 100%; height: 100%; display: block; }
+.sheet svg path { vector-effect: non-scaling-stroke; stroke-width: 1.1px !important; stroke: #1b1f1c !important; }
+.sheet svg text { fill: #1b1f1c; }
+.sheet .bar { position: absolute; left: 14px; top: 14px; right: 14px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: space-between; align-items: center; pointer-events: none; }
+.sheet .seg { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.sheet .seg::-webkit-scrollbar { display: none; }
+.sheet .file { font: 600 13px/1 var(--sans); background: #eeebe4; color: #212823; border-radius: 999px; padding: 10px 14px; }
+.zoom { position: absolute; right: 14px; bottom: 14px; display: flex; flex-direction: column; gap: 6px; }
+.zoom button { width: 38px; height: 38px; border-radius: 10px; border: 1px solid #dcd8ce; background: #fff; color: #212823; font-size: 20px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+
+/* capabilities */
 .caps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
-.caps .card h3 { font-size: 17px; }
+.caps .card { transition: transform .25s ease, box-shadow .25s ease; }
+.caps .card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(33,40,35,.12); }
+.caps .ico { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); margin-bottom: 16px; }
+.caps .ico svg { width: 22px; height: 22px; }
 
-/* moment */
-.moment { background: var(--accent); color: #fdf3ec; }
-.moment .eyebrow { color: #fbd9c2; }
-.moment h2 { max-width: 18ch; font-size: clamp(32px, 5vw, 56px); }
-.moment .lede { color: #fbe6d8; margin-top: 22px; }
-.single { margin-top: 48px; border: 0; box-shadow: 0 20px 50px rgba(0,0,0,.25); }
-
-/* audience + close */
 .who { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
 .closing { background: var(--dark); color: var(--on-dark); text-align: center; }
 .closing h2 { margin: 0 auto; max-width: 20ch; }
 .closing .lede { color: var(--on-dark-2); margin: 22px auto 0; }
-footer { background: var(--dark); color: var(--on-dark-2); border-top: 1px solid #333b35; font-size: 14px; padding: 26px 0; }
+.closing .cta { justify-content: center; display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+footer { background: var(--dark); color: var(--on-dark-2); border-top: 1px solid #2d352f; font-size: 14px; padding: 26px 0; }
 footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+footer .ta { font-family: var(--serif); color: var(--accent-soft); }
 
-@media (max-width: 900px) {
-  section { padding: 64px 0; }
-  .three, .chain, .caps, .who { grid-template-columns: 1fr 1fr; }
+@media (max-width: 1080px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+}
+@media (max-width: 960px) {
+  section { padding: 72px 0; }
+  .player { grid-template-columns: 1fr; }
+  .chapters { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .three, .caps, .who { grid-template-columns: 1fr 1fr; }
   .feature, .feature.flip { grid-template-columns: 1fr; gap: 28px; }
   .feature.flip .text { order: 0; }
+  .refpane.on { grid-template-columns: 1fr; }
 }
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .wrap { padding: 0 16px; }
   body { font-size: 16px; }
-  .three, .chain, .caps, .who { grid-template-columns: 1fr; }
-  .hero nav { margin-bottom: 56px; }
-  .hero nav .links { display: none; }
-  .hero-shot { margin-top: 44px; }
+  nav.top .links a:not(.btn) { display: none; }
+  .three, .caps, .who, .chapters { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; }
+  .stat, .stat + .stat { padding: 18px 0; border-left: 0; }
+  .stat + .stat { border-top: 1px solid #333c36; }
+  .stage { height: 470px; border-radius: 14px; }
+  .seg button { padding: 6px 10px; font-size: 13px; }
+  .sheet { height: 440px; }
 }
 </style>
 </head>
 <body>
 
+<nav class="top">
+  <div class="wrap">
+    <a class="brand" href="#">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#2c3530"/><path d="M8 24V13l8-5 8 5v11" fill="none" stroke="#e08a55" stroke-width="2.4" stroke-linejoin="round"/><path d="M13 24v-6h6v6" fill="none" stroke="#f4f2ee" stroke-width="2.2"/></svg>
+      Idam <small lang="ta">இடம்</small>
+    </a>
+    <div class="links">
+      <a href="#watch">How it works</a>
+      <a href="#reference">References</a>
+      <a href="#drawings">Drawings</a>
+      <a class="btn solid" href="#watch">Watch the demo</a>
+    </div>
+  </div>
+</nav>
+
 <header class="hero">
   <div class="wrap">
-    <nav>
-      <div class="brand">
-        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#2f3832"/><path d="M7 23 16 8l9 15z" fill="none" stroke="#e08a55" stroke-width="2.5" stroke-linejoin="round"/></svg>
-        AI Modeller
+    <div class="hero-grid">
+      <div>
+        <h1 class="reveal"><span>Drawings in.</span><br><span>Accurate model out.</span><br><span>And back again.</span></h1>
+        <p class="lede reveal">SketchUp-grade modelling for architecture, interior and landscape practices, with the AI doing the heavy lifting. Drop in your DWG and Idam builds the model. You make the small edits, and it writes your working drawings back out as DWG.</p>
+        <div class="cta reveal">
+          <a class="btn solid" href="#watch">▶&nbsp; Watch DWG to DWG in a minute</a>
+          <a class="btn ghost" href="#explore">Spin a model</a>
+        </div>
       </div>
-      <div class="links"><a href="#how">How it works</a> &nbsp;·&nbsp; <a href="#features">What it does</a> &nbsp;·&nbsp; <a href="#who">Who it's for</a></div>
-    </nav>
-    <p class="eyebrow">AI-native design software</p>
-    <h1>Drawings in.<br>Accurate model out.<br>And back again.</h1>
-    <p class="lede">A SketchUp-grade modeller for architecture, interior and landscape practices. It reads your working drawings and builds the model. You make the small edits, and it turns the model back into drawings.</p>
-    <div class="pill-row">
-      <span class="pill">Reads DWG, DXF, PDF and sketches</span>
-      <span class="pill">Every change previewed before it lands</span>
-      <span class="pill">Runs in the browser on an everyday laptop</span>
+      <div class="stage" id="explore">
+        <canvas id="three" aria-label="A 3D model of a house that you can rotate"></canvas>
+        <div class="loading" id="loading">Loading the model…</div>
+        <div class="bar">
+          <div class="seg" role="group" aria-label="House">
+                        <button data-model="a" aria-pressed="true">Residence A</button>
+          </div>
+          <div class="seg" role="group" aria-label="Look">
+            <button data-look="clay" aria-pressed="true">White model</button>
+            <button data-look="mat" aria-pressed="false">Materials</button>
+          </div>
+          <div class="seg" role="group" aria-label="Floors">
+            <button data-explode aria-pressed="false">Lift the floors</button>
+          </div>
+        </div>
+        <div class="tip" id="tip"></div>
+                <div class="caption"><span id="stagecap">Read from the architect's DWG</span><small>Drag to orbit · scroll to zoom · point at any part to see what it is</small></div>
+      </div>
     </div>
-    <div class="hero-shot"><img src="img/sofa-wall.jpg" alt="A living room wall built in the model: a U-shaped sofa, backlit shelves, a limewash panel, art, timber slats and lighting, each listed with its dimensions" width="1400" height="680"></div>
+    <div class="stats reveal">
+      <div class="stat">
+        <div class="big"><span>9</span><em>seconds</em></div>
+        <div class="what">from a 13,000-line architect's DWG to a model you can walk through</div>
+      </div>
+      <div class="stat">
+        <div class="big formats" aria-label="DWG, DXF and PDF in; DWG, PDF and IFC out">
+          <span class="fmt">DWG</span><span class="fmt">DXF</span><span class="fmt">PDF</span><span class="arrow">→</span><span class="fmt out">DWG</span><span class="fmt out">PDF</span><span class="fmt out">IFC</span>
+        </div>
+        <div class="what">reads the CAD your studio already has, and writes it back</div>
+      </div>
+      <div class="stat">
+        <div class="big"><span>0</span><em>installs</em></div>
+        <div class="what">it runs in the browser on an everyday laptop, with no GPU workstation</div>
+      </div>
+    </div>
   </div>
 </header>
 
-<section>
+<section id="watch">
   <div class="wrap">
-    <p class="eyebrow">The problem</p>
-    <h2>Studios build the same building three times</h2>
-    <div class="three">
-      <div class="card"><div class="num">1 · Drawings</div><p>Working drawings in AutoCAD: plans, sections and elevations.</p></div>
-      <div class="card"><div class="num">2 · Model</div><p>Rebuilt by hand in SketchUp or Revit so the client can see it.</p></div>
-      <div class="card"><div class="num">3 · Visuals</div><p>Exported again to a separate renderer, often on a GPU workstation.</p></div>
-    </div>
-    <p class="after">Every design change means redrawing by hand. The drawings and the model drift apart, and mistakes on site start there. Pretty images are a solved problem. A model the studio can trust is not.</p>
-  </div>
-</section>
-
-<section class="alt" id="how">
-  <div class="wrap">
-    <p class="eyebrow">How it works</p>
-    <h2>One chain, in both directions</h2>
-    <div class="chain">
-      <div class="card"><div class="num">01</div><h3>Drop your plan</h3><p>DWG or DXF from CAD, a PDF set, or a photo of a hand sketch. There is no blank canvas to start from.</p></div>
-      <div class="card"><div class="num">02</div><h3>It reads the drawings</h3><p>Walls, openings, columns, rooms and levels are read across the drawings together.</p></div>
-      <div class="card on"><div class="num">03</div><h3>You confirm</h3><p>It shows the plinth, sill and lintel levels it found and flags where the drawings disagree. Nothing is built until you confirm.</p></div>
-      <div class="card"><div class="num">04</div><h3>Edit, then export</h3><p>Click a part or type a change. Plans, sections and elevations update together, ready to export.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="features">
-  <div class="wrap">
-    <div class="feature">
-      <div class="text">
-        <p class="eyebrow">Plan reading</p>
-        <h2>Nothing locks until the architect confirms</h2>
-        <p style="margin-top:18px">A plan does not carry heights, so the model asks for them. It shows the levels it read from the drawings and lets you correct each one before it builds the house.</p>
-        <ul class="ticks">
-          <li>Rooms, walls, doors and windows counted as they are read</li>
-          <li>Levels taken from the plan, or from Tamil Nadu residential defaults</li>
-          <li>Every value can be changed later from the building's panel</li>
-        </ul>
+    <h2 class="reveal">From an architect's DWG to working drawings, in one minute</h2>
+    <p class="lede reveal">A real ground floor plan, recorded start to finish in Idam with nothing staged. Pick a step to jump to it.</p>
+    <div class="player reveal">
+      <div class="vid">
+        <video id="vid" src="media/walkthrough.mp4" poster="media/poster.jpg" controls playsinline preload="metadata" muted></video>
       </div>
-      <figure style="margin:0"><div class="shot"><img src="img/confirm.jpg" alt="The confirm-heights step: a section drawn from the model beside a form listing plinth, sill, lintel, slab and parapet levels" loading="lazy" width="1800" height="682"></div><figcaption class="cap">Captured from AI Modeller: heights confirmed before the model is built.</figcaption></figure>
+      <ol class="chapters" id="chapters">
+        <li><button data-n="1" data-t="0">Drop the DWG or DXF<span class="t">0:00</span></button></li>
+        <li><button data-n="2" data-t="0">It reads sheets, layers and blocks<span class="t"></span></button></li>
+        <li><button data-n="3" data-t="0">You confirm the heights<span class="t"></span></button></li>
+        <li><button data-n="4" data-t="0">It shows what it was unsure of<span class="t"></span></button></li>
+        <li><button data-n="5" data-t="0">The model, in seconds<span class="t"></span></button></li>
+        <li><button data-n="6" data-t="0">Look into the floor<span class="t"></span></button></li>
+        <li><button data-n="7" data-t="0">Cut a section<span class="t"></span></button></li>
+        <li><button data-n="8" data-t="0">Export working drawings as DWG<span class="t"></span></button></li>
+        <li><button data-n="9" data-t="0">The DWG, opened back<span class="t"></span></button></li>
+      </ol>
     </div>
-
-    <div class="feature flip">
-      <div class="text">
-        <p class="eyebrow">The AI as a colleague</p>
-        <h2>Point at it, say what you want</h2>
-        <p style="margin-top:18px">Select the verandah columns and say "make it an archway". The request applies only to what you selected. The AI edits the model's description, not its geometry, so every change is a named step you can undo.</p>
-        <ul class="ticks">
-          <li>Every proposal is shown in the model first. New and changed parts are highlighted, and removed parts appear in red.</li>
-          <li>Each proposal states its reason and the references it used, and waits for Accept or Reject</li>
-          <li>When something is unclear, the AI asks you before it guesses</li>
-        </ul>
-      </div>
-      <figure style="margin:0"><div class="shot"><img src="img/stair.jpg" alt="A stair court seen from above: a timber stair with a steel railing around a landscaped well" loading="lazy" width="1400" height="875"></div><figcaption class="cap">A stair court in the model. Click the stair, the railing or the well to edit it, or ask for a change.</figcaption></figure>
-    </div>
-
-    <div class="feature">
-      <div class="text">
-        <p class="eyebrow">Rules, not meshes</p>
-        <h2>Anything that repeats is a unit and a pattern</h2>
-        <p style="margin-top:18px">Jalis, brick bonds, cladding, louvres, pavers and rows of trees all run on one modular engine. Change the unit, the region or the bond and it tiles again at once, with whole and cut units counted.</p>
-        <ul class="ticks">
-          <li>Regions are tied to columns and levels: a jali set "sill to lintel" stays there when the sill moves</li>
-          <li>Custom units from a photo, a product sheet, a sketch or a line of text</li>
-          <li>Save a unit to your library and use it again on any project</li>
-        </ul>
-      </div>
-      <figure style="margin:0"><div class="shot"><img src="img/jali.jpg" alt="A terracotta jali set into a facade wall beside the entrance, above a ramp and steps" loading="lazy" width="1400" height="1316"></div></figure>
-    </div>
-
-    <div class="feature flip">
-      <div class="text">
-        <p class="eyebrow">Drawings out</p>
-        <h2>One change, every sheet updated</h2>
-        <p style="margin-top:18px">Plans, elevations and sections are drawn from the model, never by hand. Raise the plinth and export again, and every sheet follows.</p>
-        <ul class="ticks">
-          <li>PDF sheets and CAD (DXF) in mm, cm, m or feet and inches, at 1:20 to 1:500, on A4 to A0</li>
-          <li>One CAD layer per element type, with line weights set by type</li>
-          <li>Quantities as CSV, and IFC for BIM, plus OBJ, glTF, STL and USDZ</li>
-        </ul>
-      </div>
-      <figure style="margin:0"><div class="shot"><img src="img/export.jpg" alt="Exported floor plan and section sheets beside the export settings: format, drawings, units, scale and paper size" loading="lazy" width="1800" height="682"></div><figcaption class="cap">Captured from AI Modeller: plan and section exported from the model.</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<section class="moment">
-  <div class="wrap">
-    <p class="eyebrow">The moment that sells it</p>
-    <h2>Show it a reference. It builds it into your model.</h2>
-    <p class="lede">Mark a zone, drop in an image from Pinterest, a site photo or a product sheet, and get real fins, jali, screens or a whole fitted wall. The widths, spacing and unit counts are all editable, and they export straight to drawings.</p>
-    <div class="single shot"><img src="img/screen.jpg" alt="A lattice partition built in the model from a reference image, with its timber, height, grid, bar size and length listed beside it" loading="lazy" width="1400" height="627"></div>
   </div>
 </section>
 
 <section class="alt">
   <div class="wrap">
-    <p class="eyebrow">The whole studio, in one model</p>
-    <h2>Three modes: Model, Landscape and Present</h2>
-    <div class="caps">
-      <div class="card">
-        <div class="num">Model</div>
-        <h3>The full SketchUp tool set</h3>
-        <p>Push/Pull, Follow Me, Offset, solid tools, sections, scenes, styles, tags, guides, Match Photo and a measurements box. Everyone gets the full set, and the tools appear only when they are needed.</p>
+    <h2 class="reveal">Studios build the same building three times</h2>
+    <div class="three">
+      <div class="card reveal"><div class="num">1 · Drawings</div><p>Working drawings in AutoCAD: plans, sections and elevations.</p></div>
+      <div class="card reveal"><div class="num">2 · Model</div><p>Rebuilt by hand in SketchUp or Revit so the client can see it.</p></div>
+      <div class="card reveal"><div class="num">3 · Visuals</div><p>Exported again to a separate renderer, often on a GPU workstation.</p></div>
+    </div>
+    <p class="after reveal">Every design change means redrawing by hand. The drawings and the model drift apart, and mistakes on site start there. Idam keeps one model, and the drawings come from it.</p>
+  </div>
+</section>
+
+<section class="moment" id="reference">
+  <div class="wrap">
+    <h2 class="reveal">Show it a reference. It builds it into your model.</h2>
+    <p class="lede reveal">Point at a wall, drop in a Pinterest image, a site photo or a product sheet, and Idam builds real elements with real dimensions: fins, jali, screens or a whole fitted wall. Every value stays editable and goes out to the drawings.</p>
+    <div class="tabs reveal" role="tablist">
+      <button role="tab" aria-selected="true" data-pane="sofa">Sofa wall</button>
+      <button role="tab" aria-selected="false" data-pane="lattice">Lattice partition</button>
+    </div>
+    <div class="refpane on" id="pane-sofa" role="tabpanel">
+      <div class="compare" data-compare>
+        <img src="img/model-sofa.jpg" alt="The sofa wall built in Idam: U-shaped sofa, backlit shelves, limewash panel, art, timber slats and a paper lantern" loading="lazy">
+        <img class="top" src="img/ref-sofa.jpg" alt="The reference image: a warm living room with a cream sofa, lit shelves and a paper lantern" loading="lazy">
+        <div class="handle"></div>
       </div>
-      <div class="card">
-        <div class="num">Landscape</div>
-        <h3>A native plant agent</h3>
-        <p>Give it the site and it researches the native plants for that place on the web. It returns sizes, growth, water and sun needs, local names, and a source for every fact. Plant one at a time or in rows, then slide through the years to watch the garden grow.</p>
+      <div class="spec">
+        <h3>In the model</h3>
+        <dl>
+          <dt>Sofa</dt><dd>U, bouclé, wall to wall</dd>
+          <dt>Wall from</dt><dd>800 mm, the headrest</dd>
+          <dt>Shelves</dt><dd>Backlit, 4, maple</dd>
+          <dt>Panel</dt><dd>Limewash, lit top</dd>
+          <dt>Art</dt><dd>1,440 × 900 mm</dd>
+          <dt>Slats</dt><dd>45 mm at 70 centres</dd>
+          <dt>Light</dt><dd>Cove and paper lantern</dd>
+        </dl>
+        <p class="note">Drag across the picture to compare. Each piece is its own element, and every value can be edited.</p>
       </div>
-      <div class="card">
-        <div class="num">Present</div>
-        <h3>For the client</h3>
-        <p>Every tool is hidden. Share live links that follow each edit, show the house life-size in VR or as a 1:50 model in AR, and print presentation sheets with a title block.</p>
+    </div>
+    <div class="refpane" id="pane-lattice" role="tabpanel">
+      <div class="compare" data-compare style="aspect-ratio: 1148 / 807">
+        <img src="img/model-lattice.jpg" alt="A maple lattice partition built in Idam between the sofa and the wall" loading="lazy">
+        <img class="top" src="img/ref-lattice.jpg" alt="The reference image: a timber lattice screen with baskets and vases" loading="lazy" style="object-fit: contain">
+        <div class="handle"></div>
+      </div>
+      <div class="spec">
+        <h3>In the model</h3>
+        <dl>
+          <dt>Element</dt><dd>Lattice screen</dd>
+          <dt>Timber</dt><dd>Maple</dd>
+          <dt>Height</dt><dd>2,450 mm</dd>
+          <dt>Grid</dt><dd>130 mm</dd>
+          <dt>Bars</dt><dd>22 mm</dd>
+          <dt>Length</dt><dd>2,915 mm</dd>
+          <dt>Placed</dt><dd>Sofa end to wall end</dd>
+        </dl>
+        <p class="note">It checked that the walkway to the dining stayed clear before placing it.</p>
+      </div>
+    </div>
+    <p class="credit">Reference images from Pinterest, shown to illustrate the workflow. Everything on the model side was built in Idam.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="feature">
+      <div class="text reveal">
+        <h2>Nothing locks until the architect confirms</h2>
+        <p style="margin-top:18px">A plan does not carry heights, so Idam asks. It shows the levels it read, flags where the drawings disagree, and lists anything it was unsure of before it builds.</p>
+        <ul class="ticks">
+          <li>Rooms, walls, doors and windows counted as they are read</li>
+          <li>Levels taken from the plan's notes, or from Tamil Nadu residential defaults</li>
+          <li>Every correction is remembered for the next file from your studio</li>
+        </ul>
+      </div>
+      <figure class="reveal" style="margin:0"><div class="shot"><img src="img/confirm.jpg" alt="The confirm-heights step: a section drawn from the model beside a form listing plinth, sill, lintel, slab and parapet levels" loading="lazy" width="1800" height="682"></div><figcaption class="cap">Captured from Idam: heights confirmed before the model is built.</figcaption></figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="text reveal">
+        <h2>Point at it, say what you want</h2>
+        <p style="margin-top:18px">Select the verandah columns and say "make it an archway". Idam changes only what you selected, and shows you the change before anything happens.</p>
+        <ul class="ticks">
+          <li>Every proposal shows up in the model first. New parts are highlighted, and removed parts appear in red.</li>
+          <li>It gives its reason and the references it used, then waits for you</li>
+          <li>When something is unclear, it asks instead of guessing</li>
+        </ul>
+      </div>
+      <div class="mock reveal" id="mock">
+        <div class="scope" id="scope"></div>
+        <div class="bubble" id="ask"></div>
+        <div class="proposal" id="prop">
+          <div class="head"><b id="phead"></b><span>Preview in the model</span></div>
+          <ul id="ops"></ul>
+          <div class="why" id="why"></div>
+          <div class="refs" id="refs"></div>
+          <div class="acts"><button class="yes" id="accept">Accept</button><button id="reject">Reject</button></div>
+          <div class="applied" id="applied"></div>
+        </div>
+        <div class="q" id="asks"><span style="font-size:13px;color:var(--muted)">Try another:</span></div>
+        <p class="cap" style="margin:14px 0 0">An example of how a proposal reads in Idam's chat panel.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="who">
-  <div class="wrap who">
-    <div>
-      <p class="eyebrow">Who it's for</p>
-      <h2>Architecture, interior and landscape practices</h2>
-      <p class="lede" style="margin-top:22px">From one-person studios to large firms. It starts in Tamil Nadu, with Indian building conventions built in: plinths, sills and lintel bands, chajjas, jalis, thinnais and tulsi maadams.</p>
+<section class="alt" id="drawings">
+  <div class="wrap">
+    <h2 class="reveal">Working drawings, drawn from the model</h2>
+    <p class="lede reveal">This is the DWG Idam wrote in the video, opened back and shown as it is: a plan, four elevations and a section, one CAD layer per element type, with room sizes and an openings schedule. Drag to pan, and zoom in to check the line work.</p>
+    <div class="reveal" style="margin-top:34px">
+      <div class="sheet" id="sheet">
+        <div class="bar">
+          <div class="seg" role="group" aria-label="Drawing" id="sheetnav" style="pointer-events:auto"></div>
+          <span class="file">Residence-A.dwg · AutoCAD 2000 · mm</span>
+        </div>
+        <div class="zoom"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button></div>
+      </div>
     </div>
-    <div>
-      <ul class="ticks" style="margin-top:44px">
+    <div class="caps" style="margin-top:28px">
+      <div class="card reveal"><h3>Your units, your scale</h3><p>mm, cm, m or feet and inches. PDF sheets at 1:20 to 1:500 on A4 to A0, with your studio's title block.</p></div>
+      <div class="card reveal"><h3>Change once</h3><p>Raise the plinth and export again. Every sheet follows, because nothing is drawn by hand.</p></div>
+      <div class="card reveal"><h3>Beyond drawings</h3><p>Quantities as CSV, IFC 4 for BIM, and OBJ, glTF, STL and USDZ for everything else.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="reveal">Everything a studio needs, in one model</h2>
+    <div class="caps">
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V9l8-5 8 5v11H4z"/><path d="M9 20v-6h6v6"/></svg></div><h3>The full SketchUp tool set</h3><p>Push/Pull, Follow Me, Offset, solid tools, sections, scenes, styles, tags, guides, Match Photo and a measurements box. They stay out of the way until you need them.</p></div>
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><h3>Jali, bonds and cladding</h3><p>Anything that repeats is a unit and a pattern. Change the unit, the region or the bond and it tiles again, with whole and cut units counted.</p></div>
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22V12"/><path d="M12 12c0-5 3-8 8-8 0 5-3 8-8 8z"/><path d="M12 15c0-4-2.5-6.5-7-6.5 0 4 2.5 6.5 7 6.5z"/></svg></div><h3>A native plant agent</h3><p>Give it the site, and it researches the native plants for that place on the web. You get sizes, growth, water, sun, local names and a source for every fact, and a years slider to watch the garden grow.</p></div>
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><h3>Present to clients</h3><p>One click hides every tool. Share live links that follow each edit, walk the house life-size in VR, or put a 1:50 model on the table in AR.</p></div>
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18"/><path d="M5 21V10h14v11"/><path d="M3 10l9-6 9 6"/></svg></div><h3>Indian building, built in</h3><p>Plinths, sill and lintel bands, chajjas, jalis, thinnais, pooja units and tulsi maadams are elements it already knows.</p></div>
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div><h3>Exact geometry</h3><p>Booleans run on Manifold, an open-source geometry engine, so cuts, holes and joined solids stay watertight and keep their materials.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap who">
+    <div class="reveal">
+      <h2>For architecture, interior and landscape practices</h2>
+      <p class="lede">From one-person studios to large firms. Idam starts in Tamil Nadu. It is built in Chennai by a practising architect, with Indian building conventions in its bones.</p>
+    </div>
+    <div class="reveal">
+      <ul class="ticks" style="margin-top:8px">
         <li><strong>Drawing-first studios</strong> upload their DWG and get the model, with a confirm step for every level.</li>
         <li><strong>Model-first studios</strong> design in the model and get the drawings out.</li>
-        <li><strong>Homeowners working with an architect</strong> can understand the house and change it in plain words.</li>
-        <li><strong>Everyday hardware.</strong> It runs in the browser, with no GPU workstation needed. Booleans run on the open-source Manifold engine.</li>
+        <li><strong>Clients and homeowners</strong> see the house as it will be built, and ask for changes in plain words.</li>
+        <li><strong>Site and construction teams</strong> get drawings and quantities that match the model, because they come from it.</li>
       </ul>
     </div>
   </div>
@@ -293,18 +492,90 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 
 <section class="closing">
   <div class="wrap">
-    <p class="eyebrow" style="color:var(--accent-soft)">Where it is now</p>
-    <h2>Built by an architect, for architects</h2>
-    <p class="lede">AI Modeller is in private build, tested on real residential projects. An early-access group for architecture studios opens next.</p>
+    <h2 class="reveal">Built by an architect, for architects</h2>
+    <p class="lede reveal">Idam is in private build, tested on real residential projects. An early-access group for architecture studios opens next.</p>
+    <div class="cta reveal"><a class="btn solid" href="#watch">▶&nbsp; Watch the demo</a><a class="btn ghost" href="#explore">Spin a model</a></div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <span>AI Modeller · Ishwarya Suresh, founder · Puducherry, India</span>
+    <span>Idam <span class="ta" lang="ta">இடம்</span>, Tamil for “place” · Ishwarya Suresh, founder · Chennai, India</span>
     <span>© 2026</span>
   </div>
 </footer>
 
+<script src="media/chapters.js"></script>
+<script>
+// Reveal on scroll
+(() => {
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { els.forEach((e) => e.classList.add('in')); return; }
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  els.forEach((e) => io.observe(e));
+})();
+
+// Video chapters, timed from the recording
+(() => {
+  const times = window.CHAPTERS || [];
+  const vid = document.getElementById('vid');
+  const btns = [...document.querySelectorAll('#chapters button')];
+  const fmt = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
+  btns.forEach((b, i) => {
+    if (times[i] !== undefined) { b.dataset.t = times[i]; b.querySelector('.t').textContent = fmt(times[i]); }
+    b.addEventListener('click', () => { vid.currentTime = Number(b.dataset.t); vid.play().catch(() => {}); });
+  });
+  vid.addEventListener('timeupdate', () => {
+    let on = 0;
+    btns.forEach((b, i) => { if (vid.currentTime + 0.05 >= Number(b.dataset.t)) on = i; });
+    btns.forEach((b, i) => b.classList.toggle('on', i === on));
+  });
+  btns[0].classList.add('on');
+})();
+
+// Reference tabs and compare sliders
+(() => {
+  const tabs = document.querySelectorAll('.tabs button');
+  tabs.forEach((t) => t.addEventListener('click', () => {
+    tabs.forEach((x) => x.setAttribute('aria-selected', String(x === t)));
+    document.querySelectorAll('.refpane').forEach((p) => p.classList.toggle('on', p.id === `pane-${t.dataset.pane}`));
+  }));
+  document.querySelectorAll('[data-compare]').forEach((c) => {
+    const set = (clientX) => { const r = c.getBoundingClientRect(); const x = Math.max(0, Math.min(1, (clientX - r.left) / r.width)); c.style.setProperty('--x', `${x * 100}%`); };
+    let down = false;
+    c.addEventListener('pointerdown', (e) => { down = true; c.setPointerCapture(e.pointerId); set(e.clientX); });
+    c.addEventListener('pointermove', (e) => { if (down || e.pointerType === 'mouse') set(e.clientX); });
+    c.addEventListener('pointerup', () => { down = false; });
+  });
+})();
+
+// The proposal card: a few scoped requests, each previewed with its reason and references
+(() => {
+  const P = [
+    { ask: 'Make the verandah columns an archway', scope: ['Building', 'Ground floor', 'Verandah columns (3)'], head: 'Replace 3 columns with a 3-bay arcade', ops: ['Add an arcade, 3 bays, semicircular arches springing at 2,100', 'Remove columns C1, C2 and C3', 'Keep the 230 mm wall line and the plinth at 600'], why: 'Reason: the bays follow the existing column spacing of 2,438 mm, so the beam above stays where it is.', refs: 'Based on: your selection · ground floor plan, verandah grid · lintel level 2,100' },
+    { ask: 'Chajja 600 on every east window', scope: ['Building', 'Ground floor', 'Whole floor'], head: 'Add a 600 mm chajja over 4 east windows', ops: ['Add a chajja, 600 deep and 75 thick, over W4, W5, W5 and W6', 'Run each one 150 past the opening on both sides'], why: 'Reason: you asked for every east window. I found four on the east walls and none behind the thinnai roof.', refs: 'Based on: openings schedule · east elevation · lintel level 2,100' },
+    { ask: 'Raise the plinth to 750', scope: ['Building'], head: 'Raise the plinth from 600 to 750', ops: ['Set the plinth to 750', 'Add a riser to the entry steps (6 risers at 125)', 'Lengthen the ramp to keep 1 in 12'], why: 'Reason: the steps and the ramp would otherwise be too steep. Sills, lintels and the jali move up with the floor.', refs: 'Based on: building levels · entry steps and ramp · NBC 2016 ramp slope' },
+  ];
+  const $ = (id) => document.getElementById(id);
+  const asks = $('asks');
+  const show = (i) => {
+    const p = P[i];
+    $('scope').innerHTML = 'Editing ' + p.scope.map((s) => `<span class="crumb">${s}</span>`).join('›');
+    $('ask').textContent = p.ask;
+    $('phead').textContent = p.head;
+    $('ops').innerHTML = p.ops.map((x) => `<li>${x}</li>`).join('');
+    $('why').textContent = p.why;
+    $('refs').textContent = p.refs;
+    $('prop').classList.remove('done');
+    asks.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.i) === i)));
+  };
+  P.forEach((p, i) => { const b = document.createElement('button'); b.dataset.i = i; b.textContent = p.ask; b.addEventListener('click', () => show(i)); asks.append(b); });
+  $('accept').addEventListener('click', () => { $('prop').classList.add('done'); $('applied').style.color = '#2f7a4f'; $('applied').textContent = '✓ Applied as one step. Undo it any time from History.'; });
+  $('reject').addEventListener('click', () => { $('prop').classList.add('done'); $('applied').style.color = 'var(--muted)'; $('applied').textContent = 'Rejected. Nothing changed. Tell me what to do differently.'; });
+  show(0);
+})();
+</script>
+<script src="js/drawing.js"></script>
+<script type="module" src="js/viewer.js"></script>
 </body>
 </html>
