@@ -188,7 +188,21 @@ ul.ticks li::before { content: ""; position: absolute; left: 2px; top: .66em; wi
 .sheet { position: relative; background: #fff; border-radius: 14px; border: 1px solid var(--line); overflow: hidden; box-shadow: 0 18px 50px rgba(33,40,35,.12); height: min(70vh, 620px); min-height: 360px; touch-action: none; cursor: grab; }
 .sheet:active { cursor: grabbing; }
 .sheet svg { width: 100%; height: 100%; display: block; }
-.sheet:not(.overlay) svg path { vector-effect: non-scaling-stroke; stroke-width: 1.1px !important; stroke: #1b1f1c !important; }
+.sheet:not(.overlay):not([data-src]) svg path { vector-effect: non-scaling-stroke; stroke-width: 1.1px !important; stroke: #1b1f1c !important; }
+.sheet.loading::after { content: 'Loading the drawings…'; position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 15px; }
+/* survey against model */
+.survey { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #fff; box-shadow: 0 18px 50px rgba(33,40,35,.12); aspect-ratio: 1900 / 1150; }
+.survey img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.survey .handle { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--accent); pointer-events: none; }
+.survey .handle::after { content: ''; position: absolute; top: 50%; left: 50%; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; background: var(--accent); box-shadow: 0 4px 14px rgba(0,0,0,.2); }
+.survey input[type=range] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+.survey input[type=range]:focus-visible + .handle { outline: 3px solid var(--accent-soft); }
+.survey .tag { position: absolute; top: 14px; font: 600 13px/1 var(--sans); background: rgba(28,34,30,.82); color: #f4f2ee; border-radius: 8px; padding: 8px 10px; pointer-events: none; }
+.survey .tag.l { left: 14px; } .survey .tag.r { right: 14px; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 26px; }
+.facts .card b { font: 400 clamp(24px, 3vw, 32px)/1.1 var(--serif); display: block; margin-bottom: 8px; }
+.credit { font-size: 13.5px; color: var(--muted); max-width: 80ch; margin-top: 22px; line-height: 1.55; }
+@media (max-width: 760px) { .facts { grid-template-columns: 1fr; } }
 .overlay svg path { vector-effect: non-scaling-stroke; }
 .sheet svg text { fill: #1b1f1c; }
 .sheet .bar { position: absolute; left: 14px; top: 14px; right: 14px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: space-between; align-items: center; pointer-events: none; }
@@ -277,6 +291,7 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
       <a href="#watch">How it works</a>
       <a href="#reference">References</a>
       <a href="#drawings">Drawings</a>
+      <a href="#fallingwater">Fallingwater</a>
       <a class="btn solid" href="#watch">Watch the demo</a>
     </div>
   </div>
@@ -508,25 +523,56 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
 <section class="alt" id="drawings">
   <div class="wrap">
     <h2 class="reveal">Working drawings, drawn from the model</h2>
-    <p class="lede reveal">This is the DWG Idam wrote in the video, opened back and shown as it is: both floor plans, four elevations and a section, one CAD layer per element type, with room sizes, door swings, stair treads and an openings schedule. Drag to pan, and zoom in to check the line work.</p>
+    <p class="lede reveal">The courtyard house's set, as Idam writes it to DWG: both floor plans, four elevations, two sections and the schedules. Sections are cut through the 3D model, so what is cut is solid and hatched by material, and what lies beyond shows only the lines you would see. Foundations, plinth beams, lintels and parapets come from one request in the chat. Drag to pan, and zoom in to check the line work.</p>
     <div class="reveal" style="margin-top:34px">
-      <div class="sheet" id="sheet">
+      <div class="sheet loading" id="sheet" data-src="drawings/courtyard-house.svg" data-open="SECTION A-A" data-label="Working drawings exported by Idam for the courtyard house: plans, elevations, sections and schedules">
         <div class="bar">
-          <div class="seg" role="group" aria-label="Drawing" id="sheetnav" style="pointer-events:auto"></div>
+          <div class="seg" role="group" aria-label="Drawing" style="pointer-events:auto"></div>
           <span class="file">Courtyard-House.dwg · AutoCAD 2000 · mm</span>
         </div>
-        <div class="zoom"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button></div>
+        <div class="zoom"><button class="zin" aria-label="Zoom in">+</button><button class="zout" aria-label="Zoom out">−</button></div>
       </div>
     </div>
     <div class="caps" style="margin-top:28px">
-      <div class="card reveal"><h3>Your units, your scale</h3><p>mm, cm, m or feet and inches. PDF sheets at 1:20 to 1:500 on A4 to A0, with your studio's title block.</p></div>
-      <div class="card reveal"><h3>Change once</h3><p>Raise the plinth and export again. Every sheet follows, because nothing is drawn by hand.</p></div>
-      <div class="card reveal"><h3>Beyond drawings</h3><p>Quantities as CSV, IFC 4 for BIM, and OBJ, glTF, STL and USDZ for everything else.</p></div>
+      <div class="card reveal"><h3>Cut, not drawn</h3><p>Concrete solid, brick hatched, stone cross-hatched, fill dotted, earth below the ground line. Line weights step back with depth, as on a hand-drawn sheet.</p></div>
+      <div class="card reveal"><h3>Change once</h3><p>Raise the plinth and export again. Every sheet follows, levels and dimension chains included, because nothing is drawn by hand.</p></div>
+      <div class="card reveal"><h3>Your units, your scale</h3><p>mm, cm, m or feet and inches. PDF sheets at 1:20 to 1:500 on A4 to A0 with your title block, DWG and DXF on named layers, and IFC 4 for BIM.</p></div>
     </div>
   </div>
 </section>
 
-<section>
+<section id="fallingwater">
+  <div class="wrap">
+    <h2 class="reveal">Fallingwater, from its survey drawings</h2>
+    <p class="lede reveal">A building that is not a box: Frank Lloyd Wright's house over Bear Run, modelled from the U.S. Historic American Buildings Survey's measured drawings and drawn by Idam. Drag across to compare its south elevation with the survey's, at the same scale.</p>
+    <div class="reveal" style="margin-top:34px">
+      <div class="survey">
+        <img src="img/fw-habs-south.jpg" alt="South elevation of Fallingwater from the Historic American Buildings Survey, sheet 7" width="1900" height="1150" loading="lazy">
+        <img class="top" src="img/fw-idam-south.jpg" alt="South elevation of the Fallingwater study model drawn by Idam from its 3D model" width="1900" height="1150" loading="lazy">
+        <input type="range" min="0" max="100" value="50" aria-label="Compare the survey's elevation, on the left, with Idam's, on the right">
+        <div class="handle"></div>
+        <span class="tag l">Survey, HABS sheet 7</span><span class="tag r">Idam, from the model</span>
+      </div>
+    </div>
+    <div class="facts">
+      <div class="card reveal"><b>62′-9″ · 62′-6″</b><p>The main floor's tray, end to end: in the model, and on the survey.</p></div>
+      <div class="card reveal"><b>79′-8″ · 79′-8″</b><p>The third level's long canopy, the same in both.</p></div>
+      <div class="card reveal"><b>Within 6″</b><p>The chimney's position along the house. Levels are the survey's own: 9′-4″, 17′-3¼″, 32′-9½″.</p></div>
+    </div>
+    <div class="reveal" style="margin-top:34px">
+      <div class="sheet loading" data-src="drawings/fallingwater.svg" data-open="SECTION A-A" data-label="Fallingwater study model drawn by Idam: three plans, four elevations, two sections and schedules">
+        <div class="bar">
+          <div class="seg" role="group" aria-label="Drawing" style="pointer-events:auto"></div>
+          <span class="file">Fallingwater study model · DWG · mm</span>
+        </div>
+        <div class="zoom"><button class="zin" aria-label="Zoom in">+</button><button class="zout" aria-label="Zoom out">−</button></div>
+      </div>
+    </div>
+    <p class="credit reveal">A study model built from the Historic American Buildings Survey drawings HABS PA-5346 (Library of Congress, Prints &amp; Photographs Division), measured and drawn in 2010 by Kent State University students for the Charles E. Peterson Prize. The walls were traced from the survey sheets, the levels taken from them; the site and the stream are approximate. These are not Frank Lloyd Wright's drawings, and the model is not affiliated with or endorsed by the Western Pennsylvania Conservancy or the Frank Lloyd Wright Foundation.</p>
+  </div>
+</section>
+
+<section class="alt">
   <div class="wrap">
     <h2 class="reveal">Everything a studio needs, in one model</h2>
     <div class="caps">
@@ -540,7 +586,7 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
   </div>
 </section>
 
-<section class="alt">
+<section>
   <div class="wrap who">
     <div class="reveal">
       <h2>For architecture, interior and landscape practices</h2>
