@@ -7,6 +7,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const MODELS = {
   c: { url: 'models/courtyard-house.glb', caption: 'Courtyard house · two floors · read from its DWG' },
+  // Fallingwater's floors are cantilevered trays, not named slabs: its bands start at the trays' undersides (m)
+  f: { url: 'models/fallingwater.glb', caption: 'Fallingwater · study model from the HABS survey drawings', levels: [2.3, 4.75, 7.25] },
 };
 const canvas = document.getElementById('three');
 const stage = canvas.parentElement;
@@ -103,7 +105,7 @@ async function load(key) {
       const m = Array.isArray(o.material) ? o.material[0] : o.material;
       const n = nameOf(o).toLowerCase();
       o.userData.glass = (m.transparent && m.opacity < 0.9) || /glass/.test(n);
-      o.userData.site = /^site$|lawn|terrain/.test(n);
+      o.userData.site = /^site\b|lawn|terrain|bear run/.test(n);
       if (!o.userData.glass && !o.userData.site && o.geometry.attributes.position.count < 60000) {
         const e = new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 28), edgeMat);
         e.raycast = () => {};
@@ -117,15 +119,19 @@ async function load(key) {
   root.updateMatrixWorld(true);
 
   // Floors: each slab named "... floor slab" starts a band; everything at or above it rides with it
-  const box = new THREE.Box3().setFromObject(root);
+  // Framed on the building, not the site round it
+  const box = new THREE.Box3();
+  for (const p of parts) if (!p.userData.site) box.expandByObject(p);
+  if (box.isEmpty()) box.setFromObject(root);
   const size = box.getSize(new THREE.Vector3()), centre = box.getCenter(new THREE.Vector3());
   const slabs = [];
   root.traverse((o) => { if (o.isMesh && /(first|second|third) floor slab|^roof slab$/i.test(nameOf(o))) slabs.push(new THREE.Box3().setFromObject(o).min.y); });
-  const levels = [...new Set(slabs.map((y) => Math.round(y * 100) / 100))].sort((a, b) => a - b);
+  const levels = MODELS[key].levels ?? [...new Set(slabs.map((y) => Math.round(y * 100) / 100))].sort((a, b) => a - b);
   bands = levels.length + 1;
   for (const p of parts) {
     const y = new THREE.Box3().setFromObject(p).min.y;
     let b = 0;
+    if (p.userData.site) { p.userData.band = 0; p.userData.baseY = p.position.y; continue; }
     levels.forEach((l, i) => { if (y >= l - 0.03) b = i + 1; });
     p.userData.band = b;
     p.userData.baseY = p.position.y;
@@ -140,7 +146,8 @@ async function load(key) {
   camera.position.set(centre.x - span * 0.95 * k, box.min.y + span * 0.72 * k, centre.z + span * 1.05 * k);
   camera.near = span / 200; camera.far = span * 30; camera.updateProjectionMatrix();
   controls.minDistance = span * 0.25; controls.maxDistance = span * 4;
-  ground.position.set(centre.x, box.min.y - 0.005, centre.z);
+  // The shadow catcher sits under everything, the site included
+  ground.position.set(centre.x, new THREE.Box3().setFromObject(root).min.y - 0.005, centre.z);
   ground.scale.set(span * 8, span * 8, 1);
   sun.position.set(centre.x - span * 0.6, box.min.y + span * 1.1, centre.z + span * 0.35);
   sun.target.position.copy(centre);

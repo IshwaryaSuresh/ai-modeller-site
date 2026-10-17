@@ -113,6 +113,9 @@ nav.top .links a.btn.solid, .btn.solid { background: var(--accent-2); color: #ff
 .vid video { width: 100%; aspect-ratio: 16/9; background: #111; }
 .chapters { list-style: none; margin: 0; padding: 0; }
 .chapters li { margin: 0; }
+.chapters[hidden] { display: none !important; }
+#vidpick { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+#vidpick::-webkit-scrollbar { display: none; }
 .chapters button { width: 100%; text-align: left; border: 0; background: transparent; padding: 10px 12px 10px 46px; border-radius: 10px; cursor: pointer; position: relative; color: var(--ink-2); font-size: 15px; line-height: 1.35; }
 .chapters button::before { content: attr(data-n); position: absolute; left: 12px; top: 9px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 12px/1 var(--sans); background: var(--paper-2); color: var(--ink-2); }
 .chapters button:hover { background: var(--paper-2); }
@@ -312,6 +315,10 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
         <canvas id="three" aria-label="A 3D model of a house that you can rotate"></canvas>
         <div class="loading" id="loading">Loading the model…</div>
         <div class="bar">
+          <div class="seg" role="group" aria-label="Model">
+            <button data-model="c" aria-pressed="true">Courtyard house</button>
+            <button data-model="f" aria-pressed="false">Fallingwater</button>
+          </div>
           <div class="seg" role="group" aria-label="Look">
             <button data-look="clay" aria-pressed="true">White model</button>
             <button data-look="mat" aria-pressed="false">Materials</button>
@@ -345,13 +352,27 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
 
 <section id="watch">
   <div class="wrap">
-    <h2 class="reveal">From a DWG to working drawings, in a minute</h2>
-    <p class="lede reveal">A two-storey courtyard house, recorded start to finish in Idam with nothing staged: both floor plans in, the model built and checked, the working drawings out as DWG and laid over the original. Pick a step to jump to it.</p>
-    <div class="player reveal">
+    <h2 class="reveal" id="vidtitle">From a DWG to working drawings, in a minute</h2>
+    <p class="lede reveal" id="vidlede">A two-storey courtyard house, recorded start to finish in Idam with nothing staged: both floor plans in, the model built and checked, the working drawings out as DWG and laid over the original. Pick a step to jump to it.</p>
+    <div class="seg reveal" role="group" aria-label="Walkthrough" id="vidpick" style="margin-top:28px">
+      <button data-v="c" aria-pressed="true">Courtyard house · DWG to DWG</button>
+      <button data-v="f" aria-pressed="false">Fallingwater · from the survey</button>
+    </div>
+    <div class="player reveal" style="margin-top:22px">
       <div class="vid">
         <video id="vid" src="media/walkthrough.mp4" poster="media/poster.jpg" controls playsinline preload="metadata" muted></video>
       </div>
-      <ol class="chapters" id="chapters">
+      <ol class="chapters" data-for="f" hidden>
+        <li><button data-n="1" data-t="0">The survey's drawings<span class="t"></span></button></li>
+        <li><button data-n="2" data-t="0">The study model in Idam<span class="t"></span></button></li>
+        <li><button data-n="3" data-t="0">Stone, concrete trays, glass<span class="t"></span></button></li>
+        <li><button data-n="4" data-t="0">Look into each level<span class="t"></span></button></li>
+        <li><button data-n="5" data-t="0">Cut a section<span class="t"></span></button></li>
+        <li><button data-n="6" data-t="0">Export working drawings as DWG<span class="t"></span></button></li>
+        <li><button data-n="7" data-t="0">The set it writes<span class="t"></span></button></li>
+        <li><button data-n="8" data-t="0">Against the survey<span class="t"></span></button></li>
+      </ol>
+      <ol class="chapters" id="chapters" data-for="c">
         <li><button data-n="1" data-t="0">Drop the DWG or DXF<span class="t">0:00</span></button></li>
         <li><button data-n="2" data-t="0">It reads sheets, layers and blocks<span class="t"></span></button></li>
         <li><button data-n="3" data-t="0">You confirm the heights<span class="t"></span></button></li>
@@ -628,22 +649,43 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
   els.forEach((e) => io.observe(e));
 })();
 
-// Video chapters, timed from the recording
+// Video chapters, timed from the recordings; a switch between the two walkthroughs
 (() => {
-  const times = window.CHAPTERS || [];
+  const VIDEOS = {
+    c: { src: 'media/walkthrough.mp4', poster: 'media/poster.jpg', times: window.CHAPTERS || [],
+      title: 'From a DWG to working drawings, in a minute',
+      lede: 'A two-storey courtyard house, recorded start to finish in Idam with nothing staged: both floor plans in, the model built and checked, the working drawings out as DWG and laid over the original. Pick a step to jump to it.' },
+    f: { src: 'media/fallingwater.mp4', poster: 'media/fallingwater-poster.jpg', times: window.FW_CHAPTERS || [],
+      title: 'Fallingwater, from the survey to a drawing set',
+      lede: 'The study model built from the survey\u2019s measured drawings, recorded in Idam: each level, a live section, the working drawings out as DWG, and the south elevation laid against the survey\u2019s. The wait while the DWG is written is shown at four times speed. Pick a step to jump to it.' },
+  };
   const vid = document.getElementById('vid');
-  const btns = [...document.querySelectorAll('#chapters button')];
   const fmt = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
-  btns.forEach((b, i) => {
-    if (times[i] !== undefined) { b.dataset.t = times[i]; b.querySelector('.t').textContent = fmt(times[i]); }
-    b.addEventListener('click', () => { vid.currentTime = Number(b.dataset.t); vid.play().catch(() => {}); });
-  });
+  let btns = [];
+  for (const [k, v] of Object.entries(VIDEOS)) {
+    const list = document.querySelector(`.chapters[data-for="${k}"]`);
+    [...list.querySelectorAll('button')].forEach((b, i) => {
+      if (v.times[i] !== undefined) { b.dataset.t = v.times[i]; b.querySelector('.t').textContent = fmt(v.times[i]); }
+      b.addEventListener('click', () => { vid.currentTime = Number(b.dataset.t); vid.play().catch(() => {}); });
+    });
+  }
+  const show = (k) => {
+    const v = VIDEOS[k];
+    document.querySelectorAll('.chapters[data-for]').forEach((l) => { l.hidden = l.dataset.for !== k; });
+    btns = [...document.querySelectorAll(`.chapters[data-for="${k}"] button`)];
+    btns.forEach((b, i) => b.classList.toggle('on', i === 0));
+    document.querySelectorAll('#vidpick button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === k)));
+    document.getElementById('vidtitle').textContent = v.title;
+    document.getElementById('vidlede').textContent = v.lede;
+    if (!vid.src.endsWith(v.src)) { vid.pause(); vid.poster = v.poster; vid.src = v.src; vid.load(); }
+  };
+  document.querySelectorAll('#vidpick button').forEach((b) => b.addEventListener('click', () => show(b.dataset.v)));
   vid.addEventListener('timeupdate', () => {
     let on = 0;
     btns.forEach((b, i) => { if (vid.currentTime + 0.05 >= Number(b.dataset.t)) on = i; });
     btns.forEach((b, i) => b.classList.toggle('on', i === on));
   });
-  btns[0].classList.add('on');
+  show('c');
 })();
 
 // Reference tabs and compare sliders
