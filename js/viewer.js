@@ -8,7 +8,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 const MODELS = {
   c: { url: 'models/courtyard-house.glb', caption: 'Courtyard house · two floors · read from its DWG' },
   // Fallingwater's floors are cantilevered trays, not named slabs: its bands start at the trays' undersides (m)
-  f: { url: 'models/fallingwater.glb', caption: 'Fallingwater · study model from the HABS survey drawings', levels: [2.3, 4.75, 7.25] },
+  f: { url: 'models/fallingwater.glb', caption: 'Fallingwater · study model from the HABS survey drawings', levels: [2.3, 4.75, 7.25], view: [-0.8, 0.42, 1.25] },
 };
 const canvas = document.getElementById('three');
 const stage = canvas.parentElement;
@@ -143,7 +143,8 @@ async function load(key) {
   controls.target.copy(centre).setY(box.min.y + size.y * 0.35);
   // Further back when the stage is narrow
   const k = Math.max(1, 1.22 / Math.max(0.5, camera.aspect));
-  camera.position.set(centre.x - span * 0.95 * k, box.min.y + span * 0.72 * k, centre.z + span * 1.05 * k);
+  const [vx, vy, vz] = MODELS[key].view ?? [-0.95, 0.72, 1.05];
+  camera.position.set(centre.x + span * vx * k, box.min.y + span * vy * k, centre.z + span * vz * k);
   camera.near = span / 200; camera.far = span * 30; camera.updateProjectionMatrix();
   controls.minDistance = span * 0.25; controls.maxDistance = span * 4;
   // The shadow catcher sits under everything, the site included
