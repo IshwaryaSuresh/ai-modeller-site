@@ -316,7 +316,7 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
         <div class="loading" id="loading">Loading the model…</div>
         <div class="bar">
           <div class="seg" role="group" aria-label="Model">
-            <button data-model="c" aria-pressed="true">Courtyard house</button>
+            <button data-model="h" aria-pressed="true">Farnsworth House</button>
             <button data-model="f" aria-pressed="false">Fallingwater</button>
           </div>
           <div class="seg" role="group" aria-label="Look">
@@ -328,7 +328,7 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
           </div>
         </div>
         <div class="tip" id="tip"></div>
-                <div class="caption"><span id="stagecap">Courtyard house · two floors · read from its DWG</span><small>Drag to orbit · scroll to zoom · point at any part to see what it is</small></div>
+                <div class="caption"><span id="stagecap">Farnsworth House · study model from the HABS survey drawings</span><small>Drag to orbit · scroll to zoom · point at any part to see what it is</small></div>
       </div>
     </div>
     <div class="stats reveal">
@@ -544,16 +544,17 @@ footer .ta { font-family: var(--serif); color: var(--accent-soft); }
 <section class="alt" id="drawings">
   <div class="wrap">
     <h2 class="reveal">Working drawings, drawn from the model</h2>
-    <p class="lede reveal">The courtyard house's set, as Idam writes it to DWG: both floor plans, four elevations, two sections and the schedules. Sections are cut through the 3D model, so what is cut is solid and hatched by material, and what lies beyond shows only the lines you would see. Foundations, plinth beams, lintels and parapets come from one request in the chat. Drag to pan, and zoom in to check the line work.</p>
+    <p class="lede reveal">Mies van der Rohe's Farnsworth House, modelled from the U.S. survey's measured drawings and drawn by Idam: plans, four elevations, two sections, a 1:20 wall section and the schedules, with the column grid, running dimensions and notes. Sections are cut through the 3D model, so what is cut is solid and hatched by material, and what lies beyond shows only the lines you would see. Drag to pan, and zoom in to check the line work.</p>
     <div class="reveal" style="margin-top:34px">
-      <div class="sheet loading" id="sheet" data-src="drawings/courtyard-house.svg" data-open="SECTION A-A" data-label="Working drawings exported by Idam for the courtyard house: plans, elevations, sections and schedules">
+      <div class="sheet loading" id="sheet" data-src="drawings/farnsworth.svg" data-open="SECTION A-A" data-label="Working drawings drawn by Idam for the Farnsworth House study model: plans, elevations, sections, a wall section and schedules">
         <div class="bar">
           <div class="seg" role="group" aria-label="Drawing" style="pointer-events:auto"></div>
-          <span class="file">Courtyard-House.dwg · AutoCAD 2000 · mm</span>
+          <span class="file">Farnsworth House study model · DWG · mm</span>
         </div>
         <div class="zoom"><button class="zin" aria-label="Zoom in">+</button><button class="zout" aria-label="Zoom out">−</button></div>
       </div>
     </div>
+    <p class="credit reveal">A study model built from the Historic American Buildings Survey drawings HABS IL-1105 (Library of Congress, Prints &amp; Photographs Division), measured and drawn in 2009 for the National Trust for Historic Preservation. These are not Mies van der Rohe's drawings, and the model is not affiliated with or endorsed by the National Trust or the Farnsworth House.</p>
     <div class="caps" style="margin-top:28px">
       <div class="card reveal"><h3>Cut, not drawn</h3><p>Concrete solid, brick hatched, stone cross-hatched, fill dotted, earth below the ground line. Line weights step back with depth, as on a hand-drawn sheet.</p></div>
       <div class="card reveal"><h3>Change once</h3><p>Raise the plinth and export again. Every sheet follows, levels and dimension chains included, because nothing is drawn by hand.</p></div>

@@ -6,7 +6,8 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const MODELS = {
-  c: { url: 'models/courtyard-house.glb', caption: 'Courtyard house · two floors · read from its DWG' },
+  // Farnsworth's bands: the main floor's plane and the roof's (m above the lower terrace)
+  h: { url: 'models/farnsworth.glb', caption: 'Farnsworth House · study model from the HABS survey drawings', levels: [0.33, 3.7], view: [-0.85, 0.55, 1.15] },
   // Fallingwater's floors are cantilevered trays, not named slabs: its bands start at the trays' undersides (m)
   f: { url: 'models/fallingwater.glb', caption: 'Fallingwater · study model from the HABS survey drawings', levels: [2.3, 4.75, 7.25], view: [-0.8, 0.42, 1.25] },
 };
@@ -56,7 +57,7 @@ const glass = new THREE.MeshPhysicalMaterial({ color: 0xbfd6dc, roughness: 0.05,
 const hover = new THREE.MeshStandardMaterial({ color: 0xe08a55, roughness: 0.6, emissive: 0x6b2a08, emissiveIntensity: 0.25 });
 const edgeMat = new THREE.LineBasicMaterial({ color: 0x2a2f2b, transparent: true, opacity: 0.42 });
 
-let root = null, parts = [], look = 'clay', exploded = false, lift = 0, liftTarget = 0, bands = 1, gap = 3, current = 'c';
+let root = null, parts = [], look = 'clay', exploded = false, lift = 0, liftTarget = 0, bands = 1, gap = 3, current = 'h';
 const loader = new GLTFLoader();
 const cache = {};
 
@@ -105,7 +106,7 @@ async function load(key) {
       const m = Array.isArray(o.material) ? o.material[0] : o.material;
       const n = nameOf(o).toLowerCase();
       o.userData.glass = (m.transparent && m.opacity < 0.9) || /glass/.test(n);
-      o.userData.site = /^site\b|lawn|terrain|bear run/.test(n);
+      o.userData.site = /^site\b|lawn|terrain|bear run|meadow/.test(n);
       if (!o.userData.glass && !o.userData.site && o.geometry.attributes.position.count < 60000) {
         const e = new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 28), edgeMat);
         e.raycast = () => {};
@@ -254,5 +255,5 @@ renderer.setAnimationLoop(() => {
 });
 
 resize();
-load('c').catch((err) => { loading.textContent = 'The model could not load here.'; console.error(err); });
+load('h').catch((err) => { loading.textContent = 'The model could not load here.'; console.error(err); });
 window.__idam = { renderer, scene, camera, controls, setLook, setExplode, load };
