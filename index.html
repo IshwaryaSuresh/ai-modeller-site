@@ -301,7 +301,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 <section class="film" id="session">
   <div class="wrap">
     <h2 class="reveal">The whole flow, recorded as it happened</h2>
-    <p class="lede reveal">No mock-ups. A studio's drawing file in, three floors in under a minute, a wall changed from a sketch, a deck asked for in words, then the DWG out. The assistant's thinking time is shown fast, with the real time on screen.</p>
+    <p class="lede reveal">No mock-ups. A studio's drawing file in, three floors in under a minute, a stair wall changed from the architect's sketch, then the DWG out. The assistant's thinking time is shown fast, with the real time on screen.</p>
     <div class="player reveal"><video controls preload="metadata" poster="media/first-hour-poster.jpg"><source src="media/first-hour.mp4" type="video/mp4"></video></div>
   </div>
 </section>
@@ -340,15 +340,15 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
     <p class="sheet-note">Exported from Idam as it stands. Drag to turn, scroll to zoom, point at anything to see what it is.</p>
 
     <h3 class="sub-h reveal">Change it by showing or saying</h3>
-    <p class="lede reveal">Drag across each picture. On the left, the architect pointed at a stair wall and attached a sketch; Idam's assistant asked one question, then built three arched windows at the sketch's sizes. On the right, three plain requests turned a narrow flight of steps into a level walk to the water.</p>
+    <p class="lede reveal">Drag across each picture. On the left, the architect pointed at a stair wall and attached a sketch; Idam's assistant asked one question, then built three arched windows at the sketch's sizes. On the right, a living room built from a reference picture.</p>
     <div class="ba-grid">
       <div class="reveal">
         <div class="ba"><img src="img/ref-sketch.jpg" alt="The architect's sketch of the stair wall"><img class="after" src="img/ref-model.jpg" alt="The stair wall in the model"><div class="bar"></div><span class="lab l">The sketch</span><span class="lab r">The model</span></div>
         <p class="ba-cap"><b>Architecture layer: a sketch of the stair wall.</b> Exposed brick, three arched windows 600 wide, 300 from the side walls, 450 over each landing. The assistant asked what the sketch can't say, then placed them to the millimetre.</p>
       </div>
       <div class="reveal">
-        <div class="ba"><img src="img/walk-before.jpg" alt="Before: steps down from the dining door"><img class="after" src="img/walk-after.jpg" alt="After: a level deck to the lily pond"><div class="bar"></div><span class="lab l">Before</span><span class="lab r">After</span></div>
-        <p class="ba-cap"><b>Landscape layer, in words:</b> "a granite deck level with the dining floor, out to the pond's edge", "broad steps to the lawn", "a rail of rods". No step from the dining room to the water.</p>
+        <div class="ba"><img src="img/ref-sofa.jpg" alt="The reference picture of a living room"><img class="after" src="img/model-sofa.jpg" alt="The living room built in the model"><div class="bar"></div><span class="lab l">The reference</span><span class="lab r">The model</span></div>
+        <p class="ba-cap"><b>Interiors layer: a living room from a picture.</b> The seating, the niche shelves, the paper lantern and the accent panel, built to the room's own walls at their sizes.</p>
       </div>
     </div>
   </div>
@@ -357,26 +357,25 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 <section class="stage-sec" id="drawings">
   <div class="wrap">
     <div class="stage-head"><h2 class="reveal"><span class="num">2</span>Drawings</h2></div>
-    <p class="lede reveal">Plans, elevations and sections generated from the model, never redrawn: change the model and every sheet follows. Written to DWG with every layer at its pen; what you see here is that DWG, read back line for line. Click to zoom; drag to look around.</p>
+    <p class="lede reveal">Plans, elevations and sections generated from the model, never redrawn: change the model and every sheet follows. Written to DWG with every layer at its pen.</p>
     <div class="layer-tabs" data-stage="drawings"><button data-layer="arch" aria-pressed="true">Architecture</button><button data-layer="struct" aria-pressed="false">Structure</button><button data-layer="services" aria-pressed="false">Services</button><button data-layer="int" aria-pressed="false">Interiors</button><button data-layer="land" aria-pressed="false">Landscape</button></div>
     <div class="layer-panel on" data-stage="drawings" data-layer="arch"><p>Elevations in depth, nearer planes heavier; true cut sections with the cut solid; plans cut at sill height. <span class="st today">Today</span></p></div>
     <div class="layer-panel" data-stage="drawings" data-layer="struct"><p>The grid and the column positions on every plan, elevation and section. <span class="st today">Today</span></p></div>
-    <div class="layer-panel" data-stage="drawings" data-layer="services"><p>Electrical and plumbing layouts drawn over the plans. <span class="st next">Next</span></p></div>
+    <div class="layer-panel" data-stage="drawings" data-layer="services"><p>Lighting and wiring, switches and power, and plumbing layouts, drawn over the plan with their legends. <span class="st today">Today</span></p><p class="later">Services held in the model itself, so they move with the walls: next.</p></div>
     <div class="layer-panel" data-stage="drawings" data-layer="int"><p>Furniture, fittings and floor finishes on the plans; rooms named and sized. <span class="st today">Today</span></p><p class="later">An elevation of every wall and the false-ceiling plan: next.</p></div>
-    <div class="layer-panel" data-stage="drawings" data-layer="land"><p>The ground in every elevation and section, rock and earth hatched; levels and steps on the plans. <span class="st today">Today</span></p><p class="later">The landscape plan (paving, planting, site levels): next.</p></div>
+    <div class="layer-panel" data-stage="drawings" data-layer="land"><p>The master plan: arrival, gardens, water, lawns and parking, keyed and measured. <span class="st today">Today</span></p></div>
     <div class="sheets reveal">
       <div class="sheet-tabs">
-        <button data-sheet="drawings/sheet-fw-south.jpg" data-layers="arch" aria-pressed="true">Fallingwater · south elevation</button>
-        <button data-sheet="drawings/sheet-fw-section.jpg" data-layers="arch struct land" aria-pressed="false">Fallingwater · section A-A</button>
-        <button data-sheet="drawings/sheet-fw-west.jpg" data-layers="arch land" aria-pressed="false">Fallingwater · west elevation</button>
-        <button data-sheet="drawings/sheet-fn-south.jpg" data-layers="arch struct land" aria-pressed="false">Farnsworth · south elevation</button>
-        <button data-sheet="drawings/sheet-fn-section.jpg" data-layers="arch struct" aria-pressed="false">Farnsworth · section A-A</button>
-        <button data-sheet="drawings/sheet-plan.jpg" data-layers="int struct" aria-pressed="false">A family house · ground floor plan</button>
+        <button data-sheet="drawings/sheet-fh-north.jpg" data-layers="arch struct" aria-pressed="true">A family house · front elevation</button>
+        <button data-sheet="drawings/sheet-hall-masterplan.jpg" data-layers="arch land" aria-pressed="false">A banquet hall · master plan</button>
+        <button data-sheet="drawings/sheet-apt-lighting.jpg" data-layers="services int" aria-pressed="false">An apartment · lighting and wiring</button>
+        <button data-sheet="drawings/sheet-apt-power.jpg" data-layers="services int" aria-pressed="false">An apartment · switches and power</button>
+        <button data-sheet="drawings/sheet-apt-plumbing.jpg" data-layers="services" aria-pressed="false">An apartment · plumbing layout</button>
         <button data-sheet="drawings/sheet-xx.jpg" data-layers="arch" aria-pressed="false">A family house · stair section</button>
       </div>
-      <div class="sheet-view"><img src="drawings/sheet-fw-south.jpg" alt="A drawing from the model"></div>
+      <div class="sheet-view"><img src="drawings/sheet-fh-north.jpg" alt="A drawing"></div>
       <div class="sheet-empty">Not in the set yet: this layer's drawings are next.</div>
-      <p class="sheet-note">Fallingwater and the Farnsworth House are study models from the HABS survey drawings, not the architects' own drawings.</p>
+      <p class="sheet-note">Drawn with Claude, the AI behind Idam's assistant, for practising studios' projects: a banquet hall, an apartment and a family house. Firm, client and place names removed. Click to zoom; drag to look around.</p>
     </div>
   </div>
 </section>
@@ -388,20 +387,20 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
     <div class="layer-tabs" data-stage="working"><button data-layer="arch" aria-pressed="true">Architecture</button><button data-layer="struct" aria-pressed="false">Structure</button><button data-layer="services" aria-pressed="false">Services</button><button data-layer="int" aria-pressed="false">Interiors</button><button data-layer="land" aria-pressed="false">Landscape</button></div>
     <div class="layer-panel on" data-stage="working" data-layer="arch"><p>Dimensioned plans on their grid, levels on every floor, wall sections at 1:20, door and window schedules. <span class="st today">Today</span></p><p class="later">Gate and compound wall details: next.</p></div>
     <div class="layer-panel" data-stage="working" data-layer="struct"><p>Column and beam positions dimensioned to the grid, for the structural engineer to size. <span class="st today">Today</span></p></div>
-    <div class="layer-panel" data-stage="working" data-layer="services"><p>Electrical and plumbing working layouts, with points dimensioned from the walls. <span class="st next">Next</span></p></div>
-    <div class="layer-panel" data-stage="working" data-layer="int"><p>Room schedules with floor areas, quantities by material. <span class="st today">Today</span></p><p class="later">Dimensioned wall elevations with the panelling and joinery, false-ceiling plans, flooring layouts and joinery details: next.</p></div>
-    <div class="layer-panel" data-stage="working" data-layer="land"><p>Levels, steps and terraces dimensioned on the plans. <span class="st today">Today</span></p><p class="later">Paving, planting and site-levels working sheets: next.</p></div>
+    <div class="layer-panel" data-stage="working" data-layer="services"><p>Lighting setting-out, and toilet part plans at 1:25 with their elevations, every point dimensioned from the walls. <span class="st today">Today</span></p></div>
+    <div class="layer-panel" data-stage="working" data-layer="int"><p>Toilet part plans and wall elevations with every fitting placed; room schedules with floor areas. <span class="st today">Today</span></p><p class="later">Feature-wall elevations with the panelling and joinery, false-ceiling plans and flooring layouts: next.</p></div>
+    <div class="layer-panel" data-stage="working" data-layer="land"><p>A site laid out to the boundary: garden walks, paving, water and planting dimensioned to a grid. <span class="st today">Today</span></p></div>
     <div class="sheets reveal">
       <div class="sheet-tabs">
-        <button data-sheet="drawings/sheet-fw-plans.jpg" data-layers="arch struct land" aria-pressed="true">Fallingwater · dimensioned plans</button>
-        <button data-sheet="drawings/sheet-fw-detail.jpg" data-layers="arch int" aria-pressed="false">Fallingwater · wall section 1:20, schedules</button>
-        <button data-sheet="drawings/sheet-fn-plans.jpg" data-layers="arch struct land" aria-pressed="false">Farnsworth · dimensioned plans</button>
-        <button data-sheet="drawings/sheet-fn-detail.jpg" data-layers="arch int" aria-pressed="false">Farnsworth · wall section 1:20, schedules</button>
+        <button data-sheet="drawings/sheet-hall-dimensioned.jpg" data-layers="arch land struct" aria-pressed="true">A banquet hall · dimensioned site layout</button>
+        <button data-sheet="drawings/sheet-apt-setting-out.jpg" data-layers="services int" aria-pressed="false">An apartment · lighting setting-out plan</button>
+        <button data-sheet="drawings/sheet-apt-toilet-1.jpg" data-layers="services int arch" aria-pressed="false">An apartment · toilet part plan and elevations</button>
+        <button data-sheet="drawings/sheet-apt-toilet-2.jpg" data-layers="services int" aria-pressed="false">An apartment · a second toilet</button>
         <button data-sheet="drawings/sheet-plan.jpg" data-layers="arch struct int" aria-pressed="false">A family house · ground floor working plan</button>
       </div>
-      <div class="sheet-view"><img src="drawings/sheet-fw-plans.jpg" alt="A working drawing"></div>
+      <div class="sheet-view"><img src="drawings/sheet-hall-dimensioned.jpg" alt="A drawing"></div>
       <div class="sheet-empty">Not in the set yet: this layer's working drawings are next.</div>
-      <p class="sheet-note">Each read back from the DWG Idam wrote. Cut 0.60 · cut, thin 0.30 · seen 0.25 · far and steel 0.15 · hatch 0.09 (mm, at 1:50).</p>
+      <p class="sheet-note">Drawn with Claude, the AI behind Idam's assistant, for practising studios' projects: a banquet hall, an apartment and a family house. Firm, client and place names removed. Dimensioned in feet and inches, as the studios work.</p>
     </div>
   </div>
 </section>
