@@ -9,6 +9,8 @@ const MODELS = {
   // Farnsworth's bands: the main floor's plane and the roof's (m above the lower terrace)
   h: { url: 'models/farnsworth.glb', caption: 'Farnsworth House · study model from the HABS survey drawings', levels: [0.33, 3.7], view: [-0.85, 0.55, 1.15] },
   // Fallingwater's floors are cantilevered trays, not named slabs: its bands start at the trays' undersides (m)
+  // A practising studio's three-storey family house (client and place kept anonymous)
+  t: { url: 'models/residence.glb', caption: 'A family house · built in Idam from the studio’s DWG', view: [-0.55, 0.5, -1.2] },
   f: { url: 'models/fallingwater.glb', caption: 'Fallingwater · study model from the HABS survey drawings', levels: [2.3, 4.75, 7.25], view: [-0.8, 0.42, 1.25] },
 };
 const canvas = document.getElementById('three');
@@ -57,7 +59,7 @@ const glass = new THREE.MeshPhysicalMaterial({ color: 0xbfd6dc, roughness: 0.05,
 const hover = new THREE.MeshStandardMaterial({ color: 0xe08a55, roughness: 0.6, emissive: 0x6b2a08, emissiveIntensity: 0.25 });
 const edgeMat = new THREE.LineBasicMaterial({ color: 0x2a2f2b, transparent: true, opacity: 0.42 });
 
-let root = null, parts = [], look = 'clay', exploded = false, lift = 0, liftTarget = 0, bands = 1, gap = 3, current = 'h';
+let root = null, parts = [], look = 'mat', exploded = false, lift = 0, liftTarget = 0, bands = 1, gap = 3, current = 'f';
 const loader = new GLTFLoader();
 const cache = {};
 
@@ -255,5 +257,5 @@ renderer.setAnimationLoop(() => {
 });
 
 resize();
-load('h').catch((err) => { loading.textContent = 'The model could not load here.'; console.error(err); });
+load(document.querySelector('[data-model][aria-pressed="true"]')?.dataset.model ?? 't').catch((err) => { loading.textContent = 'The model could not load here.'; console.error(err); });
 window.__idam = { renderer, scene, camera, controls, setLook, setExplode, load };

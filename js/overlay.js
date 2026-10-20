@@ -13,7 +13,7 @@
     host.insertAdjacentHTML('afterbegin', text);
     svg = host.querySelector('svg');
     svg.setAttribute('role', 'img');
-    svg.setAttribute('aria-label', `The ${floor === 'gf' ? 'ground' : 'first'} floor plan: the architect's lines in grey with Idam's exported lines in orange on top`);
+    svg.setAttribute('aria-label', `The ${{ gf: 'ground floor', ff: 'first floor', sf: 'terrace' }[floor]} plan: the architect's lines in grey with Idam's exported lines in orange on top`);
     svg.querySelectorAll('path').forEach((p) => p.setAttribute('vector-effect', 'non-scaling-stroke'));
     home = svg.getAttribute('viewBox').split(' ').map(Number);
     setVB(home);
