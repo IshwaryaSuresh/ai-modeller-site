@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Idam</title>
-<meta name="description" content="Idam reads your DWG like an architect, builds the model, lets you change any spot with a picture or a sentence, and writes the working drawings back as DWG. For architecture, interiors and landscape.">
-<meta property="og:title" content="Idam: DWG in. A model you can walk. DWG out.">
-<meta property="og:description" content="Design software for architecture, interior and landscape practices. Built in Chennai by a practising architect.">
+<meta name="description" content="Idam takes a project from model to drawings to working drawings in one flow: bring in a plan, it builds a model where every element knows what it is, draws its plans, elevations and sections, and produces the dimensioned construction set as DWG.">
+<meta property="og:title" content="Idam: Model, drawings, working drawings. One flow.">
+<meta property="og:description" content="From the model to the construction set, in one flow. Built in Chennai by a practising architect.">
 <meta property="og:image" content="https://ishwaryasuresh.github.io/ai-modeller-site/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +110,7 @@ nav.top .btn { padding: 9px 16px; font-size: 14px; }
 .step b { display: block; color: var(--on-dark); font-size: 15px; margin-bottom: 2px; }
 @media (max-width: 900px) { .steps { grid-template-columns: 1fr 1fr; } }
 
-/* workflows */
+/* (old discipline cards, unused) */
 .flows { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 48px; }
 .flow { background: var(--card); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
 .flow img { aspect-ratio: 4/3; object-fit: cover; width: 100%; }
@@ -171,6 +171,53 @@ nav.top .btn { padding: 9px 16px; font-size: 14px; }
 .study-head p { margin: 0; color: var(--muted); font-size: 14px; max-width: 60ch; }
 @media (max-width: 900px) { .study { grid-template-columns: 1fr; } }
 
+
+/* the flow: model, drawings, working drawings */
+.stages { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 14px; align-items: stretch; margin-top: 48px; }
+.stage-card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; text-decoration: none; color: var(--ink); display: flex; flex-direction: column; transition: transform .2s, border-color .2s; }
+.stage-card:hover { transform: translateY(-4px); border-color: var(--accent-2); }
+.stage-card img { aspect-ratio: 4/3; object-fit: cover; width: 100%; background: #fff; }
+.stage-card .body { padding: 20px 22px 24px; }
+.stage-card .k { font: 400 40px/1 var(--serif); color: var(--accent); }
+.stage-card h3 { font: 400 26px/1.2 var(--serif); margin: 8px 0 8px; }
+.stage-card p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.arrow { align-self: center; font: 400 34px/1 var(--serif); color: var(--accent); }
+@media (max-width: 960px) { .stages { grid-template-columns: 1fr; } .arrow { justify-self: center; transform: rotate(90deg); } }
+.layers-explain { margin-top: 70px; }
+.layers-explain h3 { font: 400 clamp(24px, 3vw, 34px)/1.2 var(--serif); margin: 0 0 10px; }
+.layer-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-top: 26px; border-top: 1px solid var(--line); }
+.layer-grid div { padding: 18px 18px 6px 0; border-bottom: 1px solid var(--line); }
+.layer-grid b { display: block; font-size: 16px; margin-bottom: 4px; }
+.layer-grid span { color: var(--ink-2); font-size: 14.5px; }
+@media (max-width: 960px) { .layer-grid { grid-template-columns: 1fr 1fr; } }
+.wall-split { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 30px; }
+.wall-split article { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px 26px; }
+.wall-split h4 { font: 400 22px/1.25 var(--serif); margin: 0 0 10px; }
+.wall-split p { color: var(--ink-2); margin: 0; font-size: 15.5px; }
+@media (max-width: 860px) { .wall-split { grid-template-columns: 1fr; } }
+
+/* a stage section */
+.stage-head h2 .num { font-family: var(--serif); color: var(--accent); margin-right: 14px; }
+.inputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+.inputs article { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; }
+.inputs p { margin: 6px 0 0; color: var(--ink-2); font-size: 15px; }
+@media (max-width: 900px) { .inputs { grid-template-columns: 1fr; } }
+.st { display: inline-block; font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-left: 8px; vertical-align: 2px; }
+.st.today { background: color-mix(in srgb, #2f7a4a 16%, transparent); color: #2f7a4a; }
+.st.next { background: color-mix(in srgb, var(--accent-2) 16%, transparent); color: var(--accent); }
+.layer-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 34px; border-bottom: 1px solid var(--line); }
+.layer-tabs button { border: 0; background: none; padding: 12px 16px; cursor: pointer; font-weight: 600; font-size: 15.5px; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.layer-tabs button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--accent-2); }
+.layer-panel { display: none; padding: 20px 0 6px; max-width: 78ch; }
+.layer-panel.on { display: block; }
+.layer-panel p { color: var(--ink-2); }
+.layer-panel .later { color: var(--muted); font-size: 15px; }
+.sheet-empty { display: none; margin-top: 16px; border: 1px dashed var(--line); border-radius: 18px; padding: 60px 28px; text-align: center; color: var(--muted); }
+.sheets.empty .sheet-view, .sheets.empty .sheet-tabs { display: none; }
+.sheets.empty .sheet-empty { display: block; }
+.sheet-tabs button[hidden] { display: none; }
+.sub-h { font: 400 clamp(24px, 3vw, 34px)/1.2 var(--serif); margin: 80px 0 0; }
+
 /* close */
 .close { background: var(--dark); color: var(--on-dark); text-align: left; }
 .close h2 { color: var(--on-dark); font-size: clamp(36px, 5.4vw, 72px); max-width: 16ch; }
@@ -191,11 +238,9 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
   <div class="wrap">
     <a class="brand" href="#">Idam</a>
     <div class="links">
-      <a href="#session">A real session</a>
-      <a href="#how">How it works</a>
-      <a href="#workflows">Workflows</a>
-      <a href="#model">The model</a>
+      <a href="#model">Model</a>
       <a href="#drawings">Drawings</a>
+      <a href="#working">Working drawings</a>
       <a href="#studies">Studies</a>
       <a class="btn solid" href="#" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film</a>
     </div>
@@ -205,14 +250,44 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 <header class="hero">
   <video autoplay muted loop playsinline poster="media/hero-poster.jpg"><source src="media/hero-loop.mp4" type="video/mp4"></video>
   <div class="wrap">
-    <h1 class="reveal">DWG in. A model you can walk. <i>DWG out.</i></h1>
-    <p class="lede reveal">Idam reads your drawings the way an architect does, builds the model, lets you change any spot with a picture or a sentence, and writes the working drawings back as DWG. For architecture, interiors and landscape.</p>
+    <h1 class="reveal">Model. Drawings. <i>Working drawings.</i></h1>
+    <p class="lede reveal">One flow, one model. Bring in what you have and Idam reads it into a model where every element knows what it is, draws its plans, elevations and sections, and produces the dimensioned construction set from the same model, as DWG.</p>
     <div class="cta reveal">
       <a class="btn solid" href="#" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film · 1:42</a>
-      <a class="btn ghost" href="#how">See how it works</a>
+      <a class="btn ghost" href="#flow">See the flow</a>
     </div>
   </div>
 </header>
+
+<section id="flow">
+  <div class="wrap">
+    <h2 class="reveal">One model, three stages</h2>
+    <p class="lede reveal">Each stage is drawn from the one before it. Change the model and the drawings and the working set follow: nothing is redrawn.</p>
+    <div class="stages">
+      <a class="stage-card reveal" href="#model"><img src="img/work-arch.jpg" alt="Fallingwater as a model in Idam" loading="lazy"><div class="body"><div class="k">1</div><h3>Model</h3><p>Bring in a plan, a SketchUp model or a render. Idam reads it into an accurate, editable model: every wall, opening, plinth, sill, lintel, column and beam knows what it is.</p></div></a>
+      <div class="arrow" aria-hidden="true">→</div>
+      <a class="stage-card reveal" href="#drawings"><img src="img/flow-fw-dwg.jpg" alt="Fallingwater's south elevation, drawn by Idam" loading="lazy"><div class="body"><div class="k">2</div><h3>Drawings</h3><p>Plans, elevations and sections generated from the model, with every layer at its pen.</p></div></a>
+      <div class="arrow" aria-hidden="true">→</div>
+      <a class="stage-card reveal" href="#working"><img src="img/flow-working.jpg" alt="A wall section at 1:20 and a room schedule" loading="lazy"><div class="body"><div class="k">3</div><h3>Working drawings</h3><p>Dimensioned, construction-ready (GFC) sets, produced automatically from the same model.</p></div></a>
+    </div>
+
+    <div class="layers-explain reveal">
+      <h3>Disciplines are layers that run through every stage</h3>
+      <p class="lede" style="margin-top:6px">Not separate products: one model carries them all, and each stage shows them as layers you switch on.</p>
+      <div class="layer-grid">
+        <div><b>Architecture</b><span>The building's fabric</span></div>
+        <div><b>Structure</b><span>Positions only: columns, beams, grids</span></div>
+        <div><b>Services</b><span>Electrical and plumbing points</span></div>
+        <div><b>Interiors</b><span>Surfaces, joinery, ceilings, floors</span></div>
+        <div><b>Landscape</b><span>The ground and what is on it</span></div>
+      </div>
+      <div class="wall-split">
+        <article><h4>Architecture: the wall as built fabric</h4><p>Masonry and its thickness, the openings in it, the plinth, sill and lintel levels, the gate and the compound wall.</p></article>
+        <article><h4>Interiors: the wall as a designed surface</h4><p>Feature walls (the TV wall, the living room's accent wall, the bed's back wall), panelling, cladding, joinery, wall elevations, the false ceiling and the flooring pattern.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div class="proof">
   <div class="wrap grid">
@@ -225,85 +300,27 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 
 <section class="film" id="session">
   <div class="wrap">
-    <h2 class="reveal">The first hour on a project, recorded as it happened</h2>
-    <p class="lede reveal">No mock-ups. The studio's drawing file in, three floors in under a minute, a wall changed from a sketch, a deck to the lily pond asked for in words, then the DWG out. The assistant's thinking time is shown fast, with the real time on screen.</p>
+    <h2 class="reveal">The whole flow, recorded as it happened</h2>
+    <p class="lede reveal">No mock-ups. A studio's drawing file in, three floors in under a minute, a wall changed from a sketch, a deck asked for in words, then the DWG out. The assistant's thinking time is shown fast, with the real time on screen.</p>
     <div class="player reveal"><video controls preload="metadata" poster="media/first-hour-poster.jpg"><source src="media/first-hour.mp4" type="video/mp4"></video></div>
   </div>
 </section>
 
-<section class="film" id="how">
+<section class="spin stage-sec" id="model">
   <div class="wrap">
-    <h2 class="reveal">How Idam works, on three buildings</h2>
-    <p class="lede reveal">Fallingwater and the Farnsworth House from the U.S. government's survey drawings, then a practising studio's house from its own DWG. Pick a chapter to jump to it.</p>
-    <div class="player reveal"><video id="how-video" controls preload="metadata" poster="media/how-it-works-poster.jpg"><source src="media/how-it-works.mp4" type="video/mp4"></video></div>
-    <div class="steps">
-      <button class="step reveal" data-t="3.5"><img src="img/fw-habs-south.jpg" alt="The survey's south elevation of Fallingwater" loading="lazy"><div><b>1 · The survey</b>Fallingwater, HABS</div></button>
-      <button class="step reveal" data-t="10.6"><img src="img/work-arch.jpg" alt="The study model" loading="lazy"><div><b>2 · The model</b>Walk it, all the way round</div></button>
-      <button class="step reveal" data-t="32.3"><img src="img/flow-fw-dwg.jpg" alt="Fallingwater's south elevation as DWG" loading="lazy"><div><b>3 · DWG out</b>Elevations in depth</div></button>
-      <button class="step reveal" data-t="42.3"><img src="img/fn-model.jpg" alt="The Farnsworth House model" loading="lazy"><div><b>4 · Farnsworth</b>From one survey plan</div></button>
-      <button class="step reveal" data-t="65.6"><img src="img/flow-edit.jpg" alt="A sketch of a stair wall" loading="lazy"><div><b>5 · A studio's DWG</b>Edited by sketch and word</div></button>
+    <div class="stage-head"><h2 class="reveal"><span class="num">1</span>Model</h2></div>
+    <p class="lede reveal">Bring in a plan, a SketchUp model or a render. Idam reads it into an accurate, editable model where every element knows what it is: wall, opening, plinth, sill, lintel, column, beam.</p>
+    <div class="inputs reveal">
+      <article><h3>A plan <span class="st today">Today</span></h3><p>DWG, DXF, a PDF set or a photo of a sketch. A studio's three floors read in under a minute; what the reader is unsure of, it asks before it builds.</p></article>
+      <article><h3>A SketchUp model <span class="st next">Next</span></h3><p>Brought across as walls, floors and openings you can edit. Today a model from anywhere comes in as a .glb piece you can place and move.</p></article>
+      <article><h3>A render <span class="st today">Today, by spot</span></h3><p>Point at a wall and show it a render or a photo: its windows, jali or cladding are built there, at size. A whole building read from a render is next.</p></article>
     </div>
-  </div>
-</section>
-
-<section id="workflows">
-  <div class="wrap">
-    <h2 class="reveal">Three practices, one way of working</h2>
-    <p class="lede reveal">Start from the drawing you already have. Change the model where it matters, by showing it a reference or saying what you want, and the drawings follow: one change in the model is one change in every sheet.</p>
-    <div class="flows">
-      <article class="flow reveal">
-        <img src="img/work-arch.jpg" alt="Fallingwater, from downstream, in Idam" loading="lazy">
-        <div class="body">
-          <h3>Architecture</h3>
-          <ol><li>Your DWG in: plans, levels, the staircase drawing</li><li>The model, floor by floor, checked against the drawing</li><li>Facades and structure edited with pictures: windows, jalis, roofs, rails</li><li>Plans, elevations and sections out as DWG</li></ol>
-          <div class="now"><b>Working today</b>, on a practising studio's house and on Fallingwater from its survey.</div>
-        </div>
-      </article>
-      <article class="flow reveal">
-        <img src="img/work-int.jpg" alt="A living room built in Idam from a reference picture" loading="lazy">
-        <div class="body">
-          <h3>Interiors</h3>
-          <ol><li>The plan in, rooms and openings found</li><li>Point at a room or a wall, show it a reference</li><li>Wardrobes, TV walls, pooja units, ceilings built to it</li><li>Renders from the same model</li></ol>
-          <div class="now"><b>Working today:</b> the model and the reference edits. Interior sheets (elevations, ceiling plans) are next.</div>
-        </div>
-      </article>
-      <article class="flow reveal">
-        <img src="img/work-land.jpg" alt="Fallingwater on its stream and hillside, in Idam" loading="lazy">
-        <div class="body">
-          <h3>Landscape</h3>
-          <ol><li>The site from the drawing: boundary, contours, levels, steps</li><li>Water, rock, paving and decks by reference</li><li>Step-free routes checked as you go</li><li>The ground in every elevation and section</li></ol>
-          <div class="now"><b>Working today:</b> the site, water and decks. Planting and landscape sheets are next.</div>
-        </div>
-      </article>
-    </div>
-    <div class="skp reveal">
-      <div><h3>Starting from a SketchUp model?</h3><p>Some institutions begin with a model, not a drawing. Bringing a SketchUp model across as walls, floors and openings you can edit, and drawing it out as DWG, is the next thing being built.</p></div>
-      <p><b>In build.</b> Today a model from anywhere comes in as a .glb piece you can place and move.</p>
-    </div>
-  </div>
-</section>
-
-<section id="edits" style="background: var(--paper-2)">
-  <div class="wrap">
-    <h2 class="reveal">Show it. Or say it.</h2>
-    <p class="lede reveal">Drag across each picture. On the left, the architect pointed at the stair wall and attached a sketch; Idam's assistant asked one question, then built three arched windows at the sketch's sizes. On the right, three plain requests turned a narrow flight of steps into a level walk to the water.</p>
-    <div class="ba-grid">
-      <div class="reveal">
-        <div class="ba"><img src="img/ref-sketch.jpg" alt="The architect's sketch of the stair wall"><img class="after" src="img/ref-model.jpg" alt="The stair wall in the model"><div class="bar"></div><span class="lab l">The sketch</span><span class="lab r">The model</span></div>
-        <p class="ba-cap"><b>A sketch of the stair wall.</b> Exposed brick, three arched windows 600 wide, 300 from the side walls, 450 over each landing. The assistant asked one thing the sketch can't say (one window per flight, or per floor?), then placed them to the millimetre.</p>
-      </div>
-      <div class="reveal">
-        <div class="ba"><img src="img/walk-before.jpg" alt="Before: steps down from the dining door"><img class="after" src="img/walk-after.jpg" alt="After: a level deck to the lily pond"><div class="bar"></div><span class="lab l">Before</span><span class="lab r">After</span></div>
-        <p class="ba-cap"><b>"A granite deck level with the dining floor, out to the pond's edge." "Broad steps to the lawn." "A rail of rods."</b> Three requests, each built as asked: no step from the dining room to the water.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="spin" id="model">
-  <div class="wrap">
-    <h2 class="reveal">Spin a model</h2>
-    <p class="lede reveal">Exported from Idam as it stands. Drag to turn, scroll to zoom, point at anything to see what it is.</p>
+    <div class="layer-tabs" data-stage="model"><button data-layer="arch" aria-pressed="true">Architecture</button><button data-layer="struct" aria-pressed="false">Structure</button><button data-layer="services" aria-pressed="false">Services</button><button data-layer="int" aria-pressed="false">Interiors</button><button data-layer="land" aria-pressed="false">Landscape</button></div>
+    <div class="layer-panel on" data-stage="model" data-layer="arch"><p><b>The wall as built fabric.</b> Masonry and its thickness, every door and window, the plinth, sill and lintel levels, columns, roofs and stairs, read from the drawing and checked against it. Change a facade by showing it a sketch or saying what you want. <span class="st today">Today</span></p><p class="later">Gate and compound wall details: next.</p></div>
+    <div class="layer-panel" data-stage="model" data-layer="struct"><p><b>Positions only.</b> Columns and beams where the drawing puts them, on the structural grid Idam finds from the load-bearing walls; upper floors registered over the ground floor by their columns. Sizes and reinforcement stay with the structural engineer. <span class="st today">Today</span></p></div>
+    <div class="layer-panel" data-stage="model" data-layer="services"><p><b>Electrical and plumbing.</b> Switches, sockets and light points, sanitary fixtures and their runs, placed on the same walls and floors so they move with them. <span class="st next">Next</span></p><p class="later">Today, kitchen and toilet fittings come in from the plan's blocks.</p></div>
+    <div class="layer-panel" data-stage="model" data-layer="int"><p><b>The wall as a designed surface.</b> Feature walls (the TV wall, the living room's accent wall, the bed's back wall), panelling, cladding, wardrobes and TV units, false ceilings and flooring patterns, built from a reference picture at the spot you point to. <span class="st today">Today</span></p></div>
+    <div class="layer-panel" data-stage="model" data-layer="land"><p><b>The ground and what is on it.</b> The site from the drawing: boundary, contours and levels, steps and ramps, water, rock, paving and decks, with step-free routes checked as you go. <span class="st today">Today</span></p><p class="later">Planting: next.</p></div>
     <div class="picker">
       <button data-model="f" aria-pressed="true">Fallingwater</button>
       <button data-model="h" aria-pressed="false">The Farnsworth House</button>
@@ -320,24 +337,71 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
         <button data-explode aria-pressed="false">Lift the floors</button>
       </div>
     </div>
+    <p class="sheet-note">Exported from Idam as it stands. Drag to turn, scroll to zoom, point at anything to see what it is.</p>
+
+    <h3 class="sub-h reveal">Change it by showing or saying</h3>
+    <p class="lede reveal">Drag across each picture. On the left, the architect pointed at a stair wall and attached a sketch; Idam's assistant asked one question, then built three arched windows at the sketch's sizes. On the right, three plain requests turned a narrow flight of steps into a level walk to the water.</p>
+    <div class="ba-grid">
+      <div class="reveal">
+        <div class="ba"><img src="img/ref-sketch.jpg" alt="The architect's sketch of the stair wall"><img class="after" src="img/ref-model.jpg" alt="The stair wall in the model"><div class="bar"></div><span class="lab l">The sketch</span><span class="lab r">The model</span></div>
+        <p class="ba-cap"><b>Architecture layer: a sketch of the stair wall.</b> Exposed brick, three arched windows 600 wide, 300 from the side walls, 450 over each landing. The assistant asked what the sketch can't say, then placed them to the millimetre.</p>
+      </div>
+      <div class="reveal">
+        <div class="ba"><img src="img/walk-before.jpg" alt="Before: steps down from the dining door"><img class="after" src="img/walk-after.jpg" alt="After: a level deck to the lily pond"><div class="bar"></div><span class="lab l">Before</span><span class="lab r">After</span></div>
+        <p class="ba-cap"><b>Landscape layer, in words:</b> "a granite deck level with the dining floor, out to the pond's edge", "broad steps to the lawn", "a rail of rods". No step from the dining room to the water.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="drawings">
+<section class="stage-sec" id="drawings">
   <div class="wrap">
-    <h2 class="reveal">Working drawings, as DWG</h2>
-    <p class="lede reveal">Written to a DWG your office opens, every layer at its pen. These are the DWG itself, read back and drawn line for line. Click to zoom; drag to look around.</p>
+    <div class="stage-head"><h2 class="reveal"><span class="num">2</span>Drawings</h2></div>
+    <p class="lede reveal">Plans, elevations and sections generated from the model, never redrawn: change the model and every sheet follows. Written to DWG with every layer at its pen; what you see here is that DWG, read back line for line. Click to zoom; drag to look around.</p>
+    <div class="layer-tabs" data-stage="drawings"><button data-layer="arch" aria-pressed="true">Architecture</button><button data-layer="struct" aria-pressed="false">Structure</button><button data-layer="services" aria-pressed="false">Services</button><button data-layer="int" aria-pressed="false">Interiors</button><button data-layer="land" aria-pressed="false">Landscape</button></div>
+    <div class="layer-panel on" data-stage="drawings" data-layer="arch"><p>Elevations in depth, nearer planes heavier; true cut sections with the cut solid; plans cut at sill height. <span class="st today">Today</span></p></div>
+    <div class="layer-panel" data-stage="drawings" data-layer="struct"><p>The grid and the column positions on every plan, elevation and section. <span class="st today">Today</span></p></div>
+    <div class="layer-panel" data-stage="drawings" data-layer="services"><p>Electrical and plumbing layouts drawn over the plans. <span class="st next">Next</span></p></div>
+    <div class="layer-panel" data-stage="drawings" data-layer="int"><p>Furniture, fittings and floor finishes on the plans; rooms named and sized. <span class="st today">Today</span></p><p class="later">An elevation of every wall and the false-ceiling plan: next.</p></div>
+    <div class="layer-panel" data-stage="drawings" data-layer="land"><p>The ground in every elevation and section, rock and earth hatched; levels and steps on the plans. <span class="st today">Today</span></p><p class="later">The landscape plan (paving, planting, site levels): next.</p></div>
     <div class="sheets reveal">
       <div class="sheet-tabs">
-        <button data-sheet="drawings/sheet-fw-south.jpg" aria-pressed="true">Fallingwater · south elevation</button>
-        <button data-sheet="drawings/sheet-fw-section.jpg" aria-pressed="false">Fallingwater · section A-A</button>
-        <button data-sheet="drawings/sheet-fw-west.jpg" aria-pressed="false">Fallingwater · west elevation</button>
-        <button data-sheet="drawings/sheet-fn-south.jpg" aria-pressed="false">Farnsworth · south elevation</button>
-        <button data-sheet="drawings/sheet-fn-section.jpg" aria-pressed="false">Farnsworth · section A-A</button>
-        <button data-sheet="drawings/sheet-xx.jpg" aria-pressed="false">A family house · stair section</button>
+        <button data-sheet="drawings/sheet-fw-south.jpg" data-layers="arch" aria-pressed="true">Fallingwater · south elevation</button>
+        <button data-sheet="drawings/sheet-fw-section.jpg" data-layers="arch struct land" aria-pressed="false">Fallingwater · section A-A</button>
+        <button data-sheet="drawings/sheet-fw-west.jpg" data-layers="arch land" aria-pressed="false">Fallingwater · west elevation</button>
+        <button data-sheet="drawings/sheet-fn-south.jpg" data-layers="arch struct land" aria-pressed="false">Farnsworth · south elevation</button>
+        <button data-sheet="drawings/sheet-fn-section.jpg" data-layers="arch struct" aria-pressed="false">Farnsworth · section A-A</button>
+        <button data-sheet="drawings/sheet-plan.jpg" data-layers="int struct" aria-pressed="false">A family house · ground floor plan</button>
+        <button data-sheet="drawings/sheet-xx.jpg" data-layers="arch" aria-pressed="false">A family house · stair section</button>
       </div>
-      <div class="sheet-view" id="sheetview"><img id="sheetimg" src="drawings/sheet-fw-south.jpg" alt="A working drawing"></div>
-      <p class="sheet-note">Each read back from the DWG Idam wrote. Elevations in depth: what stands nearer drawn heavier, the ground and the rock hatched. Fallingwater and the Farnsworth House are study models from the HABS survey drawings, not the architects' own drawings.</p>
+      <div class="sheet-view"><img src="drawings/sheet-fw-south.jpg" alt="A drawing from the model"></div>
+      <div class="sheet-empty">Not in the set yet: this layer's drawings are next.</div>
+      <p class="sheet-note">Fallingwater and the Farnsworth House are study models from the HABS survey drawings, not the architects' own drawings.</p>
+    </div>
+  </div>
+</section>
+
+<section class="stage-sec" id="working" style="background: var(--paper-2)">
+  <div class="wrap">
+    <div class="stage-head"><h2 class="reveal"><span class="num">3</span>Working drawings</h2></div>
+    <p class="lede reveal">The construction set (GFC), produced automatically from the same model: setting-out grids, running dimensions, levels, wall sections at 1:20, door, window and room schedules, and quantities by material. Dimensioned and weighted, as DWG.</p>
+    <div class="layer-tabs" data-stage="working"><button data-layer="arch" aria-pressed="true">Architecture</button><button data-layer="struct" aria-pressed="false">Structure</button><button data-layer="services" aria-pressed="false">Services</button><button data-layer="int" aria-pressed="false">Interiors</button><button data-layer="land" aria-pressed="false">Landscape</button></div>
+    <div class="layer-panel on" data-stage="working" data-layer="arch"><p>Dimensioned plans on their grid, levels on every floor, wall sections at 1:20, door and window schedules. <span class="st today">Today</span></p><p class="later">Gate and compound wall details: next.</p></div>
+    <div class="layer-panel" data-stage="working" data-layer="struct"><p>Column and beam positions dimensioned to the grid, for the structural engineer to size. <span class="st today">Today</span></p></div>
+    <div class="layer-panel" data-stage="working" data-layer="services"><p>Electrical and plumbing working layouts, with points dimensioned from the walls. <span class="st next">Next</span></p></div>
+    <div class="layer-panel" data-stage="working" data-layer="int"><p>Room schedules with floor areas, quantities by material. <span class="st today">Today</span></p><p class="later">Dimensioned wall elevations with the panelling and joinery, false-ceiling plans, flooring layouts and joinery details: next.</p></div>
+    <div class="layer-panel" data-stage="working" data-layer="land"><p>Levels, steps and terraces dimensioned on the plans. <span class="st today">Today</span></p><p class="later">Paving, planting and site-levels working sheets: next.</p></div>
+    <div class="sheets reveal">
+      <div class="sheet-tabs">
+        <button data-sheet="drawings/sheet-fw-plans.jpg" data-layers="arch struct land" aria-pressed="true">Fallingwater · dimensioned plans</button>
+        <button data-sheet="drawings/sheet-fw-detail.jpg" data-layers="arch int" aria-pressed="false">Fallingwater · wall section 1:20, schedules</button>
+        <button data-sheet="drawings/sheet-fn-plans.jpg" data-layers="arch struct land" aria-pressed="false">Farnsworth · dimensioned plans</button>
+        <button data-sheet="drawings/sheet-fn-detail.jpg" data-layers="arch int" aria-pressed="false">Farnsworth · wall section 1:20, schedules</button>
+        <button data-sheet="drawings/sheet-plan.jpg" data-layers="arch struct int" aria-pressed="false">A family house · ground floor working plan</button>
+      </div>
+      <div class="sheet-view"><img src="drawings/sheet-fw-plans.jpg" alt="A working drawing"></div>
+      <div class="sheet-empty">Not in the set yet: this layer's working drawings are next.</div>
+      <p class="sheet-note">Each read back from the DWG Idam wrote. Cut 0.60 · cut, thin 0.30 · seen 0.25 · far and steel 0.15 · hatch 0.09 (mm, at 1:50).</p>
     </div>
   </div>
 </section>
@@ -366,14 +430,14 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 <section class="close">
   <div class="wrap">
     <h2 class="reveal">Built by an architect, for architects.</h2>
-    <p class="lede reveal">Idam is in private build in Chennai, tested on real projects and on landmark buildings from their survey drawings. An early-access group for architecture, interior and landscape studios opens next.</p>
+    <p class="lede reveal">Idam is in private build in Chennai, tested on real projects and on landmark buildings from their survey drawings. An early-access group for design studios opens next.</p>
     <div class="cta reveal" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px">
       <a class="btn solid" href="#" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film</a>
-      <a class="btn ghost" href="#how">How it works</a>
+      <a class="btn ghost" href="#flow">See the flow</a>
     </div>
   </div>
 </section>
-<footer><div class="wrap"><span>Idam · Ishwarya Suresh, founder · Chennai, India</span><span>© 2026</span></div></footer>
+<footer><div class="wrap"><span>Idam · Ishwarya Suresh, founder · Chennai, India</span><span><a href="#model" style="color:inherit">Model</a> → <a href="#drawings" style="color:inherit">Drawings</a> → <a href="#working" style="color:inherit">Working drawings</a></span><span>© 2026</span></div></footer>
 
 <div class="modal" id="modal"><button aria-label="Close">×</button><video id="modalvideo" controls playsinline></video></div>
 
@@ -396,11 +460,6 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
   m.addEventListener('click', (e) => { if (e.target === m) close(); });
   addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 })();
-// Steps jump into the film
-(() => {
-  const v = document.getElementById('how-video');
-  document.querySelectorAll('.step').forEach((b) => b.addEventListener('click', () => { v.currentTime = Number(b.dataset.t); v.play(); v.scrollIntoView({ behavior: 'smooth', block: 'center' }); }));
-})();
 // Before and after: drag across
 document.querySelectorAll('.ba').forEach((ba) => {
   const after = ba.querySelector('.after'), bar = ba.querySelector('.bar');
@@ -410,13 +469,14 @@ document.querySelectorAll('.ba').forEach((ba) => {
   ba.addEventListener('pointermove', (e) => { if (down || e.pointerType === 'mouse') set(e.clientX); });
   ba.addEventListener('pointerup', () => { down = false; });
 });
-// Sheets: pick one, click to zoom, drag to look around
-(() => {
-  const view = document.getElementById('sheetview'), img = document.getElementById('sheetimg');
+// Sheets, one viewer per stage: pick one, click to zoom, drag to look around
+document.querySelectorAll('.sheets').forEach((box) => {
+  const view = box.querySelector('.sheet-view'), img = view.querySelector('img');
   let z = 1, fit = 1, x = 0, y = 0, drag = null;
   const place = () => { img.style.transform = `translate(${x}px, ${y}px) scale(${z})`; };
-  const reset = () => { const r = view.getBoundingClientRect(); fit = Math.min(r.width / img.naturalWidth, r.height / img.naturalHeight); z = fit; x = -img.naturalWidth * z / 2; y = -img.naturalHeight * z / 2; view.classList.remove('zoomed'); place(); };
+  const reset = () => { const r = view.getBoundingClientRect(); if (!r.width || !img.naturalWidth) return; fit = Math.min(r.width / img.naturalWidth, r.height / img.naturalHeight); z = fit; x = -img.naturalWidth * z / 2; y = -img.naturalHeight * z / 2; view.classList.remove('zoomed'); place(); };
   img.addEventListener('load', reset); addEventListener('resize', reset); if (img.complete) reset();
+  box.resetView = reset;
   view.addEventListener('click', (e) => {
     if (drag && drag.moved) return;
     const r = view.getBoundingClientRect(), px = e.clientX - r.left - r.width / 2, py = e.clientY - r.top - r.height / 2;
@@ -426,11 +486,24 @@ document.querySelectorAll('.ba').forEach((ba) => {
   view.addEventListener('pointerdown', (e) => { if (!view.classList.contains('zoomed')) return; drag = { sx: e.clientX, sy: e.clientY, x, y, moved: false }; view.setPointerCapture(e.pointerId); });
   view.addEventListener('pointermove', (e) => { if (!drag) return; const dx = e.clientX - drag.sx, dy = e.clientY - drag.sy; if (Math.abs(dx) + Math.abs(dy) > 4) drag.moved = true; x = drag.x + dx; y = drag.y + dy; place(); });
   view.addEventListener('pointerup', () => { setTimeout(() => { drag = null; }, 0); });
-  document.querySelectorAll('[data-sheet]').forEach((b) => b.addEventListener('click', () => {
-    document.querySelectorAll('[data-sheet]').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
-    img.src = b.dataset.sheet;
+  const tabs = [...box.querySelectorAll('[data-sheet]')];
+  box.pick = (b) => { tabs.forEach((o) => o.setAttribute('aria-pressed', String(o === b))); if (img.getAttribute('src') !== b.dataset.sheet) img.src = b.dataset.sheet; else reset(); };
+  tabs.forEach((b) => b.addEventListener('click', () => box.pick(b)));
+});
+// Layers: each stage shows the chosen layer's note, and its drawings
+document.querySelectorAll('.layer-tabs').forEach((bar) => {
+  const stage = bar.dataset.stage, sec = bar.closest('section'), box = sec.querySelector('.sheets');
+  bar.querySelectorAll('[data-layer]').forEach((b) => b.addEventListener('click', () => {
+    const layer = b.dataset.layer;
+    bar.querySelectorAll('[data-layer]').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
+    sec.querySelectorAll(`.layer-panel[data-stage="${stage}"]`).forEach((p) => p.classList.toggle('on', p.dataset.layer === layer));
+    if (!box) return;
+    const tabs = [...box.querySelectorAll('[data-sheet]')], mine = tabs.filter((t) => t.dataset.layers.split(' ').includes(layer));
+    tabs.forEach((t) => { t.hidden = !mine.includes(t); });
+    box.classList.toggle('empty', !mine.length);
+    if (mine.length) { const cur = mine.find((t) => t.getAttribute('aria-pressed') === 'true'); box.pick(cur ?? mine[0]); }
   }));
-})();
+});
 </script>
 <script type="module" src="js/viewer.js"></script>
 </body>
