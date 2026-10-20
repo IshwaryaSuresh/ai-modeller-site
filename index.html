@@ -268,7 +268,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
       <div class="arrow" aria-hidden="true">→</div>
       <a class="stage-card reveal" href="#drawings"><img src="img/flow-fw-dwg.jpg" alt="Fallingwater's south elevation, drawn by Idam" loading="lazy"><div class="body"><div class="k">2</div><h3>Drawings</h3><p>Plans, elevations and sections generated from the model, with every layer at its pen.</p></div></a>
       <div class="arrow" aria-hidden="true">→</div>
-      <a class="stage-card reveal" href="#working"><img src="img/flow-working.jpg" alt="A wall section at 1:20 and a room schedule" loading="lazy"><div class="body"><div class="k">3</div><h3>Working drawings</h3><p>Dimensioned, construction-ready (GFC) sets, produced automatically from the same model.</p></div></a>
+      <a class="stage-card reveal" href="#working"><img src="img/flow-working.jpg" alt="A TV console's working drawing: front elevation and section, dimensioned" loading="lazy"><div class="body"><div class="k">3</div><h3>Working drawings</h3><p>Dimensioned, construction-ready (GFC) sets, produced automatically from the same model.</p></div></a>
     </div>
 
     <div class="layers-explain reveal">
@@ -375,7 +375,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
       </div>
       <div class="sheet-view"><img src="drawings/sheet-fh-north.jpg" alt="A drawing"></div>
       <div class="sheet-empty">Not in the set yet: this layer's drawings are next.</div>
-      <p class="sheet-note">Drawn with Claude, the AI behind Idam's assistant, for practising studios' projects: a banquet hall, an apartment and a family house. Firm, client and place names removed. Click to zoom; drag to look around.</p>
+      <p class="sheet-note">Click to zoom; drag to look around.</p>
     </div>
   </div>
 </section>
@@ -384,23 +384,25 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
   <div class="wrap">
     <div class="stage-head"><h2 class="reveal"><span class="num">3</span>Working drawings</h2></div>
     <p class="lede reveal">The construction set (GFC), produced automatically from the same model: setting-out grids, running dimensions, levels, wall sections at 1:20, door, window and room schedules, and quantities by material. Dimensioned and weighted, as DWG.</p>
-    <div class="layer-tabs" data-stage="working"><button data-layer="arch" aria-pressed="true">Architecture</button><button data-layer="struct" aria-pressed="false">Structure</button><button data-layer="services" aria-pressed="false">Services</button><button data-layer="int" aria-pressed="false">Interiors</button><button data-layer="land" aria-pressed="false">Landscape</button></div>
-    <div class="layer-panel on" data-stage="working" data-layer="arch"><p>Dimensioned plans on their grid, levels on every floor, wall sections at 1:20, door and window schedules. <span class="st today">Today</span></p><p class="later">Gate and compound wall details: next.</p></div>
+    <div class="layer-tabs" data-stage="working"><button data-layer="arch" aria-pressed="false">Architecture</button><button data-layer="struct" aria-pressed="false">Structure</button><button data-layer="services" aria-pressed="false">Services</button><button data-layer="int" aria-pressed="true">Interiors</button><button data-layer="land" aria-pressed="false">Landscape</button></div>
+    <div class="layer-panel" data-stage="working" data-layer="arch"><p>Dimensioned plans on their grid, levels on every floor, wall sections at 1:20, door and window schedules. <span class="st today">Today</span></p><p class="later">Gate and compound wall details: next.</p></div>
     <div class="layer-panel" data-stage="working" data-layer="struct"><p>Column and beam positions dimensioned to the grid, for the structural engineer to size. <span class="st today">Today</span></p></div>
     <div class="layer-panel" data-stage="working" data-layer="services"><p>Lighting setting-out, and toilet part plans at 1:25 with their elevations, every point dimensioned from the walls. <span class="st today">Today</span></p></div>
-    <div class="layer-panel" data-stage="working" data-layer="int"><p>Toilet part plans and wall elevations with every fitting placed; room schedules with floor areas. <span class="st today">Today</span></p><p class="later">Feature-wall elevations with the panelling and joinery, false-ceiling plans and flooring layouts: next.</p></div>
+    <div class="layer-panel on" data-stage="working" data-layer="int"><p>Joinery working drawings (a TV console on its brick feature wall, a crockery unit): plan, front elevation and section, dimensioned, with a numbered key of materials and fixings. Toilet part plans with their wall elevations. <span class="st today">Today</span></p><p class="later">False-ceiling plans and flooring layouts: next.</p></div>
     <div class="layer-panel" data-stage="working" data-layer="land"><p>A site laid out to the boundary: garden walks, paving, water and planting dimensioned to a grid. <span class="st today">Today</span></p></div>
     <div class="sheets reveal">
       <div class="sheet-tabs">
-        <button data-sheet="drawings/sheet-hall-dimensioned.jpg" data-layers="arch land struct" aria-pressed="true">A banquet hall · dimensioned site layout</button>
+        <button data-sheet="drawings/sheet-fh-tv-console.jpg" data-layers="int arch" aria-pressed="true">A family house · TV console</button>
+        <button data-sheet="drawings/sheet-fh-crockery.jpg" data-layers="int" aria-pressed="false">A family house · crockery unit</button>
+        <button data-sheet="drawings/sheet-hall-dimensioned.jpg" data-layers="arch land struct" aria-pressed="false">A banquet hall · dimensioned site layout</button>
         <button data-sheet="drawings/sheet-apt-setting-out.jpg" data-layers="services int" aria-pressed="false">An apartment · lighting setting-out plan</button>
         <button data-sheet="drawings/sheet-apt-toilet-1.jpg" data-layers="services int arch" aria-pressed="false">An apartment · toilet part plan and elevations</button>
         <button data-sheet="drawings/sheet-apt-toilet-2.jpg" data-layers="services int" aria-pressed="false">An apartment · a second toilet</button>
         <button data-sheet="drawings/sheet-plan.jpg" data-layers="arch struct int" aria-pressed="false">A family house · ground floor working plan</button>
       </div>
-      <div class="sheet-view"><img src="drawings/sheet-hall-dimensioned.jpg" alt="A drawing"></div>
+      <div class="sheet-view"><img src="drawings/sheet-fh-tv-console.jpg" alt="A drawing"></div>
       <div class="sheet-empty">Not in the set yet: this layer's working drawings are next.</div>
-      <p class="sheet-note">Drawn with Claude, the AI behind Idam's assistant, for practising studios' projects: a banquet hall, an apartment and a family house. Firm, client and place names removed. Dimensioned in feet and inches, as the studios work.</p>
+      <p class="sheet-note">Click to zoom; drag to look around.</p>
     </div>
   </div>
 </section>
