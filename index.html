@@ -76,15 +76,15 @@ nav.top .links a:hover { color: var(--on-dark); }
 nav.top .btn { padding: 9px 16px; font-size: 14px; }
 
 /* hero: the house turning behind the line */
-.hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; color: var(--on-dark); background: var(--dark); overflow: hidden; }
+.hero { position: relative; color: var(--on-dark); background: var(--dark); overflow: hidden; padding: 130px 0 90px; }
 .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .9; }
 .hero video { object-position: 72% 50%; }
-.hero::after { content: ""; position: absolute; inset: 0; background:
+.hero::after { content: none; background:
   linear-gradient(90deg, rgba(10,13,11,.92) 0%, rgba(10,13,11,.78) 30%, rgba(10,13,11,.25) 58%, rgba(10,13,11,0) 75%),
   linear-gradient(180deg, rgba(10,13,11,.5) 0%, rgba(10,13,11,0) 22%, rgba(10,13,11,0) 70%, rgba(10,13,11,.85) 100%); }
 @media (max-width: 760px) { .hero::after { background: linear-gradient(180deg, rgba(10,13,11,.45) 0%, rgba(10,13,11,.2) 35%, rgba(10,13,11,.92) 70%); } }
-.hero .wrap { position: relative; z-index: 2; padding-bottom: 9vh; width: 100%; }
-.hero h1 { font-size: clamp(44px, 6.6vw, 96px); line-height: 1.0; max-width: 11ch; text-shadow: 0 2px 30px rgba(0,0,0,.35); }
+.hero .wrap { position: relative; z-index: 2; width: 100%; }
+.hero h1 { font-size: clamp(44px, 6.4vw, 92px); line-height: 1.0; max-width: 16ch; text-shadow: 0 2px 30px rgba(0,0,0,.35); }
 .hero h1 i { color: #f0a273; }
 .hero .lede { color: #dfe3de; max-width: 56ch; }
 .hero .cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
@@ -174,13 +174,17 @@ nav.top .btn { padding: 9px 16px; font-size: 14px; }
 
 /* the flow: model, drawings, working drawings */
 .stages { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 14px; align-items: stretch; margin-top: 48px; }
-.stage-card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; text-decoration: none; color: var(--ink); display: flex; flex-direction: column; transition: transform .2s, border-color .2s; }
+.stage-card { background: var(--dark-2); border: 1px solid rgba(255,255,255,.1); color: var(--on-dark); border-radius: 20px; overflow: hidden; text-decoration: none; color: var(--ink); display: flex; flex-direction: column; transition: transform .2s, border-color .2s; }
 .stage-card:hover { transform: translateY(-4px); border-color: var(--accent-2); }
 .stage-card img { aspect-ratio: 4/3; object-fit: cover; width: 100%; background: #fff; }
 .stage-card .body { padding: 20px 22px 24px; }
 .stage-card .k { font: 400 40px/1 var(--serif); color: var(--accent); }
 .stage-card h3 { font: 400 26px/1.2 var(--serif); margin: 8px 0 8px; }
-.stage-card p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.stage-card p { margin: 0; color: var(--on-dark-2); font-size: 15.5px; }
+.stage-card h3 { color: var(--on-dark); }
+.hero .stages { margin-top: 64px; }
+.stage-card .k { color: #f0a273; }
+.hero .arrow { color: #f0a273; }
 .arrow { align-self: center; font: 400 34px/1 var(--serif); color: var(--accent); }
 @media (max-width: 960px) { .stages { grid-template-columns: 1fr; } .arrow { justify-self: center; transform: rotate(90deg); } }
 .layers-explain { margin-top: 70px; }
@@ -218,6 +222,13 @@ nav.top .btn { padding: 9px 16px; font-size: 14px; }
 .sheet-tabs button[hidden] { display: none; }
 .sub-h { font: 400 clamp(24px, 3vw, 34px)/1.2 var(--serif); margin: 80px 0 0; }
 
+.fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
+.fit-grid article { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px 26px; }
+.fit-grid h4 { font: 400 22px/1.25 var(--serif); margin: 0 0 10px; }
+.fit-grid p { color: var(--ink-2); margin: 0; font-size: 15.5px; }
+@media (max-width: 860px) { .fit-grid { grid-template-columns: 1fr; } }
+#fit { background: var(--paper-2); }
+
 /* close */
 .founder { margin-top: 56px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.12); max-width: 78ch; }
 .founder h3 { font: 400 26px/1.2 var(--serif); color: var(--on-dark); margin: 0 0 10px; }
@@ -242,10 +253,10 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
   <div class="wrap">
     <a class="brand" href="#">Idam</a>
     <div class="links">
+      <a href="#fit">Where it fits</a>
       <a href="#model">Model</a>
       <a href="#drawings">Drawings</a>
       <a href="#working">Working drawings</a>
-      <a href="#fit">Where it fits</a>
       <a href="#studies">Studies</a>
       <a class="btn solid" href="media/how-it-works.mp4" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film</a>
     </div>
@@ -253,30 +264,38 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 </nav>
 
 <header class="hero">
-  <video autoplay muted loop playsinline poster="media/hero-poster.jpg"><source src="media/hero-loop.mp4" type="video/mp4"></video>
   <div class="wrap">
     <h1 class="reveal">Model. Drawings. <i>Working drawings.</i></h1>
     <p class="lede reveal">One flow, one model. Bring in what you have and Idam reads it into a model where every element knows what it is, draws its plans, elevations and sections, and produces the dimensioned construction set from the same model, as DWG.</p>
     <div class="cta reveal">
       <a class="btn solid" href="media/how-it-works.mp4" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film · 1:42</a>
-      <a class="btn ghost" href="#flow">See the flow</a>
+      <a class="btn ghost" href="#fit">Where it fits your workflow</a>
+    </div>
+    <div class="stages">
+      <a class="stage-card reveal" href="#model"><img src="img/flow-model.jpg" alt="Idam with a stair wall just changed from the architect's sketch"><div class="body"><div class="k">1</div><h3>Model</h3><p>Bring in a plan, a SketchUp model or a render. Idam reads it into an accurate, editable model: every wall, opening, plinth, sill, lintel, column and beam knows what it is.</p></div></a>
+      <div class="arrow" aria-hidden="true">→</div>
+      <a class="stage-card reveal" href="#drawings"><img src="img/flow-drawings.jpg" alt="A family house's front elevation, drawn by Idam from its model"><div class="body"><div class="k">2</div><h3>Drawings</h3><p>Plans, elevations and sections generated from the model, with every layer at its pen.</p></div></a>
+      <div class="arrow" aria-hidden="true">→</div>
+      <a class="stage-card reveal" href="#working"><img src="img/flow-working.jpg" alt="A TV console's working drawing: front elevation and section, dimensioned"><div class="body"><div class="k">3</div><h3>Working drawings</h3><p>Dimensioned, construction-ready (GFC) sets, produced automatically from the same model.</p></div></a>
     </div>
   </div>
 </header>
 
+<section id="fit">
+  <div class="wrap">
+    <h2 class="reveal">Where it fits your workflow</h2>
+    <div class="fit-grid reveal">
+      <article><h4>Beside your BIM, not instead of it</h4><p>Idam is not a BIM authoring tool and doesn't replace Revit. It covers the stretch between an early model and a coordinated construction set. It hands off as DWG, and as IFC 4: every element exports as its IFC class (wall, slab, column, beam, door, window, stair, roof, space…) on its storey, so the model can join a federated BIM workflow for coordination. Geometry goes as meshes, not parametric families.</p></article>
+      <article><h4>Scale, honestly</h4><p>The largest models so far are three-storey buildings: a family house of about 360 m² across its floors, at just over a thousand elements, and Fallingwater's three levels. Nothing hospital-sized has been tried. A six-storey building, several buildings on one site, or a set split across many drawing files is untested, and it's exactly what the pilots are for.</p></article>
+      <article><h4>Working together</h4><p>Today one person edits a model at a time. Others can follow it through a live link that updates as the work goes on, or open a fixed copy and pin comments to it. Several people editing one model at once, with roles across offices, is not built yet.</p></article>
+      <article><h4>Your drawings</h4><p>DXF drawings are read in the browser; a DWG is converted on Idam's server and the file deleted straight after. Projects are kept in your browser and, when you sign in, on Idam's server. When you ask the assistant, your request, any picture you attach and a view of the model go to Anthropic's API, which does not train on them under its commercial terms.</p></article>
+    </div>
+  </div>
+</section>
+
 <section id="flow">
   <div class="wrap">
-    <h2 class="reveal">One model, three stages</h2>
-    <p class="lede reveal">Each stage is drawn from the one before it. Change the model and the drawings and the working set follow: nothing is redrawn.</p>
-    <div class="stages">
-      <a class="stage-card reveal" href="#model"><img src="img/work-arch.jpg" alt="Fallingwater as a model in Idam" loading="lazy"><div class="body"><div class="k">1</div><h3>Model</h3><p>Bring in a plan, a SketchUp model or a render. Idam reads it into an accurate, editable model: every wall, opening, plinth, sill, lintel, column and beam knows what it is.</p></div></a>
-      <div class="arrow" aria-hidden="true">→</div>
-      <a class="stage-card reveal" href="#drawings"><img src="img/flow-fw-dwg.jpg" alt="Fallingwater's south elevation, drawn by Idam" loading="lazy"><div class="body"><div class="k">2</div><h3>Drawings</h3><p>Plans, elevations and sections generated from the model, with every layer at its pen.</p></div></a>
-      <div class="arrow" aria-hidden="true">→</div>
-      <a class="stage-card reveal" href="#working"><img src="img/flow-working.jpg" alt="A TV console's working drawing: front elevation and section, dimensioned" loading="lazy"><div class="body"><div class="k">3</div><h3>Working drawings</h3><p>Dimensioned, construction-ready (GFC) sets, produced automatically from the same model.</p></div></a>
-    </div>
-
-    <div class="layers-explain reveal">
+    <div class="layers-explain reveal" style="margin-top:0">
       <h3>Disciplines are layers that run through every stage</h3>
       <p class="lede" style="margin-top:6px">Not separate products: one model carries them all, and each stage shows them as layers you switch on.</p>
       <div class="layer-grid">
@@ -412,16 +431,6 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
   </div>
 </section>
 
-<section id="fit">
-  <div class="wrap">
-    <h2 class="reveal">Where it fits your workflow</h2>
-    <div class="wall-split reveal" style="margin-top:36px">
-      <article><h4>Beside your BIM, not instead of it</h4><p>Idam is not a BIM authoring tool and doesn't replace Revit. It covers the stretch between an early model and a coordinated construction set. It hands off as DWG, and as IFC 4: every element exports as its IFC class (wall, slab, column, beam, door, window, stair, roof, space…) on its storey, so the model can join a federated BIM workflow for coordination. Geometry goes as meshes, not parametric families.</p></article>
-      <article><h4>Your drawings</h4><p>DXF drawings are read in the browser; a DWG is converted on Idam's server and the file deleted straight after. Projects are kept in your browser and, when you sign in, on Idam's server. When you ask the assistant, your request, any picture you attach and a view of the model go to Anthropic's API, which does not train on them under its commercial terms.</p></article>
-    </div>
-  </div>
-</section>
-
 <section id="studies" style="background: var(--paper-2)">
   <div class="wrap">
     <h2 class="reveal">From survey drawings, too</h2>
@@ -448,7 +457,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
     <h2 class="reveal">Built by an architect, for architects.</h2>
     <p class="lede reveal">Idam is in private build in Chennai, piloting with design studios in India. An early-access group for design studios opens shortly. If Idam looks relevant to how your teams work, I'd welcome a short conversation, and a real project drawing to test it against is worth more to me than any demo.</p>
     <div class="cta reveal" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px">
-      <a class="btn solid" href="https://madeforhumans.tech" target="_blank" rel="noopener">Get in touch</a>
+      <a class="btn solid" href="mailto:ishwaryasuresh97@gmail.com?subject=Idam%20early%20access">Get in touch</a>
       <a class="btn ghost" href="media/how-it-works.mp4" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film</a>
     </div>
     <div class="founder reveal" id="founder">
@@ -457,7 +466,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
     </div>
   </div>
 </section>
-<footer><div class="wrap"><span>Idam · <a href="#founder" style="color:inherit">Ishwarya Suresh</a>, founder · Chennai, India · <a href="https://madeforhumans.tech" target="_blank" rel="noopener" style="color:inherit">madeforhumans.tech</a></span><span><a href="#model" style="color:inherit">Model</a> → <a href="#drawings" style="color:inherit">Drawings</a> → <a href="#working" style="color:inherit">Working drawings</a></span><span>© 2026</span></div></footer>
+<footer><div class="wrap"><span>Idam · <a href="#founder" style="color:inherit">Ishwarya Suresh</a>, founder · Chennai, India · <a href="mailto:ishwaryasuresh97@gmail.com" style="color:inherit">ishwaryasuresh97@gmail.com</a> · <a href="https://madeforhumans.tech" target="_blank" rel="noopener" style="color:inherit">madeforhumans.tech</a></span><span><a href="#model" style="color:inherit">Model</a> → <a href="#drawings" style="color:inherit">Drawings</a> → <a href="#working" style="color:inherit">Working drawings</a></span><span>© 2026</span></div></footer>
 
 <div class="modal" id="modal"><button aria-label="Close">×</button><video id="modalvideo" controls playsinline></video></div>
 
