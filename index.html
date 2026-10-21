@@ -219,6 +219,10 @@ nav.top .btn { padding: 9px 16px; font-size: 14px; }
 .sub-h { font: 400 clamp(24px, 3vw, 34px)/1.2 var(--serif); margin: 80px 0 0; }
 
 /* close */
+.founder { margin-top: 56px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.12); max-width: 78ch; }
+.founder h3 { font: 400 26px/1.2 var(--serif); color: var(--on-dark); margin: 0 0 10px; }
+.founder p { color: var(--on-dark-2); }
+.founder b { color: var(--on-dark); }
 .close { background: var(--dark); color: var(--on-dark); text-align: left; }
 .close h2 { color: var(--on-dark); font-size: clamp(36px, 5.4vw, 72px); max-width: 16ch; }
 .close .lede { color: var(--on-dark-2); }
@@ -241,8 +245,9 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
       <a href="#model">Model</a>
       <a href="#drawings">Drawings</a>
       <a href="#working">Working drawings</a>
+      <a href="#fit">Where it fits</a>
       <a href="#studies">Studies</a>
-      <a class="btn solid" href="#" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film</a>
+      <a class="btn solid" href="media/how-it-works.mp4" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film</a>
     </div>
   </div>
 </nav>
@@ -253,7 +258,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
     <h1 class="reveal">Model. Drawings. <i>Working drawings.</i></h1>
     <p class="lede reveal">One flow, one model. Bring in what you have and Idam reads it into a model where every element knows what it is, draws its plans, elevations and sections, and produces the dimensioned construction set from the same model, as DWG.</p>
     <div class="cta reveal">
-      <a class="btn solid" href="#" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film · 1:42</a>
+      <a class="btn solid" href="media/how-it-works.mp4" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film · 1:42</a>
       <a class="btn ghost" href="#flow">See the flow</a>
     </div>
   </div>
@@ -291,10 +296,10 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 
 <div class="proof">
   <div class="wrap grid">
-    <div class="reveal"><div class="n">0 lines lost</div><div class="t">Drawings written to DWG and read back: every line, arc and note where it was</div></div>
-    <div class="reveal"><div class="n">To the mm</div><div class="t">Every stair nosing and landing in the sections, measured against the studio's own section</div></div>
-    <div class="reveal"><div class="n">91 / 91</div><div class="t">Walls, doors and windows on a studio's ground floor, read from its DWG</div></div>
-    <div class="reveal"><div class="n">Every pen</div><div class="t">Each DWG layer at its line weight: cut heavy, beyond light, hatch finest</div></div>
+    <div class="reveal"><div class="n">91 / 91</div><div class="t">Walls, doors and windows on a studio's ground floor, read correctly from its DWG</div></div>
+    <div class="reveal"><div class="n">0 lines lost</div><div class="t">Written to DWG and read back: every line, arc and note where it was</div></div>
+    <div class="reveal"><div class="n">To the mm</div><div class="t">Landings and levels in section, measured against the studio's own drawing</div></div>
+    <div class="reveal"><div class="n">Under a minute</div><div class="t">Three floors of a studio's drawing set, read in</div></div>
   </div>
 </div>
 
@@ -361,7 +366,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
     <div class="layer-tabs" data-stage="drawings"><button data-layer="arch" aria-pressed="true">Architecture</button><button data-layer="struct" aria-pressed="false">Structure</button><button data-layer="services" aria-pressed="false">Services</button><button data-layer="int" aria-pressed="false">Interiors</button><button data-layer="land" aria-pressed="false">Landscape</button></div>
     <div class="layer-panel on" data-stage="drawings" data-layer="arch"><p>Elevations in depth, nearer planes heavier; true cut sections with the cut solid; plans cut at sill height. <span class="st today">Today</span></p></div>
     <div class="layer-panel" data-stage="drawings" data-layer="struct"><p>The grid and the column positions on every plan, elevation and section. <span class="st today">Today</span></p></div>
-    <div class="layer-panel" data-stage="drawings" data-layer="services"><p>Lighting and wiring, switches and power, and plumbing layouts, drawn over the plan with their legends. <span class="st today">Today</span></p><p class="later">Services held in the model itself, so they move with the walls: next.</p></div>
+    <div class="layer-panel" data-stage="drawings" data-layer="services"><p>Lighting and wiring, switches and power, and plumbing layouts over the plan, with their legends. <span class="st next">From the model: next</span></p><p class="later">Services held in the model, so they move with the walls.</p></div>
     <div class="layer-panel" data-stage="drawings" data-layer="int"><p>Furniture, fittings and floor finishes on the plans; rooms named and sized. <span class="st today">Today</span></p><p class="later">An elevation of every wall and the false-ceiling plan: next.</p></div>
     <div class="layer-panel" data-stage="drawings" data-layer="land"><p>The master plan: arrival, gardens, water, lawns and parking, keyed and measured. <span class="st today">Today</span></p></div>
     <div class="sheets reveal">
@@ -387,8 +392,8 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
     <div class="layer-tabs" data-stage="working"><button data-layer="arch" aria-pressed="false">Architecture</button><button data-layer="struct" aria-pressed="false">Structure</button><button data-layer="services" aria-pressed="false">Services</button><button data-layer="int" aria-pressed="true">Interiors</button><button data-layer="land" aria-pressed="false">Landscape</button></div>
     <div class="layer-panel" data-stage="working" data-layer="arch"><p>Dimensioned plans on their grid, levels on every floor, wall sections at 1:20, door and window schedules. <span class="st today">Today</span></p><p class="later">Gate and compound wall details: next.</p></div>
     <div class="layer-panel" data-stage="working" data-layer="struct"><p>Column and beam positions dimensioned to the grid, for the structural engineer to size. <span class="st today">Today</span></p></div>
-    <div class="layer-panel" data-stage="working" data-layer="services"><p>Lighting setting-out, and toilet part plans at 1:25 with their elevations, every point dimensioned from the walls. <span class="st today">Today</span></p></div>
-    <div class="layer-panel on" data-stage="working" data-layer="int"><p>Joinery working drawings (a TV console on its brick feature wall, a crockery unit): plan, front elevation and section, dimensioned, with a numbered key of materials and fixings. Toilet part plans with their wall elevations. <span class="st today">Today</span></p><p class="later">False-ceiling plans and flooring layouts: next.</p></div>
+    <div class="layer-panel" data-stage="working" data-layer="services"><p>Lighting setting-out, and toilet part plans at 1:25 with their elevations, every point dimensioned from the walls. <span class="st next">From the model: next</span></p></div>
+    <div class="layer-panel on" data-stage="working" data-layer="int"><p>Joinery working drawings like these (a TV console on its brick feature wall, a crockery unit): plan, front elevation and section, dimensioned, with a numbered key of materials and fixings. <span class="st next">From the model: next</span></p><p class="later">Today the model carries the joinery, and the room schedules and quantities come from it. False-ceiling plans and flooring layouts: next.</p></div>
     <div class="layer-panel" data-stage="working" data-layer="land"><p>A site laid out to the boundary: garden walks, paving, water and planting dimensioned to a grid. <span class="st today">Today</span></p></div>
     <div class="sheets reveal">
       <div class="sheet-tabs">
@@ -403,6 +408,16 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
       <div class="sheet-view"><img src="drawings/sheet-fh-tv-console.jpg" alt="A drawing"></div>
       <div class="sheet-empty">Not in the set yet: this layer's working drawings are next.</div>
       <p class="sheet-note">Click to zoom; drag to look around.</p>
+    </div>
+  </div>
+</section>
+
+<section id="fit">
+  <div class="wrap">
+    <h2 class="reveal">Where it fits your workflow</h2>
+    <div class="wall-split reveal" style="margin-top:36px">
+      <article><h4>Beside your BIM, not instead of it</h4><p>Idam is not a BIM authoring tool and doesn't replace Revit. It covers the stretch between an early model and a coordinated construction set. It hands off as DWG, and as IFC 4: every element exports as its IFC class (wall, slab, column, beam, door, window, stair, roof, space…) on its storey, so the model can join a federated BIM workflow for coordination. Geometry goes as meshes, not parametric families.</p></article>
+      <article><h4>Your drawings</h4><p>DXF drawings are read in the browser; a DWG is converted on Idam's server and the file deleted straight after. Projects are kept in your browser and, when you sign in, on Idam's server. When you ask the assistant, your request, any picture you attach and a view of the model go to Anthropic's API, which does not train on them under its commercial terms.</p></article>
     </div>
   </div>
 </section>
@@ -431,14 +446,18 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 <section class="close">
   <div class="wrap">
     <h2 class="reveal">Built by an architect, for architects.</h2>
-    <p class="lede reveal">Idam is in private build in Chennai, tested on real projects and on landmark buildings from their survey drawings. An early-access group for design studios opens next.</p>
+    <p class="lede reveal">Idam is in private build in Chennai, piloting with design studios in India. An early-access group for design studios opens shortly. If Idam looks relevant to how your teams work, I'd welcome a short conversation, and a real project drawing to test it against is worth more to me than any demo.</p>
     <div class="cta reveal" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px">
-      <a class="btn solid" href="#" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film</a>
-      <a class="btn ghost" href="#flow">See the flow</a>
+      <a class="btn solid" href="https://madeforhumans.tech" target="_blank" rel="noopener">Get in touch</a>
+      <a class="btn ghost" href="media/how-it-works.mp4" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film</a>
+    </div>
+    <div class="founder reveal" id="founder">
+      <h3>Who's building it</h3>
+      <p><b>Ishwarya Suresh</b>: architect (Anna University), and UX designer and researcher (MSc HCI, Newcastle University; CHI 2024 publication). Five years across fintech, healthcare, accessibility and the public sector, including GDS-standard service delivery at MHCLG. Practises architecture in Chennai, where Idam is being tested.</p>
     </div>
   </div>
 </section>
-<footer><div class="wrap"><span>Idam · Ishwarya Suresh, founder · Chennai, India</span><span><a href="#model" style="color:inherit">Model</a> → <a href="#drawings" style="color:inherit">Drawings</a> → <a href="#working" style="color:inherit">Working drawings</a></span><span>© 2026</span></div></footer>
+<footer><div class="wrap"><span>Idam · <a href="#founder" style="color:inherit">Ishwarya Suresh</a>, founder · Chennai, India · <a href="https://madeforhumans.tech" target="_blank" rel="noopener" style="color:inherit">madeforhumans.tech</a></span><span><a href="#model" style="color:inherit">Model</a> → <a href="#drawings" style="color:inherit">Drawings</a> → <a href="#working" style="color:inherit">Working drawings</a></span><span>© 2026</span></div></footer>
 
 <div class="modal" id="modal"><button aria-label="Close">×</button><video id="modalvideo" controls playsinline></video></div>
 
@@ -455,7 +474,12 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 // The film in an overlay
 (() => {
   const m = document.getElementById('modal'), v = document.getElementById('modalvideo');
-  document.querySelectorAll('[data-film]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); v.src = a.dataset.film; m.classList.add('open'); v.play(); }));
+  document.querySelectorAll('[data-film]').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault(); v.src = a.dataset.film; m.classList.add('open');
+    // if the overlay can't play it, open the film itself
+    const fallback = () => { m.classList.remove('open'); location.href = a.dataset.film; };
+    v.onerror = fallback; const pr = v.play(); if (pr && pr.catch) pr.catch((err) => { if (err && err.name !== 'NotAllowedError') fallback(); });
+  }));
   const close = () => { v.pause(); m.classList.remove('open'); };
   m.querySelector('button').addEventListener('click', close);
   m.addEventListener('click', (e) => { if (e.target === m) close(); });
