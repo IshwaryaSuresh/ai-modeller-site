@@ -4,6 +4,10 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 const MODELS = {
   // Farnsworth's bands: the main floor's plane and the roof's (m above the lower terrace)
@@ -48,6 +52,21 @@ sun.shadow.normalBias = 0.03;
 scene.add(sun, sun.target);
 const fill = new THREE.DirectionalLight(0xdfe8ff, 0.5);
 scene.add(fill);
+// Depth: ambient occlusion darkens corners, reveals and the undersides of overhangs as daylight does
+// (on screens big enough to afford it; phones render plainly)
+const rich = matchMedia('(min-width: 760px)').matches;
+let composer = null, gtao = null;
+if (rich) {
+  composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  gtao = new GTAOPass(scene, camera, 800, 600);
+  gtao.output = GTAOPass.OUTPUT.Default;
+  gtao.blendIntensity = 1.0;
+  gtao.updateGtaoMaterial({ radius: 0.9, distanceExponent: 1.2, thickness: 1.5, scale: 1.0, samples: 16 });
+  gtao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 6, rings: 2, samples: 16 });
+  composer.addPass(gtao);
+  composer.addPass(new OutputPass());
+}
 const ground = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShadowMaterial({ opacity: 0.26 }));
 ground.rotation.x = -Math.PI / 2;
 ground.receiveShadow = true;
@@ -58,6 +77,54 @@ const clayDark = new THREE.MeshStandardMaterial({ color: 0xe2ddd2, roughness: 0.
 const glass = new THREE.MeshPhysicalMaterial({ color: 0xbfd6dc, roughness: 0.05, transmission: 0, transparent: true, opacity: 0.35, depthWrite: false });
 const hover = new THREE.MeshStandardMaterial({ color: 0xe08a55, roughness: 0.6, emissive: 0x6b2a08, emissiveIntensity: 0.25 });
 const edgeMat = new THREE.LineBasicMaterial({ color: 0x2a2f2b, transparent: true, opacity: 0.42 });
+
+// Surfaces as Idam draws them: each material's pattern (coursed stone, flagstone, board-marked concrete,
+// grain, travertine...) at true size, mapped by world position as in Idam, and the ground's contours
+// (a fine line every 0.5 m, a strong one every 2.5 m). The patterns are Idam's own, baked to images.
+const texLoader = new THREE.TextureLoader();
+const patterns = fetch('textures/patterns.json').then((r) => r.json()).catch(() => null);
+const patternTex = {};
+async function patternTexture(name) {
+  const man = await patterns;
+  if (!man?.patterns?.[name]) return null;
+  if (!patternTex[name]) {
+    patternTex[name] = texLoader.loadAsync(man.patterns[name].file).then((t) => { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; });
+  }
+  return { tex: await patternTex[name], tileMm: man.patterns[name].tileMm };
+}
+const dressed = new Map();
+async function dress(m) {
+  if (!m?.userData?.pattern && !m?.userData?.contours) return m;
+  if (dressed.has(m)) return dressed.get(m);
+  const p = m.userData.pattern ? await patternTexture(m.userData.pattern) : null;
+  const d = m.clone();
+  if (p) { d.map = p.tex; d.color.multiplyScalar(1 / Number(m.userData.mean || 1)); }
+  const tile = (p?.tileMm ?? 1000) / 1000;
+  const contours = m.userData.contours ? `
+    float hm = vWPos.y / 0.5, hM = vWPos.y / 2.5;
+    float fine = 1.0 - min(abs(fract(hm - 0.5) - 0.5) / max(fwidth(hm), 1e-4), 1.0);
+    float major = 1.0 - min(abs(fract(hM - 0.5) - 0.5) / max(fwidth(hM) * 1.6, 1e-4), 1.0);
+    float steep = 1.0 - smoothstep(0.15, 0.45, abs(vWNormal.y));
+    diffuseColor.rgb *= 1.0 - (0.16 * fine + 0.3 * major) * (1.0 - steep);` : '';
+  d.onBeforeCompile = (shader) => {
+    shader.uniforms.uTile = { value: tile };
+    shader.vertexShader = shader.vertexShader
+      .replace('#include <common>', '#include <common>\nvarying vec3 vWPos;\nvarying vec3 vWNormal;')
+      .replace('#include <worldpos_vertex>', '#include <worldpos_vertex>\nvWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;\nvWNormal = normalize(mat3(modelMatrix) * objectNormal);');
+    shader.fragmentShader = shader.fragmentShader
+      .replace('#include <common>', '#include <common>\nvarying vec3 vWPos;\nvarying vec3 vWNormal;\nuniform float uTile;')
+      .replace('#include <map_fragment>', `
+        #ifdef USE_MAP
+          vec3 an = abs(vWNormal);
+          vec2 puv = an.y > 0.7 ? vWPos.xz : (an.x > an.z ? vec2(vWPos.z, vWPos.y) : vec2(vWPos.x, vWPos.y));
+          diffuseColor *= texture2D(map, puv / uTile);
+        #endif
+        ${contours}`);
+  };
+  d.customProgramCacheKey = () => `idam-${m.userData.pattern || 'plain'}-${m.userData.contours ? 'c' : ''}`;
+  dressed.set(m, d);
+  return d;
+}
 
 let root = null, parts = [], look = 'mat', exploded = false, lift = 0, liftTarget = 0, bands = 1, gap = 3, current = 'f';
 const loader = new GLTFLoader();
@@ -105,6 +172,7 @@ async function load(key) {
     o.receiveShadow = true;
     if (!o.userData.orig) {
       o.userData.orig = o.material;
+      o.userData.dressing = (Array.isArray(o.material) ? Promise.all(o.material.map(dress)) : dress(o.material)).then((m) => { o.userData.orig = m; if (look === 'mat' && hovered !== o) o.material = m; });
       const m = Array.isArray(o.material) ? o.material[0] : o.material;
       const n = nameOf(o).toLowerCase();
       o.userData.glass = (m.transparent && m.opacity < 0.9) || /glass/.test(n);
@@ -159,6 +227,7 @@ async function load(key) {
   sc.left = sc.bottom = -span * 0.95; sc.right = sc.top = span * 0.95; sc.near = 0.5; sc.far = span * 4;
   sc.updateProjectionMatrix();
   fill.position.set(centre.x + span, box.min.y + span * 0.5, centre.z - span);
+  await Promise.all(parts.map((p) => p.userData.dressing));
   setLook(look);
   setExplode(exploded, true);
   cap.textContent = MODELS[key].caption;
@@ -230,6 +299,7 @@ new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(st
 function resize() {
   const w = stage.clientWidth, h = stage.clientHeight;
   renderer.setSize(w, h, false);
+  if (composer) { composer.setPixelRatio(renderer.getPixelRatio()); composer.setSize(w, h); }
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
 }
@@ -253,7 +323,7 @@ renderer.setAnimationLoop(() => {
   }
   if (pending) { pick(pending); pending = null; }
   controls.update();
-  renderer.render(scene, camera);
+  if (composer) composer.render(); else renderer.render(scene, camera);
 });
 
 resize();

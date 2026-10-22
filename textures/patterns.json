@@ -1,0 +1,100 @@
+{
+ "byMaterial": {
+  "plaster": "smooth",
+  "lime": "rough",
+  "faux-concrete": "concrete",
+  "gypsum": "smooth",
+  "paint-maroon": "smooth",
+  "concrete-ochre": "smooth",
+  "brick": "brick",
+  "laterite": "rubble",
+  "stone": "rubble",
+  "sandstone": "ledgestone",
+  "rock": "strata",
+  "concrete": "concrete",
+  "pcc": "concrete",
+  "flagstone": "flagstone",
+  "wood": "woodgrain",
+  "teak": "woodgrain",
+  "primavera": "woodgrain",
+  "laminate": "woodgrain",
+  "bark": "woodgrain",
+  "tileroof": "tiles",
+  "terracotta": "rough",
+  "travertine": "travertine",
+  "granite-light": "granite",
+  "kota": "slabs",
+  "tile": "slabs",
+  "athangudi": "slabs",
+  "ceramic": "slabs",
+  "cane": "weave",
+  "grass": "grass",
+  "earth": "earth"
+ },
+ "patterns": {
+  "smooth": {
+   "tileMm": 800,
+   "file": "textures/smooth.jpg"
+  },
+  "rough": {
+   "tileMm": 600,
+   "file": "textures/rough.jpg"
+  },
+  "concrete": {
+   "tileMm": 1200,
+   "file": "textures/concrete.jpg"
+  },
+  "brick": {
+   "tileMm": 480,
+   "file": "textures/brick.jpg"
+  },
+  "rubble": {
+   "tileMm": 700,
+   "file": "textures/rubble.jpg"
+  },
+  "ledgestone": {
+   "tileMm": 1200,
+   "file": "textures/ledgestone.jpg"
+  },
+  "strata": {
+   "tileMm": 3000,
+   "file": "textures/strata.jpg"
+  },
+  "flagstone": {
+   "tileMm": 2400,
+   "file": "textures/flagstone.jpg"
+  },
+  "woodgrain": {
+   "tileMm": 700,
+   "file": "textures/woodgrain.jpg"
+  },
+  "tiles": {
+   "tileMm": 600,
+   "file": "textures/tiles.jpg"
+  },
+  "travertine": {
+   "tileMm": 1200,
+   "file": "textures/travertine.jpg"
+  },
+  "granite": {
+   "tileMm": 400,
+   "file": "textures/granite.jpg"
+  },
+  "slabs": {
+   "tileMm": 1200,
+   "file": "textures/slabs.jpg"
+  },
+  "weave": {
+   "tileMm": 60,
+   "file": "textures/weave.jpg"
+  },
+  "grass": {
+   "tileMm": 2000,
+   "file": "textures/grass.jpg"
+  },
+  "earth": {
+   "tileMm": 1500,
+   "file": "textures/earth.jpg"
+  }
+ }
+}
