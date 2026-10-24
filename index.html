@@ -268,7 +268,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
     <h1 class="reveal">Model. Drawings. <i>Working drawings.</i></h1>
     <p class="lede reveal">One flow, one model. Bring in what you have and Idam reads it into a model where every element knows what it is, draws its plans, elevations and sections, and produces the dimensioned construction set from the same model, as DWG.</p>
     <div class="cta reveal">
-      <a class="btn solid" href="media/how-it-works.mp4" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film · 1:36</a>
+      <a class="btn solid" href="media/how-it-works.mp4" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film · 0:57</a>
       <a class="btn ghost" href="#fit">Where it fits your workflow</a>
     </div>
     <div class="stages">
@@ -286,7 +286,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
     <h2 class="reveal">Where it fits your workflow</h2>
     <div class="fit-grid reveal">
       <article><h4>Beside your BIM, not instead of it</h4><p>Idam is not a BIM authoring tool and doesn't replace Revit. It covers the stretch between an early model and a coordinated construction set. It hands off as DWG, and as IFC 4: every element exports as its IFC class (wall, slab, column, beam, door, window, stair, roof, space…) on its storey, so the model can join a federated BIM workflow for coordination. Geometry goes as meshes, not parametric families.</p></article>
-      <article><h4>Scale, honestly</h4><p>The largest models so far are three-storey buildings: a family house of about 360 m² across its floors, at just over a thousand elements, and Fallingwater's three levels. Nothing hospital-sized has been tried. A six-storey building, several buildings on one site, or a set split across many drawing files is untested, and it's exactly what the pilots are for.</p></article>
+      <article><h4>Scale, honestly</h4><p>The largest model so far is a three-storey family house of about 360 m² across its floors, at just over a thousand elements. Nothing hospital-sized has been tried. A six-storey building, several buildings on one site, or a set split across many drawing files is untested, and it's exactly what the pilots are for.</p></article>
       <article><h4>Working together</h4><p>Today one person edits a model at a time. Others can follow it through a live link that updates as the work goes on, or open a fixed copy and pin comments to it. Several people editing one model at once, with roles across offices, is not built yet.</p></article>
       <article><h4>Your drawings</h4><p>DXF drawings are read in the browser; a DWG is converted on Idam's server and the file deleted straight after. Projects are kept in your browser and, when you sign in, on Idam's server. When you ask the assistant, your request, any picture you attach and a view of the model go to Anthropic's API, which does not train on them under its commercial terms.</p></article>
     </div>
@@ -346,8 +346,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
     <div class="layer-panel" data-stage="model" data-layer="int"><p><b>The wall as a designed surface.</b> Feature walls (the TV wall, the living room's accent wall, the bed's back wall), panelling, cladding, wardrobes and TV units, false ceilings and flooring patterns, built from a reference picture at the spot you point to. <span class="st today">Today</span></p></div>
     <div class="layer-panel" data-stage="model" data-layer="land"><p><b>The ground and what is on it.</b> The site from the drawing: boundary, contours and levels, steps and ramps, water, rock, paving and decks, with step-free routes checked as you go. <span class="st today">Today</span></p><p class="later">Planting: next.</p></div>
     <div class="picker">
-      <button data-model="f" aria-pressed="true">Fallingwater</button>
-      <button data-model="h" aria-pressed="false">The Farnsworth House</button>
+      <button data-model="h" aria-pressed="true">The Farnsworth House</button>
       <button data-model="t" aria-pressed="false">A family house</button>
     </div>
     <div class="stage reveal">
@@ -433,15 +432,9 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 
 <section id="studies" style="background: var(--paper-2)">
   <div class="wrap">
-    <h2 class="reveal">From survey drawings, too</h2>
-    <p class="lede reveal">The same process on two landmarks, from the U.S. government's measured surveys: a study model from the survey sheets, and a set drawn from the model.</p>
+    <h2 class="reveal">From a survey drawing, too</h2>
+    <p class="lede reveal">The same process on a landmark, from the U.S. government's measured survey: a model from one survey plan, and a set drawn from the model.</p>
     <div class="studies">
-      <div class="study reveal">
-        <div class="study-head"><h3>Fallingwater</h3><p>Frank Lloyd Wright, 1936–39. Study model from the HABS survey, PA-5346 (Library of Congress; public domain). Not Wright's drawings.</p></div>
-        <figure><img src="img/fw-habs-south.jpg" alt="The survey's south elevation" loading="lazy"><figcaption>The survey's south elevation</figcaption></figure>
-        <figure><img src="img/fw-model.jpg" alt="The study model in Idam" loading="lazy"><figcaption>The study model in Idam</figcaption></figure>
-        <figure><img src="img/fw-idam-south.jpg" alt="Idam's south elevation" loading="lazy"><figcaption>Idam's south elevation, at the same scale</figcaption></figure>
-      </div>
       <div class="study reveal">
         <div class="study-head"><h3>The Farnsworth House</h3><p>Ludwig Mies van der Rohe, 1945–51. Model from one survey plan, HABS IL-1105 sheet 3 (Library of Congress; public domain). Not Mies's drawings.</p></div>
         <figure><img src="img/fn-habs.jpg" alt="The survey plan" loading="lazy"><figcaption>The survey's plan</figcaption></figure>

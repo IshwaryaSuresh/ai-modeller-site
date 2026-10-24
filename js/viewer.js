@@ -12,10 +12,8 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 const MODELS = {
   // Farnsworth's bands: the main floor's plane and the roof's (m above the lower terrace)
   h: { url: 'models/farnsworth.glb', caption: 'Farnsworth House · study model from the HABS survey drawings', levels: [0.33, 3.7], view: [-0.85, 0.55, 1.15] },
-  // Fallingwater's floors are cantilevered trays, not named slabs: its bands start at the trays' undersides (m)
   // A practising studio's three-storey family house (client and place kept anonymous)
   t: { url: 'models/residence.glb', caption: 'A family house · built in Idam from the studio’s DWG', view: [-0.55, 0.5, -1.2] },
-  f: { url: 'models/fallingwater.glb', caption: 'Fallingwater · study model from the HABS survey drawings', levels: [2.3, 4.75, 7.25], view: [-0.8, 0.42, 1.25] },
 };
 const canvas = document.getElementById('three');
 const stage = canvas.parentElement;
@@ -176,7 +174,7 @@ async function load(key) {
       const m = Array.isArray(o.material) ? o.material[0] : o.material;
       const n = nameOf(o).toLowerCase();
       o.userData.glass = (m.transparent && m.opacity < 0.9) || /glass/.test(n);
-      o.userData.site = /^site\b|lawn|terrain|bear run|meadow/.test(n);
+      o.userData.site = /^site\b|lawn|terrain|meadow/.test(n);
       if (!o.userData.glass && !o.userData.site && o.geometry.attributes.position.count < 60000) {
         const e = new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 28), edgeMat);
         e.raycast = () => {};
