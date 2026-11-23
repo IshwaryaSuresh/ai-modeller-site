@@ -109,7 +109,7 @@
 
   document.querySelectorAll('.sheet[data-src]').forEach(viewer);
 
-  // The survey and Idam's elevation, one over the other: drag the divider to compare
+  // The survey and Sirpam's elevation, one over the other: drag the divider to compare
   document.querySelectorAll('.survey').forEach((c) => {
     const top = c.querySelector('.top');
     const range = c.querySelector('input[type=range]');

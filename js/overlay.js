@@ -1,4 +1,4 @@
-// The accuracy overlay: the architect's drawing and Idam's exported plan, one over the other.
+// The accuracy overlay: the architect's drawing and Sirpam's exported plan, one over the other.
 // Pick a floor, show either or both, drag to pan, and zoom with the buttons, a pinch or ctrl/cmd + scroll.
 (() => {
   const host = document.getElementById('overlay');
@@ -13,7 +13,7 @@
     host.insertAdjacentHTML('afterbegin', text);
     svg = host.querySelector('svg');
     svg.setAttribute('role', 'img');
-    svg.setAttribute('aria-label', `The ${{ gf: 'ground floor', ff: 'first floor', sf: 'terrace' }[floor]} plan: the architect's lines in grey with Idam's exported lines in orange on top`);
+    svg.setAttribute('aria-label', `The ${{ gf: 'ground floor', ff: 'first floor', sf: 'terrace' }[floor]} plan: the architect's lines in grey with Sirpam's exported lines in orange on top`);
     svg.querySelectorAll('path').forEach((p) => p.setAttribute('vector-effect', 'non-scaling-stroke'));
     home = svg.getAttribute('viewBox').split(' ').map(Number);
     setVB(home);

@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Idam</title>
-<meta name="description" content="Idam takes a project from model to drawings to working drawings in one flow: bring in a plan, it builds a model where every element knows what it is, draws its plans, elevations and sections, and produces the dimensioned construction set as DWG.">
-<meta property="og:title" content="Idam: Model, drawings, working drawings. One flow.">
+<title>Sirpam</title>
+<meta name="description" content="Sirpam takes a project from model to drawings to working drawings in one flow: bring in a plan, it builds a model where every element knows what it is, draws its plans, elevations and sections, and produces the dimensioned construction set as DWG.">
+<meta property="og:title" content="Sirpam: Model, drawings, working drawings. One flow.">
 <meta property="og:description" content="From the model to the construction set, in one flow. Built in Chennai by a practising architect.">
 <meta property="og:image" content="https://ishwaryasuresh.github.io/ai-modeller-site/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -61,7 +61,7 @@ em { font-family: var(--serif); font-style: italic; }
 /* nav */
 nav.top { position: fixed; inset: 0 0 auto 0; z-index: 50; color: var(--on-dark); transition: background .3s; }
 nav.top.solid { background: color-mix(in srgb, var(--dark) 90%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-nav.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+nav.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 64px; }
 .brand { font: 700 22px/1 var(--sans); letter-spacing: .01em; color: var(--on-dark); text-decoration: none; }
 nav.top .links { display: flex; gap: 26px; align-items: center; font-size: 15px; }
 nav.top .links a { color: var(--on-dark-2); text-decoration: none; }
@@ -73,7 +73,7 @@ nav.top .links a:hover { color: var(--on-dark); }
 .btn.solid:hover { background: #b65622; }
 .btn.ghost { background: rgba(255,255,255,.06); color: var(--on-dark); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.35); }
 .btn.ghost:hover { box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.75); }
-nav.top .btn { padding: 9px 16px; font-size: 14px; }
+nav.top .btn { padding: 9px 16px; font-size: 14px; white-space: nowrap; }
 
 /* hero: the house turning behind the line */
 .hero { position: relative; color: var(--on-dark); background: var(--dark); overflow: hidden; padding: 130px 0 90px; }
@@ -222,7 +222,8 @@ nav.top .btn { padding: 9px 16px; font-size: 14px; }
 .sheet-tabs button[hidden] { display: none; }
 .sub-h { font: 400 clamp(24px, 3vw, 34px)/1.2 var(--serif); margin: 80px 0 0; }
 
-.fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
+.fit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; }
+@media (max-width: 1000px) { .fit-grid { grid-template-columns: 1fr; } }
 .fit-grid article { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px 26px; }
 .fit-grid h4 { font: 400 22px/1.25 var(--serif); margin: 0 0 10px; }
 .fit-grid p { color: var(--ink-2); margin: 0; font-size: 15.5px; }
@@ -251,7 +252,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 
 <nav class="top" id="nav">
   <div class="wrap">
-    <a class="brand" href="#">Idam</a>
+    <a class="brand" href="#">Sirpam</a>
     <div class="links">
       <a href="#fit">Where it fits</a>
       <a href="#model">Model</a>
@@ -266,15 +267,15 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 <header class="hero">
   <div class="wrap">
     <h1 class="reveal">Model. Drawings. <i>Working drawings.</i></h1>
-    <p class="lede reveal">One flow, one model. Bring in what you have and Idam reads it into a model where every element knows what it is, draws its plans, elevations and sections, and produces the dimensioned construction set from the same model, as DWG.</p>
+    <p class="lede reveal">One flow, one model. Bring in what you have and Sirpam reads it into a model where every element knows what it is, draws its plans, elevations and sections, and produces the dimensioned construction set from the same model, as DWG.</p>
     <div class="cta reveal">
       <a class="btn solid" href="media/how-it-works.mp4" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film · 0:57</a>
       <a class="btn ghost" href="#fit">Where it fits your workflow</a>
     </div>
     <div class="stages">
-      <a class="stage-card reveal" href="#model"><img src="img/flow-model.jpg" alt="Idam with a stair wall just changed from the architect's sketch"><div class="body"><div class="k">1</div><h3>Model</h3><p>Bring in a plan, a SketchUp model or a render. Idam reads it into an accurate, editable model: every wall, opening, plinth, sill, lintel, column and beam knows what it is.</p></div></a>
+      <a class="stage-card reveal" href="#model"><img src="img/flow-model.jpg" alt="Sirpam with a stair wall just changed from the architect's sketch"><div class="body"><div class="k">1</div><h3>Model</h3><p>Bring in a plan, a SketchUp model or a render. Sirpam reads it into an accurate, editable model: every wall, opening, plinth, sill, lintel, column and beam knows what it is.</p></div></a>
       <div class="arrow" aria-hidden="true">→</div>
-      <a class="stage-card reveal" href="#drawings"><img src="img/flow-drawings.jpg" alt="A family house's front elevation, drawn by Idam from its model"><div class="body"><div class="k">2</div><h3>Drawings</h3><p>Plans, elevations and sections generated from the model, with every layer at its pen.</p></div></a>
+      <a class="stage-card reveal" href="#drawings"><img src="img/flow-drawings.jpg" alt="A family house's front elevation, drawn by Sirpam from its model"><div class="body"><div class="k">2</div><h3>Drawings</h3><p>Plans, elevations and sections generated from the model, with every layer at its pen.</p></div></a>
       <div class="arrow" aria-hidden="true">→</div>
       <a class="stage-card reveal" href="#working"><img src="img/flow-working.jpg" alt="A TV console's working drawing: front elevation and section, dimensioned"><div class="body"><div class="k">3</div><h3>Working drawings</h3><p>Dimensioned, construction-ready (GFC) sets, produced automatically from the same model.</p></div></a>
     </div>
@@ -285,10 +286,9 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
   <div class="wrap">
     <h2 class="reveal">Where it fits your workflow</h2>
     <div class="fit-grid reveal">
-      <article><h4>Beside your BIM, not instead of it</h4><p>Idam is not a BIM authoring tool and doesn't replace Revit. It covers the stretch between an early model and a coordinated construction set. It hands off as DWG, and as IFC 4: every element exports as its IFC class (wall, slab, column, beam, door, window, stair, roof, space…) on its storey, so the model can join a federated BIM workflow for coordination. Geometry goes as meshes, not parametric families.</p></article>
-      <article><h4>Scale, honestly</h4><p>The largest model so far is a three-storey family house of about 360 m² across its floors, at just over a thousand elements. Nothing hospital-sized has been tried. A six-storey building, several buildings on one site, or a set split across many drawing files is untested, and it's exactly what the pilots are for.</p></article>
+      <article><h4>Beside your BIM, not instead of it</h4><p>Sirpam is not a BIM authoring tool and doesn't replace Revit. It covers the stretch between an early model and a coordinated construction set. It hands off as DWG, and as IFC 4: every element exports as its IFC class (wall, slab, column, beam, door, window, stair, roof, space…) on its storey, so the model can join a federated BIM workflow for coordination. Geometry goes as meshes, not parametric families.</p></article>
       <article><h4>Working together</h4><p>Today one person edits a model at a time. Others can follow it through a live link that updates as the work goes on, or open a fixed copy and pin comments to it. Several people editing one model at once, with roles across offices, is not built yet.</p></article>
-      <article><h4>Your drawings</h4><p>DXF drawings are read in the browser; a DWG is converted on Idam's server and the file deleted straight after. Projects are kept in your browser and, when you sign in, on Idam's server. When you ask the assistant, your request, any picture you attach and a view of the model go to Anthropic's API, which does not train on them under its commercial terms.</p></article>
+      <article><h4>Your drawings</h4><p>DXF drawings are read in the browser; a DWG is converted on Sirpam's server and the file deleted straight after. Projects are kept in your browser and, when you sign in, on Sirpam's server. When you ask the assistant, your request, any picture you attach and a view of the model go to Anthropic's API, which does not train on them under its commercial terms.</p></article>
     </div>
   </div>
 </section>
@@ -322,29 +322,21 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
   </div>
 </div>
 
-<section class="film" id="session">
-  <div class="wrap">
-    <h2 class="reveal">The whole flow, recorded as it happened</h2>
-    <p class="lede reveal">No mock-ups. A studio's drawing file in, three floors in under a minute, a stair wall changed from the architect's sketch, then the DWG out. The assistant's thinking time is shown fast, with the real time on screen.</p>
-    <div class="player reveal"><video controls preload="metadata" poster="media/first-hour-poster.jpg"><source src="media/first-hour.mp4" type="video/mp4"></video></div>
-  </div>
-</section>
-
 <section class="spin stage-sec" id="model">
   <div class="wrap">
     <div class="stage-head"><h2 class="reveal"><span class="num">1</span>Model</h2></div>
-    <p class="lede reveal">Bring in a plan, a SketchUp model or a render. Idam reads it into an accurate, editable model where every element knows what it is: wall, opening, plinth, sill, lintel, column, beam.</p>
+    <p class="lede reveal">Bring in a plan, a SketchUp model or a render. Sirpam reads it into an accurate, editable model where every element knows what it is: wall, opening, plinth, sill, lintel, column, beam.</p>
     <div class="inputs reveal">
       <article><h3>A plan <span class="st today">Today</span></h3><p>DWG, DXF, a PDF set or a photo of a sketch. A studio's three floors read in under a minute; what the reader is unsure of, it asks before it builds.</p></article>
       <article><h3>A SketchUp model <span class="st next">Next</span></h3><p>Brought across as walls, floors and openings you can edit. Today a model from anywhere comes in as a .glb piece you can place and move.</p></article>
       <article><h3>A render <span class="st today">Today, by spot</span></h3><p>Point at a wall and show it a render or a photo: its windows, jali or cladding are built there, at size. A whole building read from a render is next.</p></article>
     </div>
     <div class="layer-tabs" data-stage="model"><button data-layer="arch" aria-pressed="true">Architecture</button><button data-layer="struct" aria-pressed="false">Structure</button><button data-layer="services" aria-pressed="false">Services</button><button data-layer="int" aria-pressed="false">Interiors</button><button data-layer="land" aria-pressed="false">Landscape</button></div>
-    <div class="layer-panel on" data-stage="model" data-layer="arch"><p><b>The wall as built fabric.</b> Masonry and its thickness, every door and window, the plinth, sill and lintel levels, columns, roofs and stairs, read from the drawing and checked against it. Change a facade by showing it a sketch or saying what you want. <span class="st today">Today</span></p><p class="later">Gate and compound wall details: next.</p></div>
-    <div class="layer-panel" data-stage="model" data-layer="struct"><p><b>Positions only.</b> Columns and beams where the drawing puts them, on the structural grid Idam finds from the load-bearing walls; upper floors registered over the ground floor by their columns. Sizes and reinforcement stay with the structural engineer. <span class="st today">Today</span></p></div>
+    <div class="layer-panel on" data-stage="model" data-layer="arch"><p><b>The wall as built fabric.</b> Masonry and its thickness, every door and window, the plinth, sill and lintel levels, columns, roofs and stairs, read from the drawing and checked against it. Change a facade by showing it a sketch or saying what you want. <span class="st today">Today</span></p></div>
+    <div class="layer-panel" data-stage="model" data-layer="struct"><p><b>Positions only.</b> Columns and beams where the drawing puts them, on a grid that sets itself out, with upper floors lining up over the ground floor automatically. Sizes and reinforcement stay with the structural engineer. <span class="st today">Today</span></p></div>
     <div class="layer-panel" data-stage="model" data-layer="services"><p><b>Electrical and plumbing.</b> Switches, sockets and light points, sanitary fixtures and their runs, placed on the same walls and floors so they move with them. <span class="st next">Next</span></p><p class="later">Today, kitchen and toilet fittings come in from the plan's blocks.</p></div>
     <div class="layer-panel" data-stage="model" data-layer="int"><p><b>The wall as a designed surface.</b> Feature walls (the TV wall, the living room's accent wall, the bed's back wall), panelling, cladding, wardrobes and TV units, false ceilings and flooring patterns, built from a reference picture at the spot you point to. <span class="st today">Today</span></p></div>
-    <div class="layer-panel" data-stage="model" data-layer="land"><p><b>The ground and what is on it.</b> The site from the drawing: boundary, contours and levels, steps and ramps, water, rock, paving and decks, with step-free routes checked as you go. <span class="st today">Today</span></p><p class="later">Planting: next.</p></div>
+    <div class="layer-panel" data-stage="model" data-layer="land"><p><b>The ground and what is on it.</b> The site from the drawing: boundary, contours and levels, steps and ramps, water, rock, paving and decks, with step-free routes checked as you go, and the planting, which grows year by year. <span class="st today">Today</span></p></div>
     <div class="picker">
       <button data-model="h" aria-pressed="true">The Farnsworth House</button>
       <button data-model="c" aria-pressed="false">A contemporary house</button>
@@ -360,10 +352,10 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
         <button data-explode aria-pressed="false">Lift the floors</button>
       </div>
     </div>
-    <p class="sheet-note">Exported from Idam as it stands. Drag to turn, scroll to zoom, point at anything to see what it is.</p>
+    <p class="sheet-note">Exported from Sirpam as it stands. Drag to turn, scroll to zoom, point at anything to see what it is.</p>
 
     <h3 class="sub-h reveal">Change it by showing or saying</h3>
-    <p class="lede reveal">Drag across each picture. On the left, the architect pointed at a stair wall and attached a sketch; Idam's assistant asked one question, then built three arched windows at the sketch's sizes. On the right, a family house's TV wall in the model, against its working drawing.</p>
+    <p class="lede reveal">Drag across each picture. On the left, the architect pointed at a stair wall and attached a sketch; Sirpam's assistant asked one question, then built three arched windows at the sketch's sizes. On the right, a family house's TV wall in the model, against its working drawing.</p>
     <div class="ba-grid">
       <div class="reveal">
         <div class="ba"><img src="img/ref-sketch.jpg" alt="The architect's sketch of the stair wall"><img class="after" src="img/ref-model.jpg" alt="The stair wall in the model"><div class="bar"></div><span class="lab l">The sketch</span><span class="lab r">The model</span></div>
@@ -384,8 +376,8 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
     <div class="layer-tabs" data-stage="drawings"><button data-layer="arch" aria-pressed="true">Architecture</button><button data-layer="struct" aria-pressed="false">Structure</button><button data-layer="services" aria-pressed="false">Services</button><button data-layer="int" aria-pressed="false">Interiors</button><button data-layer="land" aria-pressed="false">Landscape</button></div>
     <div class="layer-panel on" data-stage="drawings" data-layer="arch"><p>Elevations in depth, nearer planes heavier; true cut sections with the cut solid; plans cut at sill height. <span class="st today">Today</span></p></div>
     <div class="layer-panel" data-stage="drawings" data-layer="struct"><p>The grid and the column positions on every plan, elevation and section. <span class="st today">Today</span></p></div>
-    <div class="layer-panel" data-stage="drawings" data-layer="services"><p>Lighting and wiring, switches and power, and plumbing layouts over the plan, with their legends. <span class="st next">From the model: next</span></p><p class="later">Services held in the model, so they move with the walls.</p></div>
-    <div class="layer-panel" data-stage="drawings" data-layer="int"><p>Furniture, fittings and floor finishes on the plans; rooms named and sized. <span class="st today">Today</span></p><p class="later">An elevation of every wall and the false-ceiling plan: next.</p></div>
+    <div class="layer-panel" data-stage="drawings" data-layer="services"><p>Lighting and wiring, switches and power, and plumbing layouts over the plan, with their legends. <span class="st next">From the model: next</span></p></div>
+    <div class="layer-panel" data-stage="drawings" data-layer="int"><p>Furniture, fittings and floor finishes on the plans; rooms named and sized. <span class="st today">Today</span></p></div>
     <div class="layer-panel" data-stage="drawings" data-layer="land"><p>Landscape drawings: the site plan with its levels, paving, water and planting, keyed and measured. <span class="st next">Next</span></p></div>
     <div class="sheets reveal">
       <div class="sheet-tabs">
@@ -410,10 +402,10 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
     <div class="stage-head"><h2 class="reveal"><span class="num">3</span>Working drawings</h2></div>
     <p class="lede reveal">The construction set (GFC), produced automatically from the same model: setting-out grids, running dimensions, levels, wall sections at 1:20, door, window and room schedules, and quantities by material. Dimensioned and weighted, as DWG.</p>
     <div class="layer-tabs" data-stage="working"><button data-layer="arch" aria-pressed="false">Architecture</button><button data-layer="struct" aria-pressed="false">Structure</button><button data-layer="services" aria-pressed="false">Services</button><button data-layer="int" aria-pressed="true">Interiors</button><button data-layer="land" aria-pressed="false">Landscape</button></div>
-    <div class="layer-panel" data-stage="working" data-layer="arch"><p>Dimensioned plans on their grid, levels on every floor, wall sections at 1:20, door and window schedules. <span class="st today">Today</span></p><p class="later">Gate and compound wall details: next.</p></div>
+    <div class="layer-panel" data-stage="working" data-layer="arch"><p>Dimensioned plans on their grid, levels on every floor, wall sections at 1:20, door and window schedules. <span class="st today">Today</span></p></div>
     <div class="layer-panel" data-stage="working" data-layer="struct"><p>Column and beam positions dimensioned to the grid, for the structural engineer to size. <span class="st today">Today</span></p></div>
     <div class="layer-panel" data-stage="working" data-layer="services"><p>Lighting setting-out, and toilet part plans at 1:25 with their elevations, every point dimensioned from the walls. <span class="st next">From the model: next</span></p></div>
-    <div class="layer-panel on" data-stage="working" data-layer="int"><p>Joinery working drawings like these (a TV console on its brick feature wall, a crockery unit): plan, front elevation and section, dimensioned, with a numbered key of materials and fixings. <span class="st next">From the model: next</span></p><p class="later">Today the model carries the joinery, and the room schedules and quantities come from it. False-ceiling plans and flooring layouts: next.</p></div>
+    <div class="layer-panel on" data-stage="working" data-layer="int"><p>Joinery working drawings like these (a TV console on its brick feature wall, a crockery unit): plan, front elevation and section, dimensioned, with a numbered key of materials and fixings. <span class="st next">From the model: next</span></p><p class="later">Today the model carries the joinery, and the room schedules and quantities come from it.</p></div>
     <div class="layer-panel" data-stage="working" data-layer="land"><p>A site laid out to the boundary: garden walks, paving, water and planting dimensioned to a grid. <span class="st next">Next</span></p></div>
     <div class="sheets reveal">
       <div class="sheet-tabs">
@@ -443,8 +435,8 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
       <div class="study reveal">
         <div class="study-head"><h3>The Farnsworth House</h3><p>Ludwig Mies van der Rohe, 1945–51. Model from one survey plan, HABS IL-1105 sheet 3 (Library of Congress; public domain). Not Mies's drawings.</p></div>
         <figure><img src="img/fn-habs.jpg" alt="The survey plan" loading="lazy"><figcaption>The survey's plan</figcaption></figure>
-        <figure><img src="img/fn-model.jpg" alt="The model in Idam" loading="lazy"><figcaption>The model in Idam</figcaption></figure>
-        <figure><img src="img/fn-set.jpg" alt="Idam's plan of it" loading="lazy"><figcaption>Its set, drawn from the model</figcaption></figure>
+        <figure><img src="img/fn-model.jpg" alt="The model in Sirpam" loading="lazy"><figcaption>The model in Sirpam</figcaption></figure>
+        <figure><img src="img/fn-set.jpg" alt="Sirpam's plan of it" loading="lazy"><figcaption>Its set, drawn from the model</figcaption></figure>
       </div>
     </div>
   </div>
@@ -453,18 +445,18 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 <section class="close">
   <div class="wrap">
     <h2 class="reveal">Built by an architect, for architects.</h2>
-    <p class="lede reveal">Idam is in private build in Chennai, piloting with design studios in India. An early-access group for design studios opens shortly. If Idam looks relevant to how your teams work, I'd welcome a short conversation, and a real project drawing to test it against is worth more to me than any demo.</p>
+    <p class="lede reveal">Sirpam is in private build in Chennai, piloting with design studios in India. An early-access group for design studios opens shortly. If Sirpam looks relevant to how your teams work, I'd welcome a short conversation, and a real project drawing to test it against is worth more to me than any demo.</p>
     <div class="cta reveal" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px">
-      <a class="btn solid" href="mailto:ishwaryasuresh97@gmail.com?subject=Idam%20early%20access">Get in touch</a>
+      <a class="btn solid" href="mailto:ishwaryasuresh97@gmail.com?subject=Sirpam%20early%20access">Get in touch</a>
       <a class="btn ghost" href="media/how-it-works.mp4" data-film="media/how-it-works.mp4">▶&nbsp; Watch the film</a>
     </div>
     <div class="founder reveal" id="founder">
       <h3>Who's building it</h3>
-      <p><b>Ishwarya Suresh</b>: architect (Anna University), and UX designer and researcher (MSc HCI, Newcastle University; CHI 2024 publication). Five years across fintech, healthcare, accessibility and the public sector, including GDS-standard service delivery at MHCLG. Practises architecture in Chennai, where Idam is being tested.</p>
+      <p><b>Ishwarya Suresh</b>: architect (Anna University), and UX designer and researcher (MSc HCI, Newcastle University; CHI 2024 publication). Five years across fintech, healthcare, accessibility and the public sector, including GDS-standard service delivery at MHCLG. Practises architecture in Chennai, where Sirpam is being tested.</p>
     </div>
   </div>
 </section>
-<footer><div class="wrap"><span>Idam · <a href="#founder" style="color:inherit">Ishwarya Suresh</a>, founder · Chennai, India · <a href="mailto:ishwaryasuresh97@gmail.com" style="color:inherit">ishwaryasuresh97@gmail.com</a> · <a href="https://madeforhumans.tech" target="_blank" rel="noopener" style="color:inherit">madeforhumans.tech</a></span><span><a href="#model" style="color:inherit">Model</a> → <a href="#drawings" style="color:inherit">Drawings</a> → <a href="#working" style="color:inherit">Working drawings</a></span><span>© 2026</span></div></footer>
+<footer><div class="wrap"><span>Sirpam · <a href="#founder" style="color:inherit">Ishwarya Suresh</a>, founder · Chennai, India · <a href="mailto:ishwaryasuresh97@gmail.com" style="color:inherit">ishwaryasuresh97@gmail.com</a> · <a href="https://madeforhumans.tech" target="_blank" rel="noopener" style="color:inherit">madeforhumans.tech</a></span><span><a href="#model" style="color:inherit">Model</a> → <a href="#drawings" style="color:inherit">Drawings</a> → <a href="#working" style="color:inherit">Working drawings</a></span><span>© 2026</span></div></footer>
 
 <div class="modal" id="modal"><button aria-label="Close">×</button><video id="modalvideo" controls playsinline></video></div>
 

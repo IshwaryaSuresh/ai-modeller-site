@@ -1,6 +1,6 @@
-// The hero model: a house exported from Idam as glTF, shown as a white model or
+// The hero model: a house exported from Sirpam as glTF, shown as a white model or
 // with its materials, with the floors lifted apart on request. Pointing at any
-// part names the element, as it is named in Idam.
+// part names the element, as it is named in Sirpam.
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -12,8 +12,8 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 const MODELS = {
   // Farnsworth's bands: the main floor's plane and the roof's (m above the lower terrace)
   h: { url: 'models/farnsworth.glb', caption: 'Farnsworth House · study model from the HABS survey drawings', levels: [0.33, 3.7], view: [-0.85, 0.55, 1.15] },
-  // A contemporary house on a slope, modelled in Idam from a reference picture: its living and upper slabs' undersides (m)
-  c: { url: 'models/contemporary.glb', caption: 'A contemporary house · modelled in Idam from a reference picture', levels: [2.85, 6.05], view: [-0.6, 0.45, 1.1] },
+  // A contemporary house on a slope, modelled in Sirpam from a reference picture: its living and upper slabs' undersides (m)
+  c: { url: 'models/contemporary.glb', caption: 'A contemporary house · modelled in Sirpam from a reference picture', levels: [2.85, 6.05], view: [-0.6, 0.45, 1.1] },
 };
 const canvas = document.getElementById('three');
 const stage = canvas.parentElement;
@@ -76,9 +76,9 @@ const glass = new THREE.MeshPhysicalMaterial({ color: 0xbfd6dc, roughness: 0.05,
 const hover = new THREE.MeshStandardMaterial({ color: 0xe08a55, roughness: 0.6, emissive: 0x6b2a08, emissiveIntensity: 0.25 });
 const edgeMat = new THREE.LineBasicMaterial({ color: 0x2a2f2b, transparent: true, opacity: 0.42 });
 
-// Surfaces as Idam draws them: each material's pattern (coursed stone, flagstone, board-marked concrete,
-// grain, travertine...) at true size, mapped by world position as in Idam, and the ground's contours
-// (a fine line every 0.5 m, a strong one every 2.5 m). The patterns are Idam's own, baked to images.
+// Surfaces as Sirpam draws them: each material's pattern (coursed stone, flagstone, board-marked concrete,
+// grain, travertine...) at true size, mapped by world position as in Sirpam, and the ground's contours
+// (a fine line every 0.5 m, a strong one every 2.5 m). The patterns are Sirpam's own, baked to images.
 const texLoader = new THREE.TextureLoader();
 const patterns = fetch('textures/patterns.json').then((r) => r.json()).catch(() => null);
 const patternTex = {};
